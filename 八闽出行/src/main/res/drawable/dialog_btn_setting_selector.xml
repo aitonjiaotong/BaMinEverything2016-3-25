@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@color/light_color"></item>
+    <item android:state_pressed="true" android:drawable="@color/light_color"></item>
+    <item android:drawable="@color/aiton_basic_color"></item>
+</selector><!-- From: file:/G:/AndroidProject/AiTon05final/八闽出行/src/main/res/drawable/dialog_btn_setting_selector.xml -->

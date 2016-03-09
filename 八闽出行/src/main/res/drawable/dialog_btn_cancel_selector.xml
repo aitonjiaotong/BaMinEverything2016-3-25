@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/deep_gray" android:state_selected="true"></item>
+    <item android:drawable="@color/deep_gray" android:state_pressed="true"></item>
+    <item android:drawable="@color/white"></item>
+</selector><!-- From: file:/G:/AndroidProject/AiTon05final/八闽出行/src/main/res/drawable/dialog_btn_cancel_selector.xml -->

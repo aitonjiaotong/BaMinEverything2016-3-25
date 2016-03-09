@@ -1,0 +1,186 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.jiaotong.aiton.aiton.fragment.FragmentTransfer">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/tv_title_actionbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="路线规划"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/fengexian_color"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_for_search_all"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:src="@mipmap/icon_line"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:padding="6dp"
+                android:text="输入线路、站点或地点"
+                android:textColor="@color/aiton_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_trans_adress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#ffffff">
+
+                <ImageView
+                    android:id="@+id/iv_curr_loction3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_change_direction"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/mylocation_rela"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#ffffff">
+
+                        <ImageView
+                            android:id="@+id/iv_curr_loction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:src="@mipmap/icon_poi_mylocation"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_curr_loction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toEndOf="@+id/iv_curr_loction"
+                            android:layout_toRightOf="@+id/iv_curr_loction"
+                            android:text="我的位置"
+                            android:textColor="@color/aiton_green"
+                            />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="50dp"
+                        android:background="@color/fengexian_color"
+                        android:orientation="vertical"/>
+
+                    <RelativeLayout
+                        android:id="@+id/input_end_rela"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#ffffff">
+
+                        <ImageView
+                            android:id="@+id/iv_ending_station"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:src="@mipmap/icon_poi_input"/>
+
+                        <TextView
+                            android:id="@+id/tv_ending_station"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toEndOf="@+id/iv_ending_station"
+                            android:layout_toRightOf="@+id/iv_ending_station"
+                            android:text="输入终点"
+                            android:textColor="@color/aiton_gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_search"
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="12dp"
+                    android:padding="6dp"
+                    android:src="@mipmap/ico_search"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/transfer_listView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"/>
+
+    </LinearLayout>
+</RelativeLayout>
