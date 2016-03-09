@@ -120,37 +120,37 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         mListView4ScrollView_passager.setAdapter(mAdapter);
     }
 
-     class MyAdapter extends BaseAdapter {
-     
-             @Override
-             public int getCount() {
-                 return mOrderDetials.size();
-             }
-     
-             @Override
-             public Object getItem(int position) {
-                 return null;
-             }
-     
-             @Override
-             public long getItemId(int position) {
-                 return 0;
-             }
-     
-             @Override
-             public View getView(int position, View convertView, ViewGroup parent) {
-                 View inflate = getLayoutInflater().inflate(R.layout.order_passager_listitem, null);
-                 TextView textView_detial_passager = (TextView) inflate.findViewById(R.id.textView_detial_passager);
-                 TextView textView_detail_seat = (TextView) inflate.findViewById(R.id.textView_detail_seat);
-                 TextView textView_planCode = (TextView)findViewById(R.id.textView_planCode);
-                 if (mOrderDetials.size()>0){
-                     textView_detial_passager.setText("乘客："+mOrderDetials.get(position).getPassengerName());
-                     textView_detail_seat.setText("座位号："+mOrderDetials.get(position).getSeatNumber());
-                     textView_planCode.setText(mOrderDetials.get(position).getPlanScheduleCode());
-                 }
-                 return inflate;
-             }
-         }
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return mOrderDetials.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflate = getLayoutInflater().inflate(R.layout.order_passager_listitem, null);
+            TextView textView_detial_passager = (TextView) inflate.findViewById(R.id.textView_detial_passager);
+            TextView textView_detail_seat = (TextView) inflate.findViewById(R.id.textView_detail_seat);
+            TextView textView_planCode = (TextView)findViewById(R.id.textView_planCode);
+            if (mOrderDetials.size()>0){
+                textView_detial_passager.setText("乘客："+mOrderDetials.get(position).getPassengerName());
+                textView_detail_seat.setText("座位号："+mOrderDetials.get(position).getSeatNumber());
+                textView_planCode.setText(mOrderDetials.get(position).getPlanScheduleCode());
+            }
+            return inflate;
+        }
+    }
 
     private void queryOrder() {
         mOrder_detail_linear.setVisibility(View.GONE);
