@@ -31,6 +31,7 @@
         android:layout_height="160dp">
 
         <RelativeLayout
+            android:id="@+id/loginED"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -45,12 +46,13 @@
                 android:layout_centerHorizontal="true"/>
 
             <RelativeLayout
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView17"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:id="@+id/relativeLayout13">
+                android:id="@+id/rela_login">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,12 +76,23 @@
             </RelativeLayout>
 
             <TextView
+                android:visibility="invisible"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15871105320"
-                android:id="@+id/textView19"
-                android:layout_below="@+id/relativeLayout13"
+                android:id="@+id/textView_login"
+                android:layout_below="@+id/rela_login"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录/注册"
+                android:id="@+id/textView_unLogin"
+                android:layout_alignTop="@+id/rela_login"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
     </RelativeLayout>
@@ -201,6 +214,7 @@
     </LinearLayout>
 
     <Button
+        android:visibility="gone"
         android:background="#ff4c20"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="80dp"
@@ -209,6 +223,6 @@
         android:layout_height="wrap_content"
         android:text="注销账号"
         android:textColor="@color/white"
-        android:id="@+id/button"
+        android:id="@+id/button_cancle_login"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
