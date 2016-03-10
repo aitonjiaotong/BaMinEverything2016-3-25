@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.example.zjb.bamin.everything_fragment.MainEverytingFragment">
+                tools:context="com.example.zjb.bamin.Zeverything.everything_fragment.MainEverytingFragment">
 
     <LinearLayout
         android:id="@+id/ll_actionbar"
@@ -67,7 +67,7 @@
 
     </android.support.v4.view.ViewPager>
 
-    <com.example.zjb.bamin.customView.ViewPagerIndicator
+    <com.example.zjb.bamin.ZcustomView.ViewPagerIndicator
         android:id="@+id/ViewPagerIndicator"
         android:layout_width="match_parent"
         android:layout_height="20dp"

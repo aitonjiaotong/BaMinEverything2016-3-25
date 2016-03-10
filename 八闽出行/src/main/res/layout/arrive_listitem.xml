@@ -26,7 +26,7 @@
             android:layout_height="@dimen/line_width">
         </LinearLayout>
 
-        <com.example.zjb.bamin.customView.MyGridView
+        <com.example.zjb.bamin.ZcustomView.MyGridView
             android:layoutAnimation="@anim/list_view_animtion"
             android:layout_margin="12dp"
             android:horizontalSpacing="6dp"
