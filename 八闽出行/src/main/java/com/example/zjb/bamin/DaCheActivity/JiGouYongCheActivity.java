@@ -29,7 +29,7 @@ public class JiGouYongCheActivity extends AppCompatActivity implements View.OnCl
     private CheckBox mCb_dache_jg_hasdriver;
     private Button mBtn_dache_jg_next;
     private TextView mTv_dache_jg_get_time;
-    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yy-MM-dd EE HH:mm:ss");
+    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd EE HH:mm");
     private long mCurrentTimeMillis;
     private TextView mTv_dache_jg_return_time;
 
