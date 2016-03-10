@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -47,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TicketActivity extends AppCompatActivity implements View.OnClickListener {
+public class TicketActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private Calendar c = Calendar.getInstance();
 
     private ListView mLv_ticket;
@@ -70,6 +71,10 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mTv_order_logout;
     private String mDeviceId;
     private String mId;
+    //控制车票查询次数，防止金点通偶尔网络异常
+    private int queryTicketCount = 0;
+    private String mPhoneNum;
+    private boolean isLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +101,13 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                 "&endSiteNamePart=" + URLEncoder.encode(end);
         HTTPUtils.get(TicketActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(TicketActivity.this, "网络连接异常或正在维护", "确认");
+                if (queryTicketCount < 3) {
+                    initData();
+                    queryTicketCount++;
+                } else {
+                    DialogShow.setDialog(TicketActivity.this, "网络连接异常或正在维护", "确认");
+                }
+
             }
 
             public void onResponse(String s) {
@@ -183,11 +194,11 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setOnclick() {
-
         mTv_yesterday.setOnClickListener(this);
         mTv_tomorrow.setOnClickListener(this);
         mBack.setOnClickListener(this);
         mTv_today.setOnClickListener(this);
+        mLv_ticket.setOnItemClickListener(this);
     }
 
     @Override
@@ -258,6 +269,30 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (isLogin) {
+            checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(TicketActivity.this, SmsLoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        mPhoneNum = sp.getString("phoneNum", "");
+        if ("".equals(mPhoneNum)) {
+            isLogin = false;
+        } else {
+            isLogin = true;
+        }
+    }
+
+
     class TicketListViewAdapter extends BaseAdapter {
 
         @Override
@@ -284,15 +319,15 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             TextView ticket_price = (TextView) layout.findViewById(R.id.ticket_price);
             final TicketInfo ticketInfo = mTicketInfoList.get(position);
             TextView reserve = (TextView) layout.findViewById(R.id.reserve);
-            reserve.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //检查是否在其他设备上登录
-                    checkIsLoginOnOtherDevice(ticketInfo);
-                }
-            });
+//            reserve.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //检查是否在其他设备上登录
+
+//                }
+//            });
             //获取车票信息
-            reserve.setText("预订\n余票:"+ticketInfo.getFreeSeats());
+            reserve.setText("预订\n余票:" + ticketInfo.getFreeSeats());
             String outTime = timeFormate(ticketInfo.getSetoutTime());
             start_time.setText(outTime);
             start_station.setText(ticketInfo.getStationName());

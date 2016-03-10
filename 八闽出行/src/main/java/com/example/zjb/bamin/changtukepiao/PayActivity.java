@@ -639,7 +639,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onResponse(String s) {
-                finish();
+                startToMainActivity();
                 animFromBigToSmallOUT();
             }
         });
