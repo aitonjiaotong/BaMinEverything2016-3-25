@@ -39,7 +39,7 @@
         <!-- 百度地图开发KEY -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="xpbshYcb2G95AFA63fo8TZ4Z" />
+            android:value="bupntBWbyPT4bs4PflT8eGpQ" />
 
         <activity
             android:name=".changtukepiao.MainActivity"
@@ -182,7 +182,7 @@
             android:label="@string/title_activity_ji_gou_yong_che02" >
         </activity>
         <activity
-            android:name=".DaCheActivity.JiGouYongChe02Activity"
+            android:name=".DaCheActivity.DaCheChooseCarTypeActivity"
             android:label="@string/title_activity_ji_gou_yong_che02" >
         </activity>
         <activity

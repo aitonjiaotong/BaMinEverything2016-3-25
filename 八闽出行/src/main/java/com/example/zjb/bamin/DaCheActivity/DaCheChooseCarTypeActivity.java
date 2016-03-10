@@ -7,17 +7,17 @@ import android.view.View;
 
 import com.example.zjb.bamin.R;
 
-public class JiGouYongChe02Activity extends AppCompatActivity {
+public class DaCheChooseCarTypeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ji_gou_yong_che02);
+        setContentView(R.layout.activity_choose_car_type);
     }
 
     public void jigouyongche02(View view) {
         Intent intent= new Intent();
-        intent.setClass(JiGouYongChe02Activity.this,JiGouYongChe03Activity.class);
+        intent.setClass(DaCheChooseCarTypeActivity.this,JiGouYongChe03Activity.class);
         startActivity(intent);
     }
 }
