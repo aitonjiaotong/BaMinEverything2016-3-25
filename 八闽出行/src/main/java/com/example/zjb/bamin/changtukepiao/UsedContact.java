@@ -178,12 +178,24 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View inflate = getLayoutInflater().inflate(R.layout.used_contact_listitem, null);
             TextView name = (TextView) inflate.findViewById(R.id.name);
             name.setText(mUsedContactInfoList.get(position).getName());
             TextView phone_num = (TextView) inflate.findViewById(R.id.phone_num);
             phone_num.setText(mUsedContactInfoList.get(position).getPhone());
+            inflate.findViewById(R.id.imageView_bianji).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent();
+                    isBianJi=position;
+                    intent.putExtra("bianji","MineFragment");
+                    intent.putExtra("ticketPassager", mUsedContactInfoList.get(position));
+                    intent.setClass(UsedContact.this, AddFetcherActivity.class);
+                    startActivity(intent);
+                    animFromSmallToBigIN();
+                }
+            });
             return inflate;
         }
     }

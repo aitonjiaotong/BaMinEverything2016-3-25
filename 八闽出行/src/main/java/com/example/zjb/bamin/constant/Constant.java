@@ -59,9 +59,9 @@ public class Constant
     public class URLFromAiTon
     {
         //艾通服务器地址
-//        public static final String HOST = "http://120.24.46.15:8080/bmpw/";
+        public static final String HOST = "http://120.24.46.15:8080/bmpw/";
         //八闽服务器地址
-        public static final String HOST = "http://120.55.166.203:8080/bmpw/";
+//        public static final String HOST = "http://120.55.166.203:8080/bmpw/";
         //获取所属公司下的
         public static final String GET_COMPANY_SUBZONE = HOST + "front/loadsetoutzone";
         //获取所属公司下的

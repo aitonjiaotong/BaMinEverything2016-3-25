@@ -21,10 +21,18 @@
 
         <TextView
             android:gravity="center"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="15871105320"
             android:id="@+id/phone_num"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/iconfont_bianji1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView_bianji"/>
     </LinearLayout>
 </LinearLayout>

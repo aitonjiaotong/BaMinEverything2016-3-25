@@ -158,12 +158,10 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:src="@mipmap/ic_schedule_start_time_bg"
-                                    android:layout_centerInParent="true"
-                                    android:layout_height="wrap_content"/>
-                            <TextView
+
+                                <TextView
+                                android:textSize="20sp"
+                                android:background="@mipmap/ic_schedule_start_time_bg"
                                 android:id="@+id/setoutTime"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -331,7 +329,7 @@
                 android:textColor="@color/gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="保险"
+                android:text="乘意险"
                 android:id="@+id/textView_insure"/>
 
             <TextView

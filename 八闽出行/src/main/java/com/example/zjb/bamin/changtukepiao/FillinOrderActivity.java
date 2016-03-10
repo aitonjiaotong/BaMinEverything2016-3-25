@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -52,8 +51,6 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private int ticketChildNum = 0;
     private ListView4ScrollView mPassager_list;
     private List<UsedContactInfo> mTicketPassagerList = new ArrayList<>();
-    //是否有卖保险
-    private boolean isInsure = false;
     /**
      * 广播刷新乘客列表
      */
@@ -67,7 +64,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     UsedContactInfo ticketPassager = (UsedContactInfo) intent.getSerializableExtra("ticketPassager");
                     for (int i = 0; i < mTicketPassagerList.size(); i++) {
                         if (ticketPassager.getIdcard().equals(mTicketPassagerList.get(i).getIdcard())) {
-                            DialogShow.setDialog(FillinOrderActivity.this,"该乘客已存在", "确定");
+                            DialogShow.setDialog(FillinOrderActivity.this, "该乘客已存在", "确定");
                             isExit = true;
                         }
                     }
@@ -85,6 +82,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private PopupWindow mPopupWindow;
     private CheckBox mCheckBox_baoxian;
     private TextView mTextView_insure;
+    private String mPhoneNum;
 
     private void refrashTicketNumAndPrice() {
         mPassager_count.setText(ticketNumBuy + "");
@@ -100,8 +98,8 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private ImageView mChild_add;
     private TextView mPassager_count_real;
     private TextView mTotal_price;
-    private String mPhoneNum;
     private String mId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,27 +112,25 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         mPhoneNum = sp.getString("phoneNum", "");
         initIntent();
         initUI();
-        initInsure();
+//        initInsure();
         setOnclick();
     }
 
     //判断是否有卖保险
-    private void initInsure() {
-        int insurePrice = mTicketInfo.getInsurePrice();
-        if (insurePrice > 0) {
-            isInsure = true;
-            mCheckBox_baoxian.setEnabled(true);
-            mCheckBox_baoxian.setChecked(true);
-            mTextView_insure.setText("保险");
-            mTextView_insure.getPaint().setFlags(0);
-        } else {
-            isInsure = false;
-            mCheckBox_baoxian.setEnabled(false);
-            mCheckBox_baoxian.setChecked(false);
-            mTextView_insure.setText("无保险");
-            mTextView_insure.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-    }
+//    private void initInsure() {
+//        int insurePrice = mTicketInfo.getInsurePrice();
+//        if (insurePrice > 0) {
+//            isInsure = true;
+//            mCheckBox_baoxian.setEnabled(true);
+//            mCheckBox_baoxian.setChecked(true);
+//            mTextView_insure.getPaint().setFlags(0);
+//        } else {
+//            isInsure = false;
+//            mCheckBox_baoxian.setEnabled(false);
+//            mCheckBox_baoxian.setChecked(false);
+//            mTextView_insure.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//        }
+//    }
 
     private void initIntent() {
         Intent intent = getIntent();
@@ -176,6 +172,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         refrashTicketNumAndPrice();
         mCheckBox_baoxian = (CheckBox) findViewById(R.id.checkBox_baoxian);
         mTextView_insure = (TextView) findViewById(R.id.textView_insure);
+        mTextView_insure.setText("乘意险¥"+mTicketInfo.getInsurePrice());
     }
 
     class MyAdapter extends BaseAdapter {
@@ -184,6 +181,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         public int getCount() {
             return mTicketPassagerList.size();
         }
+
         @Override
         public Object getItem(int position) {
             return null;
@@ -230,7 +228,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     setPopupWindows();
                     orderCommit();
                 } else {
-                    DialogShow.setDialog(FillinOrderActivity.this,"请添加乘车人", "确定");
+                    DialogShow.setDialog(FillinOrderActivity.this, "请添加乘车人", "确定");
                 }
                 break;
             case R.id.child_delete:
@@ -240,15 +238,15 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 }
                 break;
             case R.id.child_add:
-                if (ticketNumBuy>0){
-                    if (ticketChildNum<mTicketInfo.getCoachSeatNumber()/10){
+                if (ticketNumBuy > 0) {
+                    if (ticketChildNum < mTicketInfo.getCoachSeatNumber() / 10) {
                         ticketChildNum = ticketChildNum + 1;
                         mChild_num.setText(ticketChildNum + "");
-                    }else{
-                        DialogShow.setDialog(FillinOrderActivity.this, "班次携免票儿童童数已超规定比例","确认");
+                    } else {
+                        DialogShow.setDialog(FillinOrderActivity.this, "班次携免票儿童童数已超规定比例", "确认");
                     }
-                }else{
-                    DialogShow.setDialog(FillinOrderActivity.this,"请添加乘客","确认");
+                } else {
+                    DialogShow.setDialog(FillinOrderActivity.this, "请添加乘客", "确认");
                 }
                 break;
             case R.id.add_passager:
@@ -263,12 +261,14 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 break;
         }
     }
+
     /**
      * 从小到大打开动画
      */
     private void animFromSmallToBigIN() {
         overridePendingTransition(R.anim.magnify_fade_in, R.anim.fade_out);
     }
+
     //弹出等待popupwindows，防止误操作
     private void setPopupWindows() {
         View inflate = getLayoutInflater().inflate(R.layout.popupmenu01, null);
@@ -317,7 +317,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 "&insured=" + mCheckBox_baoxian.isChecked();
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(FillinOrderActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             public void onResponse(String s) {
@@ -330,9 +330,9 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     mResult = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     mOrderInfo = GsonUtils.parseJSON(mResult, OrderInfo.class);
                     if (mOrderInfo.getBookLogAID() == null) {
-                        if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())){
+                        if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())) {
                             DialogShow.setDialog(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", "确定");
-                        }else{
+                        } else {
                             DialogShow.setDialog(FillinOrderActivity.this, mOrderInfo.getMessage(), "确定");
                         }
                         mPopupWindow.dismiss();
@@ -351,16 +351,16 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     }
 
     private void commitOrderToAiTon() {
-        String url = Constant.URLFromAiTon.HOST+"front/addorder";
+        String url = Constant.URLFromAiTon.HOST + "front/addorder";
 
         Map<String, String> map = new HashMap<>();
-        map.put("bookLogAID",mOrderInfo.getBookLogAID());
+        map.put("bookLogAID", mOrderInfo.getBookLogAID());
         map.put("account_id", mId);
         map.put("redEnvelope_id", "");
         HTTPUtils.post(FillinOrderActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(FillinOrderActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             @Override
@@ -403,7 +403,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     //重写back方法
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             AnimFromRightToLeftOUT();
         }
