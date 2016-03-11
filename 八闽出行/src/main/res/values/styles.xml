@@ -36,4 +36,46 @@
         <item name="android:background">@color/bg_red</item>
     </style>
     <!--公交-->
+
+    <!--打车·租车-->
+        <!--字体风格-->
+    <style name="dachezuche_title_text">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/dachezuche_black</item>
+    </style>
+    <style name="dachezuche_sub_title_text">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/dachezuche_black</item>
+    </style>
+    <style name="dachezuche_normal_text">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/dachezuche_black</item>
+    </style>
+
+    <style name="dachezuche_gray_text">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/dachezuche_gray</item>
+    </style>
+    <style name="dachezuche_gray_small_text">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/dachezuche_gray</item>
+    </style>
+    <style name="dachezuche_yellow_big_text">
+        <item name="android:textSize">19dp</item>
+        <item name="android:textColor">@color/dachezuche_yellow</item>
+    </style>
+    <style name="dachezuche_yellow_small_text">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/dachezuche_yellow</item>
+    </style>
+
+        <!--按钮风格-->
+    <style name="dachezuche_btn">
+        <item name="android:background">@drawable/checkbutton_selector_dache</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/normalTextSize</item>
+    </style>
+
+
+    <!--打车·租车用到的字体风格-->
 </resources>

@@ -20,13 +20,12 @@
             android:src="@mipmap/icon_back_dache"/>
 
         <TextView
+            style="@style/dachezuche_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="机构用车"
-            android:textColor="#343434"
-            android:textSize="18dp"/>
+            android:text="机构用车"/>
     </RelativeLayout>
 
     <ScrollView
@@ -47,21 +46,19 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="取车城市"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="取车城市"/>
 
                 <TextView
+                    style="@style/dachezuche_gray_small_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="请选择"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="请选择"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -79,22 +76,20 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="取车时间"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="取车时间"/>
 
                 <TextView
                     android:id="@+id/tv_dache_jg_get_time"
+                    style="@style/dachezuche_gray_small_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text=""
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -118,22 +113,20 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="还车时间"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="还车时间"/>
 
                 <TextView
                     android:id="@+id/tv_dache_jg_return_time"
+                    style="@style/dachezuche_gray_small_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text=""
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -167,6 +160,7 @@
 
                     <RadioButton
                         android:id="@+id/rb_dache_jg_three_months"
+                        style="@style/dachezuche_normal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -174,11 +168,11 @@
                         android:background="@drawable/radiobutton_selector_dache"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="3个月"
-                        android:textSize="@dimen/normalTextSize"/>
+                        android:text="3个月"/>
 
                     <RadioButton
                         android:id="@+id/rb_dache_jg_six_months"
+                        style="@style/dachezuche_normal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -186,11 +180,11 @@
                         android:background="@drawable/radiobutton_selector_dache"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="6个月"
-                        android:textSize="@dimen/normalTextSize"/>
+                        android:text="6个月"/>
 
                     <RadioButton
                         android:id="@+id/rb_dache_jg_twelve_months"
+                        style="@style/dachezuche_normal_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
@@ -198,8 +192,7 @@
                         android:background="@drawable/radiobutton_selector_dache"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="12个月"
-                        android:textSize="@dimen/normalTextSize"/>
+                        android:text="12个月"/>
                 </RadioGroup>
             </LinearLayout>
 
@@ -212,21 +205,19 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="选择车型"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="选择车型"/>
 
                 <TextView
+                    style="@style/dachezuche_gray_small_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="请选择"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="请选择"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -249,13 +240,12 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="车辆数"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="车辆数"/>
 
                 <ImageView
                     android:id="@+id/iv_btn_dache_jg_minus"
@@ -265,12 +255,11 @@
 
                 <TextView
                     android:id="@+id/tv_dache_jg_car_count"
+                    style="@style/dachezuche_gray_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="1"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="1"/>
 
                 <ImageView
                     android:id="@+id/iv_btn_dache_jg_add"
@@ -294,13 +283,12 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/dachezuche_normal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="带司机"
-                    android:textColor="#343434"
-                    android:textSize="14dp"/>
+                    android:text="带司机"/>
 
                 <CheckBox
                     android:id="@+id/cb_dache_jg_hasdriver"
@@ -312,16 +300,14 @@
 
             <Button
                 android:id="@+id/btn_dache_jg_next"
+                style="@style/dachezuche_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/checkbutton_selector_dache"
                 android:gravity="center"
-                android:text="下一步"
-                android:textColor="@color/white"
-                android:textSize="@dimen/normalTextSize"/>
+                android:text="下一步"/>
         </LinearLayout>
     </ScrollView>
 

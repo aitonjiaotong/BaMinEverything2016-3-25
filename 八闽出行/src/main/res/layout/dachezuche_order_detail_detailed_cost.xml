@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+    <TextView
+        style="@style/dachezuche_sub_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:text="明细费用"
+        android:id="@+id/textView56"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_below="@+id/textView56">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:text="车辆租赁费用及门店服务费用"/>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="￥166x2"/>
+
+            <TextView
+                style="@style/dachezuche_yellow_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥332"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:text="基本保险费"/>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="￥166x2"/>
+
+            <TextView
+                style="@style/dachezuche_yellow_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥80"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:text="基本费用"/>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""/>
+
+            <TextView
+                style="@style/dachezuche_yellow_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:text="合计"/>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""/>
+
+            <TextView
+                style="@style/dachezuche_yellow_big_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥432"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

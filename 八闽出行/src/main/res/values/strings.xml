@@ -156,5 +156,6 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_in_put_loc_all">InPutLocAllActivity</string>
     <string name="title_activity_transit_route">TransitRouteActivity</string>
+    <string name="title_activity_zu_che_order_detail">ZuCheOrderDetailActivity</string>
 
 </resources>

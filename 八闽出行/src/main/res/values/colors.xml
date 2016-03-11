@@ -47,4 +47,8 @@
     <color name="light_color">#ff7d27</color>
     <color name="deep_gray">#c0c0c0</color>
 
+    <!--打车·租车用到的颜色-->
+    <color name="dachezuche_black">#222222</color>
+    <color name="dachezuche_gray">#888888</color>
+    <color name="dachezuche_yellow">#FFFE9703</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.zjb.bamin.Cdachezuche;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -99,6 +100,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mLl_dache_jg_choose_car_type.setOnClickListener(this);
         mIv_btn_dache_jg_add.setOnClickListener(this);
         mIv_btn_dache_jg_minus.setOnClickListener(this);
+        mBtn_dache_jg_next.setOnClickListener(this);
     }
 
     /**
@@ -141,6 +143,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v)
     {
+        Intent intent = new Intent();
         switch (v.getId())
         {
             case R.id.iv_dache_jg_back:
@@ -156,7 +159,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 //TODO 跳转到选择还车的时间
                 break;
             case R.id.ll_dache_jg_choose_car_type:
-                //TODO 跳转到选择车型的时间
+                // 跳转到选择车型
+                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheChooseCarTypeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.iv_btn_dache_jg_add:
                 //TODO 对增加车辆数量进行操作
@@ -165,7 +170,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 //TODO 对减少车辆数量进行操作
                 break;
             case R.id.btn_dache_jg_next:
-                //TODO 跳转到下一步相关的界面
+                // 跳转到订单详情界面
+                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheOrderDetailActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

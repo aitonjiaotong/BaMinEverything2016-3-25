@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取车时间"/>
+
+            <TextView
+                style="@style/dachezuche_yellow_big_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-26"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周二 17:00"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3个月"
+                android:gravity="center"
+                style="@style/dachezuche_yellow_small_text"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/time_under_line"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取车时间"/>
+
+            <TextView
+                style="@style/dachezuche_yellow_big_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-26"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周二 17:00"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

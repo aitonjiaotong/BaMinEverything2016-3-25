@@ -10,4 +10,6 @@
     <dimen name="sildmenu_shadow">4000dp</dimen>
     <dimen name="normalTextSize">14dp</dimen>
     <dimen name="normalEditTextSize">13dp</dimen>
+
+
 </resources>
