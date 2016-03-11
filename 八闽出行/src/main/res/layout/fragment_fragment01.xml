@@ -206,6 +206,7 @@
     </LinearLayout>
 
     <Button
+        android:textSize="@dimen/normalTextSize"
         android:id="@+id/btn_query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

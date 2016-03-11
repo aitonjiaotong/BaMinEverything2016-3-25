@@ -303,6 +303,7 @@
             </LinearLayout>
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/btn_dache_jg_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

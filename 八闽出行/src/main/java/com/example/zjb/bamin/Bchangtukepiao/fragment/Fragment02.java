@@ -19,12 +19,12 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.activity.OrderDeatilActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.PayActivity;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.AccountOrder;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.QueryOrder;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
 
@@ -34,7 +34,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,10 +132,10 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 //                }.getType();
 //                mAccountOrderList = GsonUtils.parseJSONArray(s, type);
                 mAccountOrder = GsonUtils.parseJSON(s, AccountOrder.class);
-                /**
-                 * 翻转容器，让最近的排在最前面
-                 */
-                Collections.reverse(mAccountOrder.getOrders());
+//                /**
+//                 * 翻转容器，让最近的排在最前面
+//                 */
+//                Collections.reverse(mAccountOrder.getOrders());
                 mAccountOrderEntityList.addAll(mAccountOrder.getOrders());
                 mPages = mAccountOrder.getPages();
                 /**

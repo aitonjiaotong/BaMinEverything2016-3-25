@@ -19,6 +19,7 @@
             android:layout_height="200dp">
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/head_btn01"
@@ -40,6 +41,7 @@
             </LinearLayout>
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/head_btn01"
@@ -62,6 +64,7 @@
             </LinearLayout>
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/head_btn02"

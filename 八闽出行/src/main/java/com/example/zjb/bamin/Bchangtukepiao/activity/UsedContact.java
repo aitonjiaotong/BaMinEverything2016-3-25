@@ -91,7 +91,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 mUsedContactInfoList = GsonUtils.parseJSONArray(s, type);
 //                初始化选乘客的position
                 for (int i = 0; i < mUsedContactInfoList.size(); i++) {
-                    theAddContact.add(i,null);
+                    theAddContact.add(i, null);
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -110,7 +110,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
 
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            setDialog("删除联系人", position);
+            setDialog("删除联系人"+mUsedContactInfoList.get(position).getName(), position);
             return true;
         }
     }
@@ -121,7 +121,16 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent();
             if ("FillinOrderActivity".equals(mAddContact)) {
-
+                AnimCheckBox animcheck_contact = (AnimCheckBox) view.findViewById(R.id.animcheck_contact);
+                if (animcheck_contact.isChecked()) {
+                    animcheck_contact.setChecked(false);
+                    theAddContact.remove(position);
+                    theAddContact.add(position, null);
+                } else {
+                    animcheck_contact.setChecked(true);
+                    theAddContact.remove(position);
+                    theAddContact.add(position, mUsedContactInfoList.get(position));
+                }
             } else if ("MineFragment".equals(mAddContact)) {
                 isBianJi = position;
                 intent.putExtra("bianji", "MineFragment");
@@ -205,21 +214,21 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 rela_animCheckBox.setVisibility(View.VISIBLE);
             }
             final AnimCheckBox animcheck_contact = (AnimCheckBox) inflate.findViewById(R.id.animcheck_contact);
-            animcheck_contact.setChecked(false,false);
-            linear_animCheckBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (animcheck_contact.isChecked()) {
-                        animcheck_contact.setChecked(false);
-                        theAddContact.remove(position);
-                        theAddContact.add(position, null);
-                    } else {
-                        animcheck_contact.setChecked(true);
-                        theAddContact.remove(position);
-                        theAddContact.add(position,mUsedContactInfoList.get(position));
-                    }
-                }
-            });
+            animcheck_contact.setChecked(false, false);
+//            linear_animCheckBox.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (animcheck_contact.isChecked()) {
+//                        animcheck_contact.setChecked(false);
+//                        theAddContact.remove(position);
+//                        theAddContact.add(position, null);
+//                    } else {
+//                        animcheck_contact.setChecked(true);
+//                        theAddContact.remove(position);
+//                        theAddContact.add(position,mUsedContactInfoList.get(position));
+//                    }
+//                }
+//            });
             return inflate;
         }
     }
@@ -238,12 +247,12 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 List<UsedContactInfo> theAddContactList = new ArrayList<>();
                 for (int i = 0; i < theAddContact.size(); i++) {
                     UsedContactInfo usedContactInfo = theAddContact.get(i);
-                    if (usedContactInfo!=null){
+                    if (usedContactInfo != null) {
                         theAddContactList.add(usedContactInfo);
                     }
                 }
                 AddContant addContant = new AddContant(theAddContactList);
-                intent.putExtra("theAddContactList",addContant);
+                intent.putExtra("theAddContactList", addContant);
                 sendBroadcast(intent);
                 finish();
                 animFromBigToSmallOUT();

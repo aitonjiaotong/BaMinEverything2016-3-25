@@ -271,8 +271,15 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String setoutTime = mTicketInfoList.get(position).getSetoutTime();
+        long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
+        long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
-            checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
+            if ((longtime-currentTimeMillis)<3600L*1000L){
+                DialogShow.setDialog(TicketActivity.this,"据发车时间一小时内，停止售票","确认");
+            }else{
+                checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
+            }
         } else {
             Intent intent = new Intent();
             intent.setClass(TicketActivity.this, SmsLoginActivity.class);
@@ -319,14 +326,6 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             TextView ticket_price = (TextView) layout.findViewById(R.id.ticket_price);
             final TicketInfo ticketInfo = mTicketInfoList.get(position);
             TextView reserve = (TextView) layout.findViewById(R.id.reserve);
-//            reserve.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //检查是否在其他设备上登录
-
-//                }
-//            });
-            //获取车票信息
             reserve.setText("预订\n余票:" + ticketInfo.getFreeSeats());
             String outTime = timeFormate(ticketInfo.getSetoutTime());
             start_time.setText(outTime);

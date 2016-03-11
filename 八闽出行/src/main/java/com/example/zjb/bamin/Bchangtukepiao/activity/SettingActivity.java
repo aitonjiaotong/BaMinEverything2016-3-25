@@ -93,6 +93,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         edit.clear();
                         edit.commit();
                         mExit.setVisibility(View.INVISIBLE);
+                        finish();
+                        animFromBigToSmallOUT();
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -105,6 +107,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 alertDialog.show();
                 break;
         }
+    }
+
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
     /**
      * 从左往右打开动画

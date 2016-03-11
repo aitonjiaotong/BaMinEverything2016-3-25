@@ -66,9 +66,9 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     List<UsedContactInfo> theAddContactList = theAddContact.getTheAddContact();
                     for (int i = 0; i < theAddContactList.size(); i++) {
                         String idcard = theAddContactList.get(i).getIdcard();
-                        for(int j = 0; j < mTicketPassagerList.size(); j++) {
-                            if (idcard.equals(mTicketPassagerList.get(j).getIdcard())){
-                                DialogShow.setDialog(FillinOrderActivity.this, mTicketPassagerList.get(j).getName()+"已添加", "确定");
+                        for (int j = 0; j < mTicketPassagerList.size(); j++) {
+                            if (idcard.equals(mTicketPassagerList.get(j).getIdcard())) {
+                                DialogShow.setDialog(FillinOrderActivity.this, mTicketPassagerList.get(j).getName() + "已添加", "确定");
                                 isExit = true;
                             }
                         }
@@ -160,7 +160,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         refrashTicketNumAndPrice();
         mCheckBox_baoxian = (CheckBox) findViewById(R.id.checkBox_baoxian);
         mTextView_insure = (TextView) findViewById(R.id.textView_insure);
-        mTextView_insure.setText("乘意险¥"+mTicketInfo.getInsurePrice());
+        mTextView_insure.setText("乘意险¥" + mTicketInfo.getInsurePrice());
     }
 
     class MyAdapter extends BaseAdapter {
@@ -212,11 +212,18 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         switch (v.getId()) {
             //提交订单
             case R.id.order_commmit:
-                if (ticketNumBuy > 0) {
-                    setPopupWindows();
-                    orderCommit();
+                String setoutTime = mTicketInfo.getSetoutTime();
+                long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
+                long currentTimeMillis = System.currentTimeMillis();
+                if ((longtime - currentTimeMillis) < 3600L * 1000L) {
+                    DialogShow.setDialog(FillinOrderActivity.this, "据发车时间一小时内，停止售票", "确认");
                 } else {
-                    DialogShow.setDialog(FillinOrderActivity.this, "请添加乘车人", "确定");
+                    if (ticketNumBuy > 0) {
+                        setPopupWindows();
+                        orderCommit();
+                    } else {
+                        DialogShow.setDialog(FillinOrderActivity.this, "请添加乘车人", "确定");
+                    }
                 }
                 break;
             case R.id.child_delete:
