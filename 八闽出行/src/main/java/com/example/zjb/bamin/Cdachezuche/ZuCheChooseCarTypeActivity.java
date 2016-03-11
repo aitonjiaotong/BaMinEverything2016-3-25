@@ -81,6 +81,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
+            //sss
             View layout = getLayoutInflater().inflate(R.layout.dachezuche_choose_car_type_list_item, null);
             ImageView iv_car_img = (ImageView) layout.findViewById(R.id.iv_car_img);//车型图片
             TextView tv_car_name = (TextView) layout.findViewById(R.id.tv_car_name);//车型名称
