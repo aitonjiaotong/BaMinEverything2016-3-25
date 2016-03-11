@@ -24,6 +24,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_input_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
                 android:text="公交站台"/>
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_input_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

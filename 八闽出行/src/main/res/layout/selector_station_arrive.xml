@@ -59,7 +59,7 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:textColorHint="@color/gray"
-                android:textSize="12sp"/>
+                android:textSize="12dp"/>
 
             <ImageView
                 android:id="@+id/iv_clear"
@@ -111,6 +111,7 @@
                     android:verticalSpacing="6dp"/>
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:id="@+id/back_to_shengshi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/collection_pop_guide"
@@ -26,6 +27,7 @@
             />
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:id="@+id/btn_collection_add_from_popu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

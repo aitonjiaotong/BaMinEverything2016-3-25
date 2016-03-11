@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="24dp"
@@ -28,6 +29,7 @@
             android:background="@color/line_gray"></View>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="12dp"
@@ -43,6 +45,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,6 +59,7 @@
                 android:text="取消"/>
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_btn_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -5,14 +5,6 @@
                 tools:context="com.example.zjb.bamin.Bchangtukepiao.activity.TicketNotice">
 
 
-    <!--<TextView-->
-    <!--android:textSize="40sp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="购票须知"-->
-    <!--android:id="@+id/textView11"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_centerHorizontal="true"/>-->
 
     <RelativeLayout
         android:id="@+id/relativeLayout10"

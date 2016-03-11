@@ -23,6 +23,7 @@
             android:layout_marginStart="22dp"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="乘客信息"
@@ -70,6 +71,7 @@
             android:layout_marginStart="22dp"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="优惠券信息"
@@ -116,6 +118,7 @@
             android:layout_marginStart="22dp"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="购票须知"
@@ -163,6 +166,7 @@
             android:layout_marginStart="22dp"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退票须知"
@@ -209,6 +213,7 @@
             android:layout_marginStart="22dp"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取票须知"

@@ -13,6 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -21,6 +22,7 @@
 
 
         <EditText
+            android:textSize="@dimen/normalEditTextSize"
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -63,6 +65,7 @@
                 android:src="@mipmap/icon_suggestion_recharge" />
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_white"
@@ -87,6 +90,7 @@
                 android:src="@mipmap/icon_suggestion_wc" />
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_white"
@@ -111,6 +115,7 @@
                 android:src="@mipmap/icon_suggestion_atm" />
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_white"

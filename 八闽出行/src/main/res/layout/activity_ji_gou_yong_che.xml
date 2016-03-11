@@ -26,7 +26,7 @@
             android:text="机构用车"
             android:gravity="center"
             android:textColor="#343434"
-            android:textSize="18sp"/>
+            android:textSize="18dp"/>
     </RelativeLayout>
 
     <ScrollView
@@ -53,7 +53,7 @@
                     android:layout_weight="1"
                     android:text="取车城市"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="请选择"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                     android:layout_weight="1"
                     android:text="取车时间"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:id="@+id/tv_dache_jg_get_time"
@@ -94,7 +94,7 @@
                     android:layout_marginLeft="10dp"
                     android:text=""
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                     android:layout_weight="1"
                     android:text="还车时间"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:id="@+id/tv_dache_jg_return_time"
@@ -133,7 +133,7 @@
                     android:layout_marginLeft="10dp"
                     android:text=""
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                     android:layout_weight="1"
                     android:text="选择车型"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -223,7 +223,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="请选择"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                     android:layout_weight="1"
                     android:text="车辆数"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:id="@+id/iv_btn_dache_jg_minus"
@@ -264,7 +264,7 @@
                     android:text="1"
                     android:padding="12dp"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <ImageView
                     android:id="@+id/iv_btn_dache_jg_add"
@@ -292,7 +292,7 @@
                     android:layout_weight="1"
                     android:text="带司机"
                     android:textColor="#343434"
-                    android:textSize="14sp"/>
+                    android:textSize="14dp"/>
 
                 <CheckBox
                     android:id="@+id/cb_dache_jg_hasdriver"

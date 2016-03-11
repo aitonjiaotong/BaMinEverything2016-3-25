@@ -19,6 +19,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                 android:text="@string/title_bar_add_fetcher"/>
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:id="@+id/tv_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="姓    名"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
             <EditText
                 android:id="@+id/passager_name"
@@ -66,7 +68,7 @@
                 android:padding="12dp"
                 android:src="@mipmap/ic_arrow_right"
                 android:textColorHint="@color/line_gray"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <include layout="@layout/divider"></include>
@@ -82,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="身份证"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
             <EditText
                 android:id="@+id/person_ID"
@@ -93,7 +95,7 @@
                 android:padding="12dp"
                 android:src="@mipmap/ic_arrow_right"
                 android:textColorHint="@color/line_gray"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <include layout="@layout/divider"></include>
@@ -109,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="手机号"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
             <EditText
                 android:id="@+id/passager_phoneNum"
@@ -120,7 +122,7 @@
                 android:padding="12dp"
                 android:src="@mipmap/ic_arrow_right"
                 android:textColorHint="@color/line_gray"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

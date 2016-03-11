@@ -29,7 +29,7 @@
 
                     <TextView
                         android:layout_marginLeft="30dp"
-                        android:textSize="25sp"
+                        android:textSize="25dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="长途客票"
@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="30dp"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -55,6 +55,7 @@
             </RelativeLayout>
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
@@ -72,7 +73,7 @@
 
                 <TextView
                     android:paddingTop="5dp"
-                    android:textSize="30sp"
+                    android:textSize="30dp"
                     android:textColor="@color/white"
                     android:gravity="right|center_vertical"
                     android:layout_weight="1"
@@ -83,7 +84,7 @@
                     android:layout_gravity="center_vertical"/>
 
                 <TextView
-                    android:textSize="40sp"
+                    android:textSize="40dp"
                     android:textColor="@color/white"
                     android:gravity="center_vertical"
                     android:layout_weight="0.3"

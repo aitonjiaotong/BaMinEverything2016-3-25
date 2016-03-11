@@ -51,6 +51,7 @@
                 android:src="@mipmap/icon_line"/>
 
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
@@ -110,6 +111,7 @@
                             />
 
                         <TextView
+                            android:textSize="@dimen/normalTextSize"
                             android:id="@+id/tv_curr_loction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -146,6 +148,7 @@
                             android:src="@mipmap/icon_poi_input"/>
 
                         <TextView
+                            android:textSize="@dimen/normalTextSize"
                             android:id="@+id/tv_ending_station"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

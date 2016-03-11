@@ -51,7 +51,7 @@
         android:text="没有优惠券"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/hint_gray"
-        android:textSize="40sp"
+        android:textSize="40dp"
         android:visibility="gone"/>
 
     <ProgressBar

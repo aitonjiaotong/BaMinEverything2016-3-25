@@ -10,6 +10,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:id="@+id/textView_detialOrderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
                         android:gravity="center"
                         android:padding="4dp"
                         android:text="厦门市"
-                        android:textSize="20sp"/>
+                        android:textSize="20dp"/>
 
                 </LinearLayout>
 
@@ -96,7 +97,7 @@
 
 
                         <TextView
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:background="@mipmap/ic_schedule_start_time_bg"
                             android:id="@+id/textView_detialOrderTime"
                             android:layout_width="match_parent"
@@ -122,7 +123,7 @@
                         android:gravity="center"
                         android:padding="4dp"
                         android:text="漳州市"
-                        android:textSize="20sp"/>
+                        android:textSize="20dp"/>
 
                 </LinearLayout>
             </LinearLayout>

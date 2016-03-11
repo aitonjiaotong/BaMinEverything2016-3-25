@@ -6,6 +6,7 @@
 
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:gravity="center"
             android:background="#ffffff"
             android:layout_width="match_parent"

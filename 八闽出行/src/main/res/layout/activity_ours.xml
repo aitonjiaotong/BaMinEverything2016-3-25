@@ -53,10 +53,12 @@
             android:padding="24dp"
             android:src="@mipmap/ic_logo"/>
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="八闽长途客运"/>
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="V0.01"/>
@@ -72,6 +74,7 @@
             android:padding="6dp"
             android:orientation="horizontal">
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -89,6 +92,7 @@
             android:padding="6dp"
             android:orientation="horizontal">
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -96,6 +100,7 @@
                 android:gravity="left"
                 android:text="客服热线"/>
             <TextView
+                android:textSize="@dimen/normalTextSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="6dp"
@@ -117,11 +122,13 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:text="Copyright©厦门艾通信息科技有限公司"
             android:textColor="#999999"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:text="All Rights Reserved"
             android:textColor="#999999"

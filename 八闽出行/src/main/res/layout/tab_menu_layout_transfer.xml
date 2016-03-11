@@ -12,6 +12,7 @@
         android:src="@mipmap/icon_tab_transfer"/>
 
     <TextView
+        android:textSize="@dimen/normalTextSize"
         android:id="@+id/tv_tab_nearby"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
