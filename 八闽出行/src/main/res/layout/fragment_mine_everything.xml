@@ -221,6 +221,7 @@
     </LinearLayout>
 
     <Button
+        android:textSize="@dimen/normalTextSize"
         android:visibility="gone"
         android:background="#ff4c20"
         android:layout_marginTop="40dp"

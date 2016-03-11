@@ -146,6 +146,7 @@
     </RelativeLayout>
 
     <Button
+        android:textSize="@dimen/normalTextSize"
         android:layout_margin="10dp"
         android:background="@drawable/collection_btn_selector"
         android:textColor="@color/bg_white"

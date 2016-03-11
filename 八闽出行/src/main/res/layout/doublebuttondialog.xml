@@ -31,6 +31,7 @@
             android:layout_height="match_parent">
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:layout_weight="1"
                 android:background="@color/aiton_basic_color"
                 android:textColor="@color/white"
@@ -42,6 +43,7 @@
                 android:id="@+id/ISee"/>
 
             <Button
+                android:textSize="@dimen/normalTextSize"
                 android:layout_weight="1"
                 android:background="@color/aiton_basic_color"
                 android:textColor="@color/white"
