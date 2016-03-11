@@ -1,6 +1,7 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,10 +9,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -124,6 +125,22 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
 
     private void initSearchList()
     {
+        mLv_search_address.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+                if (scrollState == SCROLL_STATE_TOUCH_SCROLL)
+                {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+            }
+        });
         mSearchAddrAdapter = new SearchAddrAdapter();
         mLv_search_address.setAdapter(mSearchAddrAdapter);
         mLv_search_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -410,18 +427,6 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         return pinyin_list;
     }
 
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        if (null != this.getCurrentFocus())
-        {
-            //点击空白位置 隐藏软键盘
-            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.onTouchEvent(event);
-    }
 
     /**
      * 常用地址ListView适配器

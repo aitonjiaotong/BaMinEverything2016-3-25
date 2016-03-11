@@ -21,7 +21,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -80,7 +79,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
     private GridView mGridView_xianshi;
     private RelativeLayout mXianshi_rela;
     private MyGridViewAdapter mMyGridViewAdapter;
-    private ProgressBar mRefreash_arrive;
     private ListView mArrive_listView;
     private MyArriveAdapter mMyArriveAdapter;
     private EditText mEt_search_city;
@@ -90,6 +88,7 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
     private ImageView mIv_clear;
     private SearchAddrAdapter mSearchAdapter = new SearchAddrAdapter();
     private RelativeLayout mRl_for_search_address;
+    private LinearLayout mLl_for_progress_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -142,6 +141,7 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                     map.put(parent_list_data.get(i).getZoneName(), list1);
                 }
                 mMyArriveAdapter.notifyDataSetChanged();
+                mLl_for_progress_bar.setVisibility(View.GONE);
 
             }
         });
@@ -161,9 +161,9 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         mArrive_listView = (ListView) findViewById(R.id.arrive_listView);
         mTv_btn_arrive = (TextView) findViewById(R.id.tv_btn_arrive);
         mTv_btn_comm_used_addr = (TextView) findViewById(R.id.tv_btn_comm_used_addr);
-        mRefreash_arrive = (ProgressBar) findViewById(R.id.refreash_arrive);
         mEt_search_city = (EditText) findViewById(R.id.et_search_city);
         mLv_search_addr = (ListView) findViewById(R.id.lv_search_address);
+        mLl_for_progress_bar = (LinearLayout) findViewById(R.id.ll_for_progress_bar);
 
     }
 
@@ -187,6 +187,24 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
     {
         mMyArriveAdapter = new MyArriveAdapter();
         mArrive_listView.setAdapter(mMyArriveAdapter);
+        mArrive_listView.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+                if (scrollState == SCROLL_STATE_TOUCH_SCROLL)
+                {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+
+            }
+        });
 
         mMyGridViewAdapter = new MyGridViewAdapter();
         mGridView_xianshi.setAdapter(mMyGridViewAdapter);
@@ -229,13 +247,22 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-
+                if (mSitesData != null && mSitesData.size() > 0)
+                {
+                    mLl_for_progress_bar.setVisibility(View.GONE);
+                } else
+                {
+                    mLl_for_progress_bar.setVisibility(View.VISIBLE);
+                }
                 mUser_input = s.toString();
                 if ("".equals(mUser_input))
                 {
+                    mIv_clear.setVisibility(View.GONE);//搜索框的清除按钮
                     mRl_for_search_address.setVisibility(View.GONE);
+                    mLl_for_progress_bar.setVisibility(View.GONE);//提示加载
                 } else
                 {
+                    mIv_clear.setVisibility(View.VISIBLE);//搜索框的清除按钮
                     mRl_for_search_address.setVisibility(View.VISIBLE);
                     mUserSearchSitesData.clear();
                     mSearchAdapter.notifyDataSetChanged();
@@ -270,10 +297,11 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             {
                 if (scrollState == SCROLL_STATE_TOUCH_SCROLL)
                 {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
             {
@@ -509,6 +537,7 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                 {
                 }.getType();
                 mSitesData = GsonUtils.parseJSONArray(s, type);
+                mLl_for_progress_bar.setVisibility(View.GONE);
             }
         });
     }
@@ -522,7 +551,7 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         findViewById(R.id.back_to_shengshi).setOnClickListener(this);
         mGridView_xianshi.setOnItemClickListener(new MyGridViewOnItemClickListener());
         mIv_clear.setOnClickListener(this);
-}
+    }
 
     class MyGridViewOnItemClickListener implements AdapterView.OnItemClickListener
     {
@@ -577,9 +606,16 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                 mTv_btn_arrive.setTextColor(getResources().getColor(R.color.white));
                 mTv_btn_comm_used_addr.setBackgroundResource(R.color.gray);
                 mTv_btn_comm_used_addr.setTextColor(getResources().getColor(R.color.fillin_order_pay_gray_bg));
-                //TODO
                 mLv_commonly_used_address.setVisibility(View.GONE);//常用地址
                 mArrive_listView.setVisibility(View.VISIBLE);//到达列表
+                mXianshi_rela.setVisibility(View.GONE);//县级地址列表
+                if (parent_list_data != null && parent_list_data.size() > 0)
+                {
+                    mLl_for_progress_bar.setVisibility(View.GONE);
+                } else
+                {
+                    mLl_for_progress_bar.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.tv_btn_comm_used_addr:
                 isCommonlyAddr = true;
@@ -590,10 +626,12 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
 
                 mLv_commonly_used_address.setVisibility(View.VISIBLE);//常用地址
                 mArrive_listView.setVisibility(View.GONE);//到达列表
+                mXianshi_rela.setVisibility(View.GONE);//县级地址列表
                 break;
             case R.id.iv_clear:
                 mEt_search_city.setText("");
                 mRl_for_search_address.setVisibility(View.GONE);//用户搜索列表
+                mLl_for_progress_bar.setVisibility(View.GONE);//提示加载
                 break;
         }
     }
@@ -633,9 +671,13 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
             {
                 tv_com_used_addr.setText(mComUsedAddrData.get(position));
+                mLv_commonly_used_address.setClickable(true);
+                mLv_commonly_used_address.setEnabled(true);
             } else
             {
                 tv_com_used_addr.setText("没有查找到数据！");
+                mLv_commonly_used_address.setClickable(false);
+                mLv_commonly_used_address.setEnabled(false);
             }
             return layout;
         }
