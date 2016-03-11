@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -132,10 +133,11 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
             {
                 if (scrollState == SCROLL_STATE_TOUCH_SCROLL)
                 {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
             {
@@ -241,6 +243,7 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 //保存用户选择后的地址到本地，储存为常用地址---end
                 finish();
                 animFromBigToSmallOUT();
+
             }
         });
     }
@@ -367,12 +370,18 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         {
             case R.id.iv_back:
                 finish();
+                AnimFromRightToLeft();
                 break;
             case R.id.iv_clear:
                 mEt_search_zone.setText("");
                 mRl_for_search_list.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private void AnimFromRightToLeft()
+    {
+        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
     }
 
     /**
@@ -558,6 +567,16 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
             }
             return layout;
         }
+    }
+
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            finish();
+            AnimFromRightToLeft();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

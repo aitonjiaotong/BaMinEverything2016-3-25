@@ -14,7 +14,7 @@ import com.example.zjb.bamin.R;
 
 import java.text.SimpleDateFormat;
 
-public class JiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener
+public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private ImageView mIv_dache_jg_back;

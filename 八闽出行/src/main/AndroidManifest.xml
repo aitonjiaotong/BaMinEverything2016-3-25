@@ -158,64 +158,12 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".Cdachezuche.DaCheActivity"
-            android:label="@string/title_activity_da_che">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.DaiJiaActivity"
-            android:label="@string/title_activity_dai_jia">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.DaiJia02Activity"
-            android:label="@string/title_activity_dai_jia02">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.JiGouYongCheActivity"
+            android:name=".Cdachezuche.ZuChenJiGouYongCheActivity"
             android:label="@string/title_activity_ji_gou_yong_che">
         </activity>
         <activity
-            android:name=".Cdachezuche.JiGouYongChe04Activity"
+            android:name=".Cdachezuche.ZuCheChooseCarTypeActivity"
             android:label="@string/title_activity_ji_gou_yong_che02">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.DaCheChooseCarTypeActivity"
-            android:label="@string/title_activity_ji_gou_yong_che02">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.JiGouYongChe03Activity"
-            android:label="@string/title_activity_ji_gou_yong_che03">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.MenDianActivity"
-            android:label="@string/title_activity_men_dian">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.TeJiaTaoCanActivity"
-            android:label="@string/title_activity_te_jia_tao_can">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.TeJiaTaoCan02Activity"
-            android:label="@string/title_activity_te_jia_tao_can02">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.ZiJiaZuCheActivity"
-            android:label="@string/title_activity_zi_jia_zu_che">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.ZiJiaZuChe02Activity"
-            android:label="@string/title_activity_zi_jia_zu_che02">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.ZiJiaZuChe03Activity"
-            android:label="@string/title_activity_zi_jia_zu_che03">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.ZiJiaZuChe04Activity"
-            android:label="@string/title_activity_zi_jia_zu_che04">
-        </activity>
-        <activity
-            android:name=".Cdachezuche.ZiJiaZuChe05Activity"
-            android:label="@string/title_activity_zi_jia_zu_che05">
         </activity>
         <!-- 打车类Activity -->
         <!-- 公交 -->
