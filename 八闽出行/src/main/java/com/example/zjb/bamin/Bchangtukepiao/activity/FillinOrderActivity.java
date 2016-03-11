@@ -23,12 +23,13 @@ import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.administrator.shane_library.shane.widget.ListView4ScrollView;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.OrderInfo;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.OrderList;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_ticket.TicketInfo;
+import com.example.zjb.bamin.Bchangtukepiao.models.about_used_contact.AddContant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_used_contact.UsedContactInfo;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
 
@@ -61,16 +62,20 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             switch (action) {
                 case "ticketPassager":
                     boolean isExit = false;
-                    UsedContactInfo ticketPassager = (UsedContactInfo) intent.getSerializableExtra("ticketPassager");
-                    for (int i = 0; i < mTicketPassagerList.size(); i++) {
-                        if (ticketPassager.getIdcard().equals(mTicketPassagerList.get(i).getIdcard())) {
-                            DialogShow.setDialog(FillinOrderActivity.this, "该乘客已存在", "确定");
-                            isExit = true;
+                    AddContant theAddContact = (AddContant) intent.getSerializableExtra("theAddContactList");
+                    List<UsedContactInfo> theAddContactList = theAddContact.getTheAddContact();
+                    for (int i = 0; i < theAddContactList.size(); i++) {
+                        String idcard = theAddContactList.get(i).getIdcard();
+                        for(int j = 0; j < mTicketPassagerList.size(); j++) {
+                            if (idcard.equals(mTicketPassagerList.get(j).getIdcard())){
+                                DialogShow.setDialog(FillinOrderActivity.this, mTicketPassagerList.get(j).getName()+"已添加", "确定");
+                                isExit = true;
+                            }
                         }
                     }
                     if (!isExit) {
-                        ticketNumBuy = ticketNumBuy + 1;
-                        mTicketPassagerList.add(ticketPassager);
+                        ticketNumBuy = ticketNumBuy + theAddContactList.size();
+                        mTicketPassagerList.addAll(theAddContactList);
                         mAdapter.notifyDataSetChanged();
                         refrashTicketNumAndPrice();
                     }
@@ -112,25 +117,8 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         mPhoneNum = sp.getString("phoneNum", "");
         initIntent();
         initUI();
-//        initInsure();
         setOnclick();
     }
-
-    //判断是否有卖保险
-//    private void initInsure() {
-//        int insurePrice = mTicketInfo.getInsurePrice();
-//        if (insurePrice > 0) {
-//            isInsure = true;
-//            mCheckBox_baoxian.setEnabled(true);
-//            mCheckBox_baoxian.setChecked(true);
-//            mTextView_insure.getPaint().setFlags(0);
-//        } else {
-//            isInsure = false;
-//            mCheckBox_baoxian.setEnabled(false);
-//            mCheckBox_baoxian.setChecked(false);
-//            mTextView_insure.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//        }
-//    }
 
     private void initIntent() {
         Intent intent = getIntent();

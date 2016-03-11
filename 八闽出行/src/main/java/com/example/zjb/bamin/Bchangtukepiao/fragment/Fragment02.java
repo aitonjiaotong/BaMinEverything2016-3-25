@@ -42,7 +42,7 @@ import java.util.Map;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 
-public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRefreshListener{
 
     private View mInflate;
     private TextView mNoneOrder;
@@ -133,12 +133,12 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 //                }.getType();
 //                mAccountOrderList = GsonUtils.parseJSONArray(s, type);
                 mAccountOrder = GsonUtils.parseJSON(s, AccountOrder.class);
-                mAccountOrderEntityList.addAll(mAccountOrder.getOrders());
-                mPages = mAccountOrder.getPages();
                 /**
                  * 翻转容器，让最近的排在最前面
                  */
                 Collections.reverse(mAccountOrder.getOrders());
+                mAccountOrderEntityList.addAll(mAccountOrder.getOrders());
+                mPages = mAccountOrder.getPages();
                 /**
                  * 暂无订单显示与否
                  */
@@ -157,8 +157,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      * 查询所有订单号的对象和状态
                      */
                     for (int i = 0; i < mAccountOrder.getOrders().size(); i++) {
-                        queryAllOrderInfo(i);
-                        queryAllOrderState(i);
+                        queryAllOrderInfo((orderPageCount - 1) * 8 + i);
+                        queryAllOrderState((orderPageCount - 1) * 8 + i);
                     }
                 } else {
                     mNoneOrder.setVisibility(View.VISIBLE);
@@ -177,7 +177,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     private void queryAllOrderState(final int i) {
         String url_web = Constant.URL.HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
-                "&bookLogID=" + mAccountOrder.getOrders().get(i).getBookLogAID();
+                "&bookLogID=" + mAccountOrder.getOrders().get(i-(orderPageCount-1)*8).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
             }
@@ -190,8 +190,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     String testxml = testElement.asXML();
                     String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     String state = result.substring(2, 5);
-                    orderStateList.remove((orderPageCount-1)*8+i);
-                    orderStateList.add((orderPageCount-1)*8+i, state);
+                    orderStateList.remove(i);
+                    orderStateList.add(i, state);
                     /**
                      * 防止刷新不一致崩掉
                      */
@@ -216,7 +216,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     private void queryOrderState(final int i) {
         String url_web = Constant.URL.HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
-                "&bookLogID=" + mAccountOrder.getOrders().get(i).getBookLogAID();
+                "&bookLogID=" + mAccountOrderEntityList.get(i).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
             }
@@ -231,14 +231,14 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     String state = result.substring(2, 5);
                     if ("已确认".equals(state)) {
                         Intent intent = new Intent();
-                        intent.putExtra("BookLogAID", mAccountOrder.getOrders().get(i).getBookLogAID());
+                        intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                         intent.putExtra("isSure", "isSure");
                         intent.setClass(getActivity(), OrderDeatilActivity.class);
                         startActivity(intent);
                         animFromSmallToBigIN();
                     } else if ("未确认".equals(state)) {
                         Intent intent = new Intent();
-                        intent.putExtra("BookLogAID", mAccountOrder.getOrders().get(i).getBookLogAID());
+                        intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                         intent.setClass(getActivity(), PayActivity.class);
                         startActivity(intent);
                         animFromSmallToBigIN();
@@ -260,7 +260,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
      */
     private void queryAllOrderInfo(final int i) {
         String url = Constant.URL.HOST +
-                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getOrders().get(i).getBookLogAID();
+                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1)*8).getBookLogAID();
         HTTPUtils.get(getActivity(), url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -268,7 +268,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
             @Override
             public void onResponse(String s) {
-                Log.e("onResponse ", "orderPageCount"+orderPageCount);
+                Log.e("onResponse ", "orderPageCount" + orderPageCount);
                 Document doc = null;
                 try {
                     doc = DocumentHelper.parseText(s);
@@ -276,8 +276,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     String testxml = testElement.asXML();
                     String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     QueryOrder queryOrder = GsonUtils.parseJSON(result, QueryOrder.class);
-                    mQueryOrderList.remove((orderPageCount-1)*8+i);
-                    mQueryOrderList.add((orderPageCount-1)*8+i, queryOrder);
+                    mQueryOrderList.remove(i);
+                    mQueryOrderList.add(i, queryOrder);
                     /**
                      * 防止刷新不一致崩掉
                      */
@@ -303,7 +303,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         mOrder_list_foot = getActivity().getLayoutInflater().inflate(R.layout.order_list_foot, null);
         mOrderListview = (ListView) mInflate.findViewById(R.id.order_listView);
         mOrderListview.addFooterView(mOrder_list_foot);
-        mOrder_list_foot.findViewById(R.id.getMoreOrder).setOnClickListener(this);
+//        mOrder_list_foot.findViewById(R.id.getMoreOrder).setOnClickListener(this);
         mTextView_moreOrder = (TextView) mOrder_list_foot.findViewById(R.id.textView_MoreOrder);
         mMyAdapter = new MyAdapter();
         mOrderListview.setAdapter(mMyAdapter);
@@ -311,24 +311,19 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.getMoreOrder:
+    class MyItemClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (position==mAccountOrderEntityList.size()){
                 if (orderPageCount<mPages){
                     queryAccountIdToOrder();
                 }else{
                     mTextView_moreOrder.setText("没有更多订单了");
                 }
-                break;
-        }
-    }
-
-    class MyItemClickListener implements AdapterView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            queryOrderState(position);
+            }else{
+                queryOrderState(position);
+            }
         }
     }
 

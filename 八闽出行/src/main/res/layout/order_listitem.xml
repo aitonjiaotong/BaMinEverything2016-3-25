@@ -156,13 +156,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="19dp"
                         android:layout_toEndOf="@+id/textView_startPlace"
                         android:layout_toRightOf="@+id/textView_startPlace"
                         android:src="@mipmap/bus"/>
 
                     <TextView
+                        android:textSize="20dp"
                         android:id="@+id/textView_startPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -171,29 +170,28 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="12dp"
                         android:layout_marginStart="19dp"
-                        android:text="永安···"
+                        android:text="永安"
                         android:textColor="@color/title_bar"/>
 
                     <TextView
+                        android:textSize="20dp"
                         android:id="@+id/textView_endPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/imageView12"
                         android:layout_toRightOf="@+id/imageView12"
-                        android:text="···村头"
+                        android:text="村头"
                         android:textColor="@color/title_bar"/>
                 </RelativeLayout>
 
                 <TextView
+                    android:layout_marginLeft="12dp"
                     android:id="@+id/textView_startTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
                     android:text="出发日期：2016-02-18"
                     android:textColor="@color/tabs_select"/>
 
