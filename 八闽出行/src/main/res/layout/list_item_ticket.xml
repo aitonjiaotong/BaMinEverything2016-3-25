@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:textColor="@color/title_bar"
             android:text="06:20"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:paddingLeft="8dp"
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
             <TextView
+                android:lines="1"
                 android:id="@+id/start_station"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
                 android:drawablePadding="6dp"
                 android:text="湖滨长途汽车站"/>
             <TextView
+                android:lines="1"
                 android:id="@+id/destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,12 +58,12 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/tabs_select"
-            android:textSize="18sp"
-            android:padding="24dp"
+            android:textSize="18dp"
+            android:padding="8dp"
             android:background="@color/white"
-            android:text="￥23"/>
+            android:text="￥323"/>
         <TextView
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:id="@+id/reserve"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

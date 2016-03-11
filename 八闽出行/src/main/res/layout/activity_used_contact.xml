@@ -36,7 +36,8 @@
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="添加"
+            android:text="完成"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:id="@+id/add_passager"
             android:layout_centerVertical="true"
@@ -44,39 +45,14 @@
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/noneContact"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_below="@+id/relativeLayout5"
-        android:layout_centerHorizontal="true">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:textSize="@dimen/myPagerTextSize"
-                android:textColor="@color/title_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="暂无乘客信息"
-                android:id="@+id/textView6"/>
-        </LinearLayout>
-    </RelativeLayout>
-
     <ListView
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/used_contact_listview"
-        android:layout_below="@+id/relativeLayout5"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/textView50"/>
+        android:layout_above="@+id/textView50"
+        android:layout_below="@+id/textView_add_passager"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,5 +60,19 @@
         android:text="长按删除联系人"
         android:id="@+id/textView50"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="添加常用乘客"
+        android:textColor="@color/title_bar_light"
+        android:id="@+id/textView_add_passager"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/relativeLayout5"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

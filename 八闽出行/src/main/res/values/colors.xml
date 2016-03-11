@@ -43,7 +43,7 @@
     <color name="tv_black_pressed">#C0C0C0</color>
     <!--公交颜色-->
 
-    <color name="light_color">#5c9cf5</color>
+    <color name="light_color">#ff7d27</color>
     <color name="deep_gray">#c0c0c0</color>
 
 </resources>

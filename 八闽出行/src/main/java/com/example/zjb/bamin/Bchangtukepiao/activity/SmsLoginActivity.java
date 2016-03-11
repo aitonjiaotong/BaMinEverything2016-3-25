@@ -96,7 +96,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                         if (result == SMSSDK.RESULT_COMPLETE) {
                             toast("获取验证码成功");
                         } else {
-                            toast("获取验证码失败" + "开发期间每个手机号每天只能接收5条短信，换个手机号试一试");
+                            toast("获取验证码失败" + "登录过于频繁，12小时候再试");
                         }
                         break;
                 }
