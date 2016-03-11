@@ -126,11 +126,11 @@
             android:label="@string/title_activity_coupon_info">
         </activity>
         <activity
-            android:name=".Bchangtukepiao.activity.WelcomeActivity"
+            android:name=".Zeverything.WelcomeActivity"
             android:label="@string/title_activity_welcome">
         </activity>
         <activity
-            android:name=".Bchangtukepiao.activity.GuideActivity"
+            android:name=".Zeverything.GuideActivity"
             android:label="@string/title_activity_guide">
         </activity>
         <activity

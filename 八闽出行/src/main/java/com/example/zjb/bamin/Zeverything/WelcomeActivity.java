@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Bchangtukepiao.activity;
+package com.example.zjb.bamin.Zeverything;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.zjb.bamin.Bchangtukepiao.activity.MainActivity;
 import com.example.zjb.bamin.R;
 
 public class WelcomeActivity extends AppCompatActivity {
