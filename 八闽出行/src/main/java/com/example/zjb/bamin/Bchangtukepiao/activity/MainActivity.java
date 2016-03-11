@@ -162,23 +162,4 @@ public class MainActivity extends AppCompatActivity {
     private void animFromBigToSmallOUT() {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
-    ;
-
-    /**
-     * 双击退出应用
-     */
-//    private long currentTime = 0;
-//    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
-//        if(keyCode== KeyEvent.KEYCODE_BACK){
-//            if(System.currentTimeMillis()-currentTime>1000){
-//                Toast toast = Toast.makeText(MainActivity.this, "双击退出应用", Toast.LENGTH_SHORT);
-//                toast.show();
-//                currentTime=System.currentTimeMillis();
-//                return false;
-//            }else{
-//                return super.onKeyDown(keyCode, event);
-//            }
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    };
 }
