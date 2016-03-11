@@ -63,7 +63,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
         @Override
         public int getCount()
         {
-            return 15;
+            return 6;
         }
 
         @Override
