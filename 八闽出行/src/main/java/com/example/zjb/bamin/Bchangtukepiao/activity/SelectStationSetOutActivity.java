@@ -1,18 +1,17 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -20,6 +19,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -27,14 +28,13 @@ import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.PinyinUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.CompanySubZone;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.SubZone_;
 import com.example.zjb.bamin.Bchangtukepiao.sql.MySqLite;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.GetLastWordUtil;
-import com.example.zjb.bamin.Zutils.LogUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -44,42 +44,40 @@ import java.util.List;
 
 public class SelectStationSetOutActivity extends AppCompatActivity implements View.OnClickListener
 {
-
     //数据库相关----------start
     private String TAB_NAME = "setout";
     private int mVersion = 1;
     private SQLiteDatabase mDb;
     private ContentValues mValues;
     //数据库相关----------end
-    private boolean isCommonlyAddr = true;
-    private boolean isDone;
-    private ImageView mIv_back;
+
+    //常用地址相关------start
     private ListView mLv_commonly_used_address;
-    //常用地址List数据列表
-    private List<String> mComUsedAddrData = new ArrayList<String>();
-    private CommuonUsedAddrAdapter mCommUseAddrAdapter = new CommuonUsedAddrAdapter();
+    private List<String> mCommonly_used_address_data = new ArrayList<String>();
+    private UsedAddressAdapter mUsedAddressAdapter;
+    //常用地址相关------end
 
-    //整个Json返回值的数据List
-    private List<CompanySubZone> SetOutData = new ArrayList<CompanySubZone>();
-    //实际出发地的选择地区名称列表
-    private List<SubZone_> mAddressSetOutData = new ArrayList<>();
-    private GridViewAdapter mSetOutAddressAdapter = new GridViewAdapter();
+    //出发地区相关--------start
+    private GridView mGridview_address_set_out;
+    private List<CompanySubZone> SetOutData = new ArrayList<CompanySubZone>();//整个Json返回值的数据List
+    private List<SubZone_> mAddressSetOutData = new ArrayList<SubZone_>();//实际出发地的选择地区名称列表
+    private SetOutAdapter mSetOutAdapter;
+    //出发地区相关--------end
 
-    //拼音List数据列表
-    private List<String> pinYin_data = new ArrayList<String>();
-    //搜索List数据列表
-    private List<String> searchAddrData = new ArrayList<String>();
-    private SearchAddrAdapter mSearchAdapter = new SearchAddrAdapter();
+    //搜索列表相关--------start
+    private List<String> pinYin_data = new ArrayList<String>();//拼音List数据列表
+    private List<String> searchAddrData = new ArrayList<String>();//搜索List数据列表
+    private ListView mLv_search_address;
+    private RelativeLayout mRl_for_search_list;
+    private SearchAddrAdapter mSearchAddrAdapter;
+    //搜索列表相关--------end
 
-    private TextView mTv_btn_set_out;
-    private TextView mTv_btn_comm_used_addr;
+    private ImageView mIv_back;
     private EditText mEt_search_zone;
-    private ImageView mIv_clear;
-    private ListView mLv_search_addr;
-    private String mUser_input;
-    private GridView mGv_address_set_out;
+    private RadioGroup mRg_set_out_tabs;
+    private ImageView mIv_edit_text_clear;
     private LinearLayout mLl_for_progress_bar;
-    private String mMPhoneNum;
+    private String mUser_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,80 +85,63 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_station_set_out);
 
-
         MySqLite mySqLite = new MySqLite(SelectStationSetOutActivity.this, mVersion);
         mDb = mySqLite.getWritableDatabase();
         mValues = new ContentValues();
-
+        findViewID();
+        setListener();
         initUI();
-        setOnclick();
         initData();
     }
 
+    private void findViewID()
+    {
+        mIv_back = (ImageView) findViewById(R.id.iv_back);
+        mEt_search_zone = (EditText) findViewById(R.id.et_search_zone);
+        mRg_set_out_tabs = (RadioGroup) findViewById(R.id.rg_set_out_tabs);
+        mIv_edit_text_clear = (ImageView) findViewById(R.id.iv_clear);
+        mLv_commonly_used_address = (ListView) findViewById(R.id.lv_commonly_used_address);
+        mGridview_address_set_out = (GridView) findViewById(R.id.gridview_address_set_out);
+        mLl_for_progress_bar = (LinearLayout) findViewById(R.id.ll_for_progress_bar);
+        mLv_search_address = (ListView) findViewById(R.id.lv_search_address);
+        mRl_for_search_list = (RelativeLayout) findViewById(R.id.rl_for_search_list);
+    }
+
+    private void setListener()
+    {
+        mIv_back.setOnClickListener(this);
+        mIv_edit_text_clear.setOnClickListener(this);
+    }
 
     private void initUI()
     {
-        //ActionBar上的回退键
-        mIv_back = (ImageView) findViewById(R.id.iv_back);
-        //选择出发城市列表Tab
-        mTv_btn_set_out = (TextView) findViewById(R.id.tv_btn_set_out);
-        //选择出发城市列表加载友好提示
-        mLl_for_progress_bar = (LinearLayout) findViewById(R.id.ll_for_progress_bar);
-        //选择常用地址列表Tab
-        mTv_btn_comm_used_addr = (TextView) findViewById(R.id.tv_btn_comm_used_addr);
-
-        initCommonlyUsedAddr();
-        initSetOutAddr();
-        initUserSearchAddr();
         initEditText();
+        initSetOutTabsStage();
+        initCommonlyUsedAddress();
+        initSetOutAddress();
+        initSearchList();
     }
 
-    //初始化选择出发城市列表
-    private void initSetOutAddr()
+    private void initSearchList()
     {
-        mGv_address_set_out = (GridView) findViewById(R.id.gridview_address_set_out);
-        mGv_address_set_out.setAdapter(mSetOutAddressAdapter);
-        mGv_address_set_out.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent data = new Intent();
-                if ("沙县".equals(mAddressSetOutData.get(position).getZoneName())) {
-                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mAddressSetOutData.get(position).getZoneName());
-                } else {
-                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mAddressSetOutData.get(position).getZoneName()));
-                }
-                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
-                //保存用户选择后的地址到本地，储存为常用地址---start
-                if (!"".equals(mMPhoneNum)) {
-                    //判断数据库中是否有保存过的数据
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mAddressSetOutData.get(position).getZoneName()}, null, null, null);
-                    if (!mCursor_query.moveToNext()) {
-                        mValues.put("addr_name", mAddressSetOutData.get(position).getZoneName());
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mAddressSetOutData.get(position).getZoneName()});
-                        mValues.put("addr_name", mAddressSetOutData.get(position).getZoneName());
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                }
-                //保存用户选择后的地址到本地，储存为常用地址---end
-                finish();
-                animFromBigToSmallOUT();
-            }
-        });
-    }
-
-    //初始化用户搜索列表
-    private void initUserSearchAddr()
-    {
-        mLv_search_addr = (ListView) findViewById(R.id.lv_search_address);
-        mLv_search_addr.setAdapter(mSearchAdapter);
-        mLv_search_addr.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        mSearchAddrAdapter = new SearchAddrAdapter();
+        mLv_search_address.setAdapter(mSearchAddrAdapter);
+        mLv_search_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                //判断数据库中是否有保存过的数据
+                if (!hasCollected(TAB_NAME, "addr_name", searchAddrData.get(position)))
+                {
+                    mValues.put("addr_name", searchAddrData.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                } else
+                {
+                    mDb.delete(TAB_NAME, "addr_name = ?", new String[]{searchAddrData.get(position)});
+                    mValues.put("addr_name", searchAddrData.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                }
                 Intent data = new Intent();
                 if ("沙县".equals(searchAddrData.get(position)))
                 {
@@ -170,144 +151,13 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                     data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(searchAddrData.get(position)));
                 }
                 setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
-                //保存用户选择后的地址到本地，储存为常用地址---start
-                if (!"".equals(mMPhoneNum))
-                {
-                    //判断数据库中是否有保存过的数据
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{searchAddrData.get(position)}, null, null, null);
-                    if (!mCursor_query.moveToNext())
-                    {
-                        mValues.put("addr_name", searchAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else
-                    {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{searchAddrData.get(position)});
-                        mValues.put("addr_name", searchAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                }
-                //保存用户选择后的地址到本地，储存为常用地址---end
                 finish();
                 animFromBigToSmallOUT();
             }
         });
     }
 
-
-    //初始化常用地址列表
-    private void initCommonlyUsedAddr()
-    {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
-        mMPhoneNum = sp.getString("phoneNum", "");
-        mLv_commonly_used_address = (ListView) findViewById(R.id.lv_commonly_used_address);
-        mLv_commonly_used_address.setAdapter(mCommUseAddrAdapter);
-        if (!"".equals(mMPhoneNum))
-        {
-            //登陆状态下 查询本地数据库中是否有保存常用地址
-            queryDB();
-            mCommUseAddrAdapter.notifyDataSetChanged();
-        }
-        if (!"".equals(mMPhoneNum))
-        {
-            mLv_commonly_used_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
-            {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    //判断数据库中是否有保存过的数据------start
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mComUsedAddrData.get(position)}, null, null, null);
-                    if (!mCursor_query.moveToNext())
-                    {
-                        mValues.put("addr_name", mComUsedAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else
-                    {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mComUsedAddrData.get(position)});
-                        mValues.put("addr_name", mComUsedAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                    //判断数据库中是否有保存过的数据------start
-                    Intent data = new Intent();
-                    if ("沙县".equals(mComUsedAddrData.get(position)))
-                    {
-                        data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mComUsedAddrData.get(position));
-                    } else
-                    {
-                        LogUtil.show("onItemClick SelectStationSetOutActivity", GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
-                        data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
-                    }
-                    setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
-                    finish();
-                    animFromBigToSmallOUT();
-                }
-            });
-        }
-
-
-    }
-
-    /**
-     * 从大到小结束动画
-     */
-    private void animFromBigToSmallOUT() {
-        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
-    }
-
-    //初始化EditText控件
-    private void initEditText()
-    {
-        mIv_clear = (ImageView) findViewById(R.id.iv_clear);
-        mEt_search_zone = (EditText) findViewById(R.id.et_search_zone);
-        //初始化EditText默认在常用地址Tab时不可编辑--start
-        mEt_search_zone.setEnabled(false);
-        mEt_search_zone.setBackgroundResource(R.drawable.bg_cardview_gray);
-        //初始化EditText默认在常用地址Tab时不可编辑--end
-        mEt_search_zone.addTextChangedListener(new TextWatcher()
-        {
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-                if (!isCommonlyAddr)
-                {
-                    mUser_input = s.toString();
-                    if (count == 0)
-                    {
-                        mLv_search_addr.setVisibility(View.GONE);
-                        mGv_address_set_out.setVisibility(View.VISIBLE);
-                        mIv_clear.setVisibility(View.GONE);
-                    } else
-                    {
-                        mLv_search_addr.setVisibility(View.VISIBLE);
-                        mGv_address_set_out.setVisibility(View.GONE);
-                        mIv_clear.setVisibility(View.VISIBLE);
-                    }
-                    searchAddrData.clear();
-                    mSearchAdapter.notifyDataSetChanged();
-                    //比对用户输入的内容，并提取更新显示相关控件
-                    for (int i = 0; i < mAddressSetOutData.size(); i++)
-                    {
-                        String zoneName = mAddressSetOutData.get(i).getZoneName();
-                        if (mAddressSetOutData.get(i).getZoneName().startsWith(mUser_input.trim()) || pinYin_data.get(i).startsWith(mUser_input.trim().toLowerCase()))
-                        {
-                            searchAddrData.add(zoneName);
-                            mSearchAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-            }
-
-            public void afterTextChanged(Editable s)
-            {
-            }
-        });
-    }
-
-    public void initData()
+    private void initData()
     {
         HTTPUtils.get(SelectStationSetOutActivity.this, Constant.URLFromAiTon.GET_COMPANY_SUBZONE, new VolleyListener()
         {
@@ -322,13 +172,10 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 {
                 }.getType();
                 SetOutData = GsonUtils.parseJSONArray(s, type);
-                LogUtil.show("onResponse SelectStationSetOutActivity", s);
                 mAddressSetOutData.clear();
-                LogUtil.show("mAddressSetOutData.size", mAddressSetOutData.size() + "");
-                LogUtil.show("SetOutData.size", SetOutData.size() + "");
                 for (int i = 0; i < SetOutData.size(); i++)
                 {
-                    for(int j = 0;j <SetOutData.get(i).getSubZones().size();j++)
+                    for (int j = 0; j < SetOutData.get(i).getSubZones().size(); j++)
                     {
                         mAddressSetOutData.addAll(SetOutData.get(i).getSubZones().get(j).getSubZones());
                     }
@@ -336,21 +183,165 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
                 {
                     pinYin_data = getPinYin(mAddressSetOutData);
-                    mSetOutAddressAdapter.notifyDataSetChanged();
-                    isDone = true;
+                    mSetOutAdapter.notifyDataSetChanged();
                     mLl_for_progress_bar.setVisibility(View.GONE);
                 }
             }
         });
     }
 
-    private void setOnclick()
+    private void initSetOutAddress()
     {
-        mIv_back.setOnClickListener(this);
-        mTv_btn_set_out.setOnClickListener(this);
-        mTv_btn_comm_used_addr.setOnClickListener(this);
-        mIv_clear.setOnClickListener(this);
+        mSetOutAdapter = new SetOutAdapter();
+        mGridview_address_set_out.setAdapter(mSetOutAdapter);
+        mGridview_address_set_out.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Intent data = new Intent();
+                if ("沙县".equals(mAddressSetOutData.get(position).getZoneName()))
+                {
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mAddressSetOutData.get(position).getZoneName());
+                } else
+                {
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mAddressSetOutData.get(position).getZoneName()));
+                }
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
+
+                //保存用户选择后的地址到本地，储存为常用地址---start
+                if (!hasCollected(TAB_NAME, "addr_name", mAddressSetOutData.get(position).getZoneName()))
+                {
+                    mValues.put("addr_name", mAddressSetOutData.get(position).getZoneName());
+                    mDb.insert(TAB_NAME, null, mValues);
+
+                } else
+                {
+                    mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mAddressSetOutData.get(position).getZoneName()});
+                    mValues.put("addr_name", mAddressSetOutData.get(position).getZoneName());
+                    mDb.insert(TAB_NAME, null, mValues);
+                }
+                //保存用户选择后的地址到本地，储存为常用地址---end
+                finish();
+                animFromBigToSmallOUT();
+            }
+        });
     }
+
+    private void initCommonlyUsedAddress()
+    {
+        mUsedAddressAdapter = new UsedAddressAdapter();
+        mLv_commonly_used_address.setAdapter(mUsedAddressAdapter);
+        queryDB();
+        mUsedAddressAdapter.notifyDataSetChanged();
+        mLv_commonly_used_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                //判断数据库中是否有保存过的数据------start
+                if (!hasCollected(TAB_NAME, "addr_name", mCommonly_used_address_data.get(position)))
+                {
+                    mValues.put("addr_name", mCommonly_used_address_data.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                } else
+                {
+                    mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mCommonly_used_address_data.get(position)});
+                    mValues.put("addr_name", mCommonly_used_address_data.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                }
+                //判断数据库中是否有保存过的数据------start
+                Intent data = new Intent();
+                if ("沙县".equals(mCommonly_used_address_data.get(position)))
+                {
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mCommonly_used_address_data.get(position));
+                } else
+                {
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mCommonly_used_address_data.get(position)));
+                }
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
+                finish();
+                animFromBigToSmallOUT();
+            }
+        });
+
+    }
+
+    private void initSetOutTabsStage()
+    {
+        mRg_set_out_tabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                switch (checkedId)
+                {
+                    case R.id.rb_comm_used_addr:
+                        mLl_for_progress_bar.setVisibility(View.GONE);
+                        mLv_commonly_used_address.setVisibility(View.VISIBLE);
+                        mGridview_address_set_out.setVisibility(View.GONE);
+                        break;
+                    case R.id.rb_set_out:
+                        if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
+                        {
+                            mLl_for_progress_bar.setVisibility(View.GONE);
+                        } else
+                        {
+                            mLl_for_progress_bar.setVisibility(View.VISIBLE);
+                        }
+                        mLv_commonly_used_address.setVisibility(View.GONE);
+                        mGridview_address_set_out.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    }
+
+    private void initEditText()
+    {
+        mEt_search_zone.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                mUser_input = s.toString();
+                if ("".equals(mUser_input))
+                {
+                    mIv_edit_text_clear.setVisibility(View.GONE);//搜索框的清除按钮
+                    mRl_for_search_list.setVisibility(View.GONE);//搜索列表
+                } else
+                {
+                    mIv_edit_text_clear.setVisibility(View.VISIBLE);//搜索框的清除按钮
+                    mRl_for_search_list.setVisibility(View.VISIBLE);//搜索列表
+                }
+                searchAddrData.clear();
+                mSearchAddrAdapter.notifyDataSetChanged();
+                //比对用户输入的内容，并提取更新显示相关控件
+                for (int i = 0; i < mAddressSetOutData.size(); i++)
+                {
+                    String zoneName = mAddressSetOutData.get(i).getZoneName();
+                    if (mAddressSetOutData.get(i).getZoneName().startsWith(mUser_input.trim()) || pinYin_data.get(i).startsWith(mUser_input.trim().toLowerCase()))
+                    {
+                        searchAddrData.add(zoneName);
+                        mSearchAddrAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+            }
+        });
+    }
+
 
     @Override
     public void onClick(View v)
@@ -359,50 +350,49 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         {
             case R.id.iv_back:
                 finish();
-                AnimFromRightToLeft();
                 break;
             case R.id.iv_clear:
                 mEt_search_zone.setText("");
-                mLv_search_addr.setVisibility(View.GONE);
-                mGv_address_set_out.setVisibility(View.VISIBLE);
-                break;
-            case R.id.tv_btn_set_out:
-                isCommonlyAddr = false;
-                mLl_for_progress_bar.setVisibility(View.VISIBLE);
-                mTv_btn_set_out.setBackgroundResource(R.color.tabs_select);
-                mTv_btn_set_out.setTextColor(getResources().getColor(R.color.white));
-                mTv_btn_comm_used_addr.setBackgroundResource(R.color.gray);
-                mTv_btn_comm_used_addr.setTextColor(getResources().getColor(R.color.fillin_order_pay_gray_bg));
-                mLv_commonly_used_address.setVisibility(View.GONE);
-                mLv_search_addr.setVisibility(View.GONE);
-                mGv_address_set_out.setVisibility(View.VISIBLE);
-                if (!isDone)
-                {
-                    initData();
-                } else
-                {
-                    mLl_for_progress_bar.setVisibility(View.GONE);
-                }
-                //设置EditText默认在常用地址Tab时可编辑--start
-                mEt_search_zone.setEnabled(true);
-                mEt_search_zone.setBackgroundResource(R.drawable.bg_cardview);
-                //设置EditText默认在常用地址Tab时可编辑--end
-                break;
-            case R.id.tv_btn_comm_used_addr:
-                isCommonlyAddr = true;
-                mTv_btn_comm_used_addr.setBackgroundResource(R.color.tabs_select);
-                mTv_btn_comm_used_addr.setTextColor(getResources().getColor(R.color.white));
-                mTv_btn_set_out.setBackgroundResource(R.color.gray);
-                mTv_btn_set_out.setTextColor(getResources().getColor(R.color.fillin_order_pay_gray_bg));
-                mLv_commonly_used_address.setVisibility(View.VISIBLE);
-                mGv_address_set_out.setVisibility(View.GONE);
-                mLl_for_progress_bar.setVisibility(View.GONE);
-                //设置EditText默认在常用地址Tab时不可编辑--start
-                mEt_search_zone.setEnabled(false);
-                mEt_search_zone.setBackgroundResource(R.drawable.bg_cardview_gray);
-                //设置EditText默认在常用地址Tab时不可编辑--end
+                mRl_for_search_list.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    /**
+     * 查询本地数据库
+     */
+    public void queryDB()
+    {
+        Cursor mCursor_query = mDb.query(TAB_NAME, null, null, null, null, null, null);
+        mCommonly_used_address_data.clear();
+        boolean moveToFirst = mCursor_query.moveToFirst();
+        while (moveToFirst)
+        {
+            String addr_name = mCursor_query.getString(mCursor_query.getColumnIndex("addr_name"));
+            mCommonly_used_address_data.add(addr_name);
+            moveToFirst = mCursor_query.moveToNext();
+        }
+        Collections.reverse(mCommonly_used_address_data);
+        mCursor_query.close();
+    }
+
+    /**
+     * 查询本地数据库，判断是否有保存过的数据
+     */
+    private boolean hasCollected(String tabName, String columns, String selectionArags)
+    {
+        Cursor mCursor_query = mDb.query(tabName, new String[]{columns}, columns + "=?", new String[]{selectionArags}, null, null, null);
+        boolean hasCollected = mCursor_query.moveToNext();
+        mCursor_query.close();
+        return hasCollected;
+    }
+
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT()
+    {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 
     /**
@@ -420,19 +410,89 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         return pinyin_list;
     }
 
-    /**
-     * 常用地址列表适配器
-     */
-    class CommuonUsedAddrAdapter extends BaseAdapter
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
     {
+        if (null != this.getCurrentFocus())
+        {
+            //点击空白位置 隐藏软键盘
+            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.onTouchEvent(event);
+    }
+
+    /**
+     * 常用地址ListView适配器
+     */
+    class UsedAddressAdapter extends BaseAdapter
+    {
+
+        @Override
         public int getCount()
         {
-            if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
+            if (mCommonly_used_address_data != null && mCommonly_used_address_data.size() > 0)
             {
-                return mComUsedAddrData.size();
+                if (mCommonly_used_address_data.size() > 6)
+                {
+                    return 6;
+                } else
+                {
+                    return mCommonly_used_address_data.size();
+                }
             } else
             {
                 return 1;
+            }
+        }
+
+        @Override
+        public Object getItem(int position)
+        {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position)
+        {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            View layout = getLayoutInflater().inflate(R.layout.list_item_commonly_used_address, null);
+            TextView tv_com_used_addr = (TextView) layout.findViewById(R.id.tv_commonly_used_address);
+            if (mCommonly_used_address_data != null && mCommonly_used_address_data.size() > 0)
+            {
+                mLv_commonly_used_address.setClickable(true);
+                mLv_commonly_used_address.setEnabled(true);
+                tv_com_used_addr.setText(mCommonly_used_address_data.get(position));
+            } else
+            {
+                mLv_commonly_used_address.setClickable(false);
+                mLv_commonly_used_address.setEnabled(false);
+                tv_com_used_addr.setText("没有查找到数据！");
+            }
+            return layout;
+        }
+
+    }
+
+    /**
+     * 出发地区的ListView适配器
+     */
+    class SetOutAdapter extends BaseAdapter
+    {
+        public int getCount()
+        {
+            if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
+            {
+                return mAddressSetOutData.size();
+            } else
+            {
+                return 0;
             }
         }
 
@@ -448,14 +508,16 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
 
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            View layout = getLayoutInflater().inflate(R.layout.list_item_commonly_used_address, null);
-            TextView tv_com_used_addr = (TextView) layout.findViewById(R.id.tv_commonly_used_address);
-            if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
+            View layout = getLayoutInflater().inflate(R.layout.list_item_city_set_out, null);
+            TextView tv_cityName = (TextView) layout.findViewById(R.id.tv_city);
+            TextView pinyin = (TextView) layout.findViewById(R.id.tv_pinyin);
+            if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
             {
-                tv_com_used_addr.setText(mComUsedAddrData.get(position));
-            } else
+                tv_cityName.setText(mAddressSetOutData.get(position).getZoneName());
+            }
+            if (pinYin_data != null && pinYin_data.size() > 0)
             {
-                tv_com_used_addr.setText("没有查找到数据！");
+                pinyin.setText(pinYin_data.get(position));
             }
             return layout;
         }
@@ -493,82 +555,4 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         }
     }
 
-    /**
-     * GridView 出发城市列表适配器
-     */
-    class GridViewAdapter extends BaseAdapter
-    {
-        public int getCount()
-        {
-            if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
-            {
-                return mAddressSetOutData.size();
-            } else
-            {
-                return 0;
-            }
-        }
-
-        public Object getItem(int position)
-        {
-            return null;
-        }
-
-        public long getItemId(int position)
-        {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View layout = getLayoutInflater().inflate(R.layout.list_item_city_set_out, null);
-            TextView tv_cityName = (TextView) layout.findViewById(R.id.tv_city);
-            TextView pinyin = (TextView) layout.findViewById(R.id.tv_pinyin);
-            if (mAddressSetOutData != null && mAddressSetOutData.size() > 0)
-            {
-                tv_cityName.setText(mAddressSetOutData.get(position).getZoneName());
-                LogUtil.show("getView GridViewAdapter", mAddressSetOutData.get(position).getZoneName());
-            }
-            if (pinYin_data != null && pinYin_data.size() > 0)
-            {
-                pinyin.setText(pinYin_data.get(position));
-            }
-            return layout;
-        }
-    }
-
-    /**
-     * 查询本地数据库
-     */
-    public void queryDB()
-    {
-        Cursor mCursor_query = mDb.query(TAB_NAME, null, null, null, null, null, null);
-        mComUsedAddrData.clear();
-        boolean moveToFirst = mCursor_query.moveToFirst();
-        while (moveToFirst)
-        {
-            String addr_name = mCursor_query.getString(mCursor_query.getColumnIndex("addr_name"));
-            mComUsedAddrData.add(addr_name);
-            moveToFirst = mCursor_query.moveToNext();
-        }
-        Collections.reverse(mComUsedAddrData);
-        mCursor_query.close();
-    }
-
-    private void AnimFromRightToLeft()
-    {
-        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
-    }
-
-    public boolean onKeyDown(int keyCode, android.view.KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            finish();
-            AnimFromRightToLeft();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    ;
 }

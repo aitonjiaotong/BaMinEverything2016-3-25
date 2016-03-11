@@ -146,7 +146,7 @@
             android:label="@string/title_activity_back_ticket" >
         </activity>
         <activity
-            android:name=".Bchangtukepiao.activity.EverytingActivity"
+            android:name=".Zeverything.EverytingActivity"
             android:label="@string/title_activity_everyting"
             android:windowSoftInputMode="adjustNothing" >
             <intent-filter>
@@ -502,6 +502,10 @@
         <activity
             android:name=".Abusline.busline_aiton.TransitRouteActivity"
             android:label="@string/title_activity_transit_route" >
+        </activity>
+        <activity
+            android:name=".Bchangtukepiao.activity.SelectStationArriveActivity11"
+            android:label="@string/title_activity_select_station_arrive11" >
         </activity>
     </application>
 

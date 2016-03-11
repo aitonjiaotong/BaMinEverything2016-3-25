@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Bchangtukepiao.activity;
+package com.example.zjb.bamin.Zeverything;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
