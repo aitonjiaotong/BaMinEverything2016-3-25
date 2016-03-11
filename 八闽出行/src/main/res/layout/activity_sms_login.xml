@@ -50,6 +50,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="手机号"
@@ -64,6 +65,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:textSize="@dimen/normalEditTextSize"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:hint="请输入手机号码"
@@ -109,6 +111,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="验证码"
@@ -129,6 +132,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
+                        android:textSize="@dimen/normalEditTextSize"
                         android:inputType="number"
                         android:maxLength="4"
                         android:hint="请输入验证码"

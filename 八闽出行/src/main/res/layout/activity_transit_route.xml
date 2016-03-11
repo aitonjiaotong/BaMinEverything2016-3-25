@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="查询结果信息"
-            android:textSize="18sp"/>
+            android:textSize="18dp"/>
 
         <ImageView
             android:id="@+id/iv_back1"
@@ -71,12 +71,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:text="从"/>
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:id="@+id/tv_start_station"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +92,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:text="从"/>
 
                 <TextView
+                    android:textSize="@dimen/normalTextSize"
                     android:id="@+id/tv_end_station"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

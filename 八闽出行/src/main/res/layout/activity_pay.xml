@@ -29,6 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
