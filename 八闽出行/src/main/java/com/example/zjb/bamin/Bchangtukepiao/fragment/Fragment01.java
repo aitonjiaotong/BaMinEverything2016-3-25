@@ -22,7 +22,7 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.Bchangtukepiao.activity.SelectStationArriveActivity11;
+import com.example.zjb.bamin.Bchangtukepiao.activity.SelectStationArriveActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SelectStationSetOutActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TicketActivity;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
@@ -173,7 +173,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                 break;
             case R.id.ll_choose_arrive:
                 //跳转到达车站选择界面
-                intent.setClass(getActivity(), SelectStationArriveActivity11.class);
+                intent.setClass(getActivity(), SelectStationArriveActivity.class);
                 startActivityForResult(intent, Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_ARRIVE);
                 animFromLeftToRight();
                 break;

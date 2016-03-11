@@ -3,17 +3,17 @@ package com.example.zjb.bamin.Bchangtukepiao.activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -29,16 +29,14 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
-import com.example.zjb.bamin.ZcustomView.MyGridView;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.CompanySubZone;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.SubZone_;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_sites.Sites;
 import com.example.zjb.bamin.Bchangtukepiao.sql.MySqLite;
-import com.example.zjb.bamin.Zutils.DialogShow;
+import com.example.zjb.bamin.R;
+import com.example.zjb.bamin.ZcustomView.MyGridView;
 import com.example.zjb.bamin.Zutils.GetLastWordUtil;
-import com.example.zjb.bamin.Zutils.LogUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -57,291 +55,171 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
     private ContentValues mValues;
     //数据库相关----------end
 
-    //控制子gridview的开关------start
+    //控制子gridview的开关
     private int mIsOpen = -1;
     private int mShiPostion = 0;
-    //控制子gridview的开关------end
-
-    // 到达目的地相关的列表------start
-    private List<CompanySubZone> parent_list_data = new ArrayList<CompanySubZone>();//省份的所有数据List列表
-    private List<String> parent_list_name = new ArrayList<String>();//省份的所有数据List列表(省份名称的字符串)
-    private List<SubZone_> parent_list_xianshi_name = new ArrayList<>();
-    private Map<String, List<String>> map = new HashMap<String, List<String>>();//关联省份与省份下一级的市
-    // 到达目的地相关的列表------start
-
-    //常用地址相关------start
+    private ImageView mIv_back;
+    //常用地址相关
     private ListView mLv_commonly_used_address;
     private List<String> mComUsedAddrData = new ArrayList<String>();
     private CommuonUsedAddrAdapter mAdapter = new CommuonUsedAddrAdapter();
-    private String mCenterCityName;
-    //常用地址相关------end
 
-    //搜索所有站点的列表-----start
+    //省份的所有数据List列表
+    private List<CompanySubZone> parent_list_data = new ArrayList<CompanySubZone>();
+    //省份的所有数据List列表(省份名称的字符串)
+    private List<String> parent_list_name = new ArrayList<String>();
+    private List<SubZone_> parent_list_xianshi_name = new ArrayList<>();
+    //关联省份与省份下一级的市
+    private Map<String, List<String>> map = new HashMap<String, List<String>>();
+    //搜索列表相关
     private List<Sites> mSitesData = new ArrayList<Sites>();
     private List<String> mUserSearchSitesData = new ArrayList<String>();
 
-    private String mUser_input;
-    private boolean isCommonlyAddr = true;
-    private ListView mLv_search_addr;
-
-    private SearchAddrAdapter mSearchAdapter = new SearchAddrAdapter();
-    //搜索所有站点的列表-----end
-
-
-    private ImageView mIv_back;
-    private EditText mSearch_editText;
-    private ImageView mIv_search_clear;
-
-
+    private TextView mTv_btn_arrive;
+    private TextView mTv_btn_comm_used_addr;
+    private GridView mGridView_xianshi;
+    private RelativeLayout mXianshi_rela;
+    private MyGridViewAdapter mMyGridViewAdapter;
+    private ProgressBar mRefreash_arrive;
     private ListView mArrive_listView;
     private MyArriveAdapter mMyArriveAdapter;
-
-    private MyGridViewAdapter mMyGridViewAdapter;
-
-    private RelativeLayout mXianshi_rela;
-
-    private String mPhoneNum;
-    private ProgressBar mRefreash_arrive;
-    private GridView mGridView_xianshi;
+    private EditText mEt_search_city;
+    private ListView mLv_search_addr;
+    private String mUser_input;
+    private boolean isCommonlyAddr = true;
+    private ImageView mIv_clear;
+    private SearchAddrAdapter mSearchAdapter = new SearchAddrAdapter();
+    private RelativeLayout mRl_for_search_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_select_station_arrive);
 
-        initSharedPreferences();
         initDB();
-        findViewId();
+        findViewID();
         initUI();
         setOnclick();
         initData();
-
-    }
-
-    private void initSharedPreferences()
-    {
-        //获取登陆状态
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
-        mPhoneNum = sp.getString("phoneNum", "");
     }
 
     private void initData()
     {
-        //初始化数据
         initBaseData();
-
-        //初始化用户搜索地址
         initSitesData();
-
     }
 
     private void initBaseData()
     {
-        mRefreash_arrive.setVisibility(View.VISIBLE);
-        mArrive_listView.setVisibility(View.GONE);
-        mXianshi_rela.setVisibility(View.GONE);
-        HTTPUtils.get(SelectStationArriveActivity.this, Constant.URLFromAiTon.GET_ZONE_STREE, new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(SelectStationArriveActivity.this, "网络连接异常或正在维护", "确认");
-            }
-
-            @Override
-            public void onResponse(String s) {
-                /**--------解析Json------------------*/
-                Type type = new TypeToken<ArrayList<CompanySubZone>>() {
-                }.getType();
-                ArrayList<CompanySubZone> o = GsonUtils.parseJSONArray(s, type);
-                //加载解析Json得到各省份数据
-                parent_list_data.clear();
-                parent_list_data.addAll(o);
-                for (int i = 0; i < parent_list_data.size(); i++) {
-                    //获取各省份名称，放置于List容器中，用于适配器中更新相关数据
-                    parent_list_name.add(i, parent_list_data.get(i).getZoneName());
-                    List<String> list1 = new ArrayList<String>();//保存省份下一级的各市地区名称(字符串)
-                    for (int j = 0; j < parent_list_data.get(i).getSubZones().size(); j++) {
-                        list1.add(parent_list_data.get(i).getSubZones().get(j).getZoneName());
-                    }
-                    map.put(parent_list_data.get(i).getZoneName(), list1);
-                }
-                mMyArriveAdapter.notifyDataSetChanged();
-                mRefreash_arrive.setVisibility(View.GONE);
-                mArrive_listView.setVisibility(View.VISIBLE);
-                mXianshi_rela.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    /*初始化本地数据库内是否有保存常用地址数据     */
-    private void initDB()
-    {
-        //数据库查询相关-------------start
-        MySqLite mySqLite = new MySqLite(SelectStationArriveActivity.this, mVersion);
-        mDb = mySqLite.getWritableDatabase();
-        mValues = new ContentValues();
-        //数据库查询相关-------------end
-    }
-
-    private void initSitesData()
-    {
-        HTTPUtils.get(SelectStationArriveActivity.this, Constant.URLFromAiTon.GET_SITE, new VolleyListener()
+        HTTPUtils.get(SelectStationArriveActivity.this, Constant.URLFromAiTon.GET_ZONE_STREE, new VolleyListener()
         {
             @Override
             public void onErrorResponse(VolleyError volleyError)
             {
-                DialogShow.setDialog(SelectStationArriveActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             @Override
             public void onResponse(String s)
             {
-                Type type = new TypeToken<ArrayList<Sites>>()
+                /**--------解析Json------------------*/
+                Type type = new TypeToken<ArrayList<CompanySubZone>>()
                 {
                 }.getType();
-                mSitesData = GsonUtils.parseJSONArray(s, type);
-                Log.e("onResponse:mSitesData ", mSitesData.size() + "");
+                ArrayList<CompanySubZone> o = GsonUtils.parseJSONArray(s, type);
+                //加载解析Json得到各省份数据
+                parent_list_data.clear();
+                parent_list_data.addAll(o);
+                for (int i = 0; i < parent_list_data.size(); i++)
+                {
+                    //获取各省份名称，放置于List容器中，用于适配器中更新相关数据
+                    parent_list_name.add(i, parent_list_data.get(i).getZoneName());
+                    List<String> list1 = new ArrayList<String>();//保存省份下一级的各市地区名称(字符串)
+                    for (int j = 0; j < parent_list_data.get(i).getSubZones().size(); j++)
+                    {
+                        list1.add(parent_list_data.get(i).getSubZones().get(j).getZoneName());
+                    }
+                    map.put(parent_list_data.get(i).getZoneName(), list1);
+                }
+                mMyArriveAdapter.notifyDataSetChanged();
+
             }
         });
+
+
     }
 
-
-    private void findViewId()
+    private void findViewID()
     {
-        mIv_back = (ImageView) findViewById(R.id.iv_back);
-        mSearch_editText = (EditText) findViewById(R.id.et_search_city);
-        mIv_search_clear = (ImageView) findViewById(R.id.iv_clear);
-        mArrive_listView = (ListView) findViewById(R.id.arrive_listView);
+        mRl_for_search_address = (RelativeLayout) findViewById(R.id.rl_for_search_address);
+        mIv_clear = (ImageView) findViewById(R.id.iv_clear);
         mXianshi_rela = (RelativeLayout) findViewById(R.id.xianshi_rela);
-        mLv_commonly_used_address = (ListView) findViewById(R.id.lv_commonly_used_address);
-        mRefreash_arrive = (ProgressBar) findViewById(R.id.refreash_arrive);
         mGridView_xianshi = (GridView) findViewById(R.id.gridView_xianshi);
+        mIv_back = (ImageView) findViewById(R.id.iv_back);
+        mLv_commonly_used_address = (ListView) findViewById(R.id.lv_commonly_used_address);
+
+        mArrive_listView = (ListView) findViewById(R.id.arrive_listView);
+        mTv_btn_arrive = (TextView) findViewById(R.id.tv_btn_arrive);
+        mTv_btn_comm_used_addr = (TextView) findViewById(R.id.tv_btn_comm_used_addr);
+        mRefreash_arrive = (ProgressBar) findViewById(R.id.refreash_arrive);
+        mEt_search_city = (EditText) findViewById(R.id.et_search_city);
+        mLv_search_addr = (ListView) findViewById(R.id.lv_search_address);
+
     }
+
+    private void initDB()
+    {
+        MySqLite mySqLite = new MySqLite(SelectStationArriveActivity.this, mVersion);
+        mDb = mySqLite.getWritableDatabase();
+        mValues = new ContentValues();
+    }
+
 
     private void initUI()
     {
         initEdiText();
-
-        //初始化用户搜索列表相关
+        initCommonlyUsedAddr();
+        initArriveAddr();
         initUserSearchAddr();
+    }
 
-
-        //到达目地的ListView
+    private void initArriveAddr()
+    {
         mMyArriveAdapter = new MyArriveAdapter();
         mArrive_listView.setAdapter(mMyArriveAdapter);
 
-        //****初始化常用地址ListView列表****-----start
-        if (!"".equals(mPhoneNum))
-        {
-            //登陆状态下 查询本地数据库中是否有保存常用地址
-            queryDB();
-            mAdapter.notifyDataSetChanged();
-            Log.e("initUI ", "initUI " + mComUsedAddrData.toString());
-        }
-        mLv_commonly_used_address.setAdapter(mAdapter);
-        if (!"".equals(mPhoneNum))
-        {
-            mLv_commonly_used_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
-            {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    //判断数据库中是否有保存过的数据------start
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mComUsedAddrData.get(position)}, null, null, null);
-                    if (!mCursor_query.moveToNext())
-                    {
-                        mValues.put("addr_name", mComUsedAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else
-                    {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mComUsedAddrData.get(position)});
-                        mValues.put("addr_name", mComUsedAddrData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                    //判断数据库中是否有保存过的数据------end
-                    Intent intent = new Intent();
-                    if ("沙县".equals(mComUsedAddrData.get(position)))
-                    {
-                        intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mComUsedAddrData.get(position));
-                    } else
-                    {
-                        intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
-                    }
-                    setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR, intent);
-                    finish();
-                    animFromBigToSmallOUT();
-                }
-            });
-        }
-        //****初始化常用地址ListView列表****-----end
-
-
-        //各县市地区
         mMyGridViewAdapter = new MyGridViewAdapter();
         mGridView_xianshi.setAdapter(mMyGridViewAdapter);
-        mRefreash_arrive = (ProgressBar) findViewById(R.id.refreash_arrive);
-
     }
 
-    /**
-     * 从大到小结束动画
-     */
-    private void animFromBigToSmallOUT() {
-        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
-    }
-
-    //初始化用户搜索列表ListView
-    private void initUserSearchAddr()
+    private void initCommonlyUsedAddr()
     {
-        mLv_search_addr = (ListView) findViewById(R.id.lv_search_address);
-        mLv_search_addr.setAdapter(mSearchAdapter);
-        mLv_search_addr.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        mLv_commonly_used_address.setAdapter(mAdapter);
+        mLv_commonly_used_address.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Intent data = new Intent();
-                if ("沙县".equals(mUserSearchSitesData.get(position)))
+                Intent intent = new Intent();
+                if ("沙县".equals(mComUsedAddrData.get(position)))
                 {
-                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mUserSearchSitesData.get(position));
+                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mComUsedAddrData.get(position));
                 } else
                 {
-                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mUserSearchSitesData.get(position)));
-                    Log.e("-->onItemClick ", mUserSearchSitesData.get(position));
+                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
                 }
-                setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_SEARCH_ADDR, data);
-
-                //保存用户选择后的地址到本地，储存为常用地址---start
-                if (!"".equals(mPhoneNum))
-                {
-                    //判断数据库中是否有保存过的数据------start
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mUserSearchSitesData.get(position)}, null, null, null);
-                    if (!mCursor_query.moveToNext())
-                    {
-                        mValues.put("addr_name", mUserSearchSitesData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else
-                    {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mUserSearchSitesData.get(position)});
-                        mValues.put("addr_name", mUserSearchSitesData.get(position));
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                    //判断数据库中是否有保存过的数据------end
-                }
-                //保存用户选择后的地址到本地，储存为常用地址---end
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR, intent);
                 finish();
                 animFromBigToSmallOUT();
             }
         });
+        queryDB();
+        mAdapter.notifyDataSetChanged();
     }
-
 
     private void initEdiText()
     {
-        /**---------初始化用户搜索列表ListView----------*/
-        mSearch_editText.addTextChangedListener(new TextWatcher()
+        mEt_search_city.addTextChangedListener(new TextWatcher()
         {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -353,19 +231,12 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             {
 
                 mUser_input = s.toString();
-                if (count == 0)
+                if ("".equals(mUser_input))
                 {
-                    mArrive_listView.setVisibility(View.VISIBLE);//到达列表
-                    mLv_search_addr.setVisibility(View.GONE);//用户搜索列表
-                    mXianshi_rela.setVisibility(View.GONE);//县市列表
-                    mIv_search_clear.setVisibility(View.GONE);
+                    mRl_for_search_address.setVisibility(View.GONE);
                 } else
                 {
-                    mArrive_listView.setVisibility(View.GONE);//到达列表
-                    mLv_search_addr.setVisibility(View.VISIBLE);//搜索列表
-                    mXianshi_rela.setVisibility(View.GONE);//县市列表
-                    mIv_search_clear.setVisibility(View.VISIBLE);
-
+                    mRl_for_search_address.setVisibility(View.VISIBLE);
                     mUserSearchSitesData.clear();
                     mSearchAdapter.notifyDataSetChanged();
                     //比对用户输入的内容，并提取更新显示相关控件
@@ -380,7 +251,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                     }
                 }
 
-
             }
 
             @Override
@@ -390,41 +260,92 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         });
     }
 
-
-    private void setOnclick()
+    //初始化用户搜索列表ListView
+    private void initUserSearchAddr()
     {
-        mIv_back.setOnClickListener(this);
-        mIv_search_clear.setOnClickListener(this);
-        findViewById(R.id.back_to_shengshi).setOnClickListener(this);
-        mGridView_xianshi.setOnItemClickListener(new MyGridViewOnItemClickListener());
-
-    }
-
-
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
+        mLv_search_addr.setOnScrollListener(new AbsListView.OnScrollListener()
         {
-            case R.id.iv_back:
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+                if (scrollState == SCROLL_STATE_TOUCH_SCROLL)
+                {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+            }
+        });
+
+        mLv_search_addr.setAdapter(mSearchAdapter);
+        mLv_search_addr.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                //判断数据库中是否有保存过的数据
+                Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mUserSearchSitesData.get(position)}, null, null, null);
+                if (!mCursor_query.moveToNext())
+                {
+                    mValues.put("addr_name", mUserSearchSitesData.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                } else
+                {
+                    mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mUserSearchSitesData.get(position)});
+                    mValues.put("addr_name", mUserSearchSitesData.get(position));
+                    mDb.insert(TAB_NAME, null, mValues);
+                }
+                mCursor_query.close();
+
+                Intent data = new Intent();
+                if ("沙县".equals(mUserSearchSitesData.get(position)))
+                {
+                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mUserSearchSitesData.get(position));
+                } else
+                {
+                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mUserSearchSitesData.get(position)));
+                }
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_SEARCH_ADDR, data);
                 finish();
                 animFromBigToSmallOUT();
-                break;
-
-            case R.id.iv_clear:
-                mSearch_editText.setText("");
-                mArrive_listView.setVisibility(View.VISIBLE);//到达列表
-                mLv_search_addr.setVisibility(View.GONE);//用户搜索列表
-                mXianshi_rela.setVisibility(View.GONE);//到达县市列表
-                break;
-            case R.id.back_to_shengshi:
-                mArrive_listView.setVisibility(View.VISIBLE);//到达列表
-                mLv_search_addr.setVisibility(View.GONE);//用户搜索列表
-                mXianshi_rela.setVisibility(View.GONE);//到达县市列表
-                break;
-        }
+            }
+        });
     }
 
+    /**
+     * 用户搜索时显示列表的适配器
+     */
+    class SearchAddrAdapter extends BaseAdapter
+    {
+        public int getCount()
+        {
+            return mUserSearchSitesData.size();
+        }
+
+        public Object getItem(int position)
+        {
+            return null;
+        }
+
+        public long getItemId(int position)
+        {
+            return 0;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            View layout = getLayoutInflater().inflate(R.layout.list_item_search_city, null);
+            TextView tv_city_search = (TextView) layout.findViewById(R.id.tv_city);
+            if (mUserSearchSitesData != null && mUserSearchSitesData.size() > 0)
+            {
+                tv_city_search.setText(mUserSearchSitesData.get(position));
+            }
+            return layout;
+        }
+    }
 
     class MyArriveAdapter extends BaseAdapter implements View.OnClickListener
     {
@@ -482,15 +403,9 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             {
                 parent_list_xianshi_name.clear();
                 parent_list_xianshi_name.addAll(parent_list_data.get(mShiPostion).getSubZones().get(position).getSubZones());
-                LogUtil.show("onClick 各市的下标:", position + "");
-                LogUtil.show("onClick 各市的下标:", parent_list_data.get(mShiPostion).getSubZones().get(position).getZoneName());
-                mCenterCityName = parent_list_data.get(mShiPostion).getSubZones().get(position).getZoneName();
                 mMyGridViewAdapter.notifyDataSetChanged();
                 mArrive_listView.setVisibility(View.GONE);//到达列表
                 mXianshi_rela.setVisibility(View.VISIBLE);//到达县市列表
-                mLv_search_addr.setVisibility(View.GONE);//用户搜索列表
-
-
             }
         }
 
@@ -508,7 +423,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                     {
                         mIsOpen = position;
                         mShiPostion = position;
-                        LogUtil.show("onClick mShiPostion:", mShiPostion + "");
                     }
                     mMyArriveAdapter.notifyDataSetChanged();
                     break;
@@ -547,50 +461,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         }
     }
 
-    class CommuonUsedAddrAdapter extends BaseAdapter
-    {
-
-        @Override
-        public int getCount()
-        {
-
-            if (mComUsedAddrData.size() > 5)
-            {
-                return 5;
-            } else
-            {
-                return mComUsedAddrData.size();
-            }
-        }
-
-        @Override
-        public Object getItem(int position)
-        {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position)
-        {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View layout = getLayoutInflater().inflate(R.layout.list_item_commonly_used_address, null);
-            TextView tv_com_used_addr = (TextView) layout.findViewById(R.id.tv_commonly_used_address);
-            if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
-            {
-                tv_com_used_addr.setText(mComUsedAddrData.get(position));
-            } else
-            {
-                tv_com_used_addr.setText("没有查找到常用地址数据！");
-            }
-            return layout;
-        }
-    }
-
     class MyGridViewAdapter extends BaseAdapter
     {
 
@@ -617,19 +487,162 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         {
             View inflate = getLayoutInflater().inflate(R.layout.list_item_city_set_out, null);
             TextView tv_city = (TextView) inflate.findViewById(R.id.tv_city);
-            if ("市区".equals(parent_list_xianshi_name.get(position).getZoneName()))
-            {
-                tv_city.setText(mCenterCityName);
-            } else
-            {
-                tv_city.setText(parent_list_xianshi_name.get(position).getZoneName());
-            }
+            tv_city.setText(parent_list_xianshi_name.get(position).getZoneName());
             return inflate;
         }
     }
 
+
+    private void initSitesData()
+    {
+        HTTPUtils.get(SelectStationArriveActivity.this, Constant.URLFromAiTon.GET_SITE, new VolleyListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError)
+            {
+            }
+
+            @Override
+            public void onResponse(String s)
+            {
+                Type type = new TypeToken<ArrayList<Sites>>()
+                {
+                }.getType();
+                mSitesData = GsonUtils.parseJSONArray(s, type);
+            }
+        });
+    }
+
+
+    private void setOnclick()
+    {
+        mIv_back.setOnClickListener(this);
+        mTv_btn_arrive.setOnClickListener(this);
+        mTv_btn_comm_used_addr.setOnClickListener(this);
+        findViewById(R.id.back_to_shengshi).setOnClickListener(this);
+        mGridView_xianshi.setOnItemClickListener(new MyGridViewOnItemClickListener());
+        mIv_clear.setOnClickListener(this);
+}
+
+    class MyGridViewOnItemClickListener implements AdapterView.OnItemClickListener
+    {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            //判断数据库中是否有保存过的数据
+            Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{parent_list_xianshi_name.get(position).getZoneName()}, null, null, null);
+            if (!mCursor_query.moveToNext())
+            {
+                mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
+                mDb.insert(TAB_NAME, null, mValues);
+            } else
+            {
+                mDb.delete(TAB_NAME, "addr_name = ?", new String[]{parent_list_xianshi_name.get(position).getZoneName()});
+                mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
+                mDb.insert(TAB_NAME, null, mValues);
+            }
+            mCursor_query.close();
+            Intent intent = new Intent();
+            if ("沙县".equals(parent_list_xianshi_name.get(position).getZoneName()))
+            {
+                intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, parent_list_xianshi_name.get(position).getZoneName());
+            } else
+            {
+                intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(parent_list_xianshi_name.get(position).getZoneName()));
+            }
+            setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_ADDR, intent);
+            //保存用户选择后的地址到本地，储存为常用地址---start
+            finish();
+            animFromBigToSmallOUT();
+        }
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.back_to_shengshi:
+                mArrive_listView.setVisibility(View.VISIBLE);//到达列表
+                mXianshi_rela.setVisibility(View.GONE);//到达县市列表
+                break;
+            case R.id.iv_back:
+                finish();
+                AnimFromRightToLeft();
+                break;
+            case R.id.tv_btn_arrive:
+                isCommonlyAddr = false;
+                mTv_btn_arrive.setBackgroundResource(R.color.tabs_select);
+                mTv_btn_arrive.setTextColor(getResources().getColor(R.color.white));
+                mTv_btn_comm_used_addr.setBackgroundResource(R.color.gray);
+                mTv_btn_comm_used_addr.setTextColor(getResources().getColor(R.color.fillin_order_pay_gray_bg));
+                //TODO
+                mLv_commonly_used_address.setVisibility(View.GONE);//常用地址
+                mArrive_listView.setVisibility(View.VISIBLE);//到达列表
+                break;
+            case R.id.tv_btn_comm_used_addr:
+                isCommonlyAddr = true;
+                mTv_btn_comm_used_addr.setBackgroundResource(R.color.tabs_select);
+                mTv_btn_comm_used_addr.setTextColor(getResources().getColor(R.color.white));
+                mTv_btn_arrive.setBackgroundResource(R.color.gray);
+                mTv_btn_arrive.setTextColor(getResources().getColor(R.color.fillin_order_pay_gray_bg));
+
+                mLv_commonly_used_address.setVisibility(View.VISIBLE);//常用地址
+                mArrive_listView.setVisibility(View.GONE);//到达列表
+                break;
+            case R.id.iv_clear:
+                mEt_search_city.setText("");
+                mRl_for_search_address.setVisibility(View.GONE);//用户搜索列表
+                break;
+        }
+    }
+
+    class CommuonUsedAddrAdapter extends BaseAdapter
+    {
+
+        @Override
+        public int getCount()
+        {
+            if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
+            {
+                return mComUsedAddrData.size();
+            } else
+            {
+                return 1;
+            }
+        }
+
+        @Override
+        public Object getItem(int position)
+        {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position)
+        {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            View layout = getLayoutInflater().inflate(R.layout.list_item_commonly_used_address, null);
+            TextView tv_com_used_addr = (TextView) layout.findViewById(R.id.tv_commonly_used_address);
+            if (mComUsedAddrData != null && mComUsedAddrData.size() > 0)
+            {
+                tv_com_used_addr.setText(mComUsedAddrData.get(position));
+            } else
+            {
+                tv_com_used_addr.setText("没有查找到数据！");
+            }
+            return layout;
+        }
+    }
+
     /**
-     * 查询本地数据库  常用地址
+     * 查询本地数据库
      */
     public void queryDB()
     {
@@ -639,7 +652,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         while (moveToFirst)
         {
             String addr_name = mCursor_query.getString(mCursor_query.getColumnIndex("addr_name"));
-            Log.e("queryDB ", "queryDB " + addr_name);
             mComUsedAddrData.add(addr_name);
             moveToFirst = mCursor_query.moveToNext();
         }
@@ -647,10 +659,17 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         mCursor_query.close();
     }
 
-
     private void AnimFromRightToLeft()
     {
         overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
+    }
+
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT()
+    {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 
     public boolean onKeyDown(int keyCode, android.view.KeyEvent event)
@@ -663,125 +682,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * //     * 用户搜索时显示列表的适配器
-     * //
-     */
-    class SearchAddrAdapter extends BaseAdapter
-    {
-        public int getCount()
-        {
-            return mUserSearchSitesData.size();
-        }
-
-        public Object getItem(int position)
-        {
-            return null;
-        }
-
-        public long getItemId(int position)
-        {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View layout = getLayoutInflater().inflate(R.layout.list_item_search_city, null);
-            TextView tv_city_search = (TextView) layout.findViewById(R.id.tv_city);
-            if (mUserSearchSitesData != null && mUserSearchSitesData.size() > 0)
-            {
-                tv_city_search.setText(mUserSearchSitesData.get(position));
-                Log.e("SearchSitesData", mUserSearchSitesData.get(position));
-            }
-            return layout;
-        }
-    }
-
-
-    class MyGridViewOnItemClickListener implements AdapterView.OnItemClickListener
-    {
-
-        @Override
-        protected Object clone() throws CloneNotSupportedException
-        {
-            return super.clone();
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
-            Intent intent = new Intent();
-            if ("沙县".equals(parent_list_xianshi_name.get(position).getZoneName()))
-            {
-                intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, parent_list_xianshi_name.get(position).getZoneName());
-                //保存用户选择后的地址到本地，储存为常用地址---start
-                if (!"".equals(mPhoneNum))
-                {
-                    //判断数据库中是否有保存过的数据
-                    Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{parent_list_xianshi_name.get(position).getZoneName()}, null, null, null);
-                    if (!mCursor_query.moveToNext())
-                    {
-                        mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
-                        mDb.insert(TAB_NAME, null, mValues);
-                    } else
-                    {
-                        mDb.delete(TAB_NAME, "addr_name = ?", new String[]{parent_list_xianshi_name.get(position).getZoneName()});
-                        mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
-                        mDb.insert(TAB_NAME, null, mValues);
-                    }
-                    mCursor_query.close();
-                }
-                //保存用户选择后的地址到本地，储存为常用地址---end
-            } else
-            {
-                if ("市区".equals(parent_list_xianshi_name.get(position).getZoneName()))
-                {
-                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mCenterCityName));
-                    //保存用户选择后的地址到本地，储存为常用地址---start
-                    if (!"".equals(mPhoneNum))
-                    {
-                        //判断数据库中是否有保存过的数据
-                        Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{mCenterCityName}, null, null, null);
-                        if (!mCursor_query.moveToNext())
-                        {
-                            mValues.put("addr_name", mCenterCityName);
-                            mDb.insert(TAB_NAME, null, mValues);
-                        } else
-                        {
-                            mDb.delete(TAB_NAME, "addr_name = ?", new String[]{mCenterCityName});
-                            mValues.put("addr_name", mCenterCityName);
-                            mDb.insert(TAB_NAME, null, mValues);
-                        }
-                        mCursor_query.close();
-                    }
-                    //保存用户选择后的地址到本地，储存为常用地址---end
-                } else
-                {
-                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(parent_list_xianshi_name.get(position).getZoneName()));
-                    //保存用户选择后的地址到本地，储存为常用地址---start
-                    if (!"".equals(mPhoneNum))
-                    {
-                        //判断数据库中是否有保存过的数据
-                        Cursor mCursor_query = mDb.query(TAB_NAME, new String[]{"addr_name"}, "addr_name=?", new String[]{parent_list_xianshi_name.get(position).getZoneName()}, null, null, null);
-                        if (!mCursor_query.moveToNext())
-                        {
-                            mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
-                            mDb.insert(TAB_NAME, null, mValues);
-                        } else
-                        {
-                            mDb.delete(TAB_NAME, "addr_name = ?", new String[]{parent_list_xianshi_name.get(position).getZoneName()});
-                            mValues.put("addr_name", parent_list_xianshi_name.get(position).getZoneName());
-                            mDb.insert(TAB_NAME, null, mValues);
-                        }
-                        mCursor_query.close();
-                    }
-                    //保存用户选择后的地址到本地，储存为常用地址---end
-                }
-            }
-            setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_ADDR, intent);
-
-            finish();
-            animFromBigToSmallOUT();
-        }
-    }
 }
+
+
