@@ -196,9 +196,9 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      * 防止刷新不一致崩掉
                      */
                     if (!("正在生成".equals(orderStateList.get(mQueryOrderList.size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
+                        mIsupdata = true;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
-                        mIsupdata = true;
                         mOrderListview.setVisibility(View.VISIBLE);
                     }
                 } catch (DocumentException e) {
@@ -282,9 +282,9 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      * 防止刷新不一致崩掉
                      */
                     if (!("正在生成".equals(orderStateList.get(mAccountOrder.getOrders().size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
+                        mIsupdata = true;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
-                        mIsupdata = true;
                         mOrderListview.setVisibility(View.VISIBLE);
                     }
 
