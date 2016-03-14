@@ -60,6 +60,7 @@
             <include layout="@layout/dachezuche_order_detail_detailed_cost"></include>
 
             <Button
+                android:id="@+id/btn_dache_commit_order"
                 style="@style/dachezuche_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

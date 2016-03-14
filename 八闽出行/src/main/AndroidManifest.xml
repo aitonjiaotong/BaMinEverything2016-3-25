@@ -457,6 +457,10 @@
             android:name=".Cdachezuche.ZuCheOrderDetailActivity"
             android:label="@string/title_activity_zu_che_order_detail" >
         </activity>
+        <activity
+            android:name=".Cdachezuche.OrderSuccessfullyActivity"
+            android:label="@string/title_activity_order_successfully" >
+        </activity>
     </application>
 
 </manifest>

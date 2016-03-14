@@ -126,5 +126,8 @@
     <string name="title_activity_in_put_loc_all">InPutLocAllActivity</string>
     <string name="title_activity_transit_route">TransitRouteActivity</string>
     <string name="title_activity_zu_che_order_detail">ZuCheOrderDetailActivity</string>
+    <string name="title_activity_order_successfully">OrderSuccessfullyActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

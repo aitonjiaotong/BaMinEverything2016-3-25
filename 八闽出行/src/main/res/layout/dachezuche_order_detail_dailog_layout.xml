@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/dachezuche_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="请验证身份"/>
+
+        <EditText
+            android:id="@+id/et_dachezuche_dialog_unit_of_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zuche_edittext_bg"
+            android:gravity="center"
+            android:hint="单位账号"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <EditText
+            android:id="@+id/et_dachezuche_dialog_unit_of_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/zuche_edittext_bg"
+            android:gravity="center"
+            android:hint="密码"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <EditText
+            android:id="@+id/et_dachezuche_dialog_unit_of_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/zuche_edittext_bg"
+            android:gravity="center"
+            android:hint="联系人手机号"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <Button
+            android:id="@+id/btn_dachezuche_dialog_comfire"
+            style="@style/dachezuche_btn_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="45dp"
+            android:layout_marginTop="10dp"
+            android:text="身份验证"
+            android:textSize="19dp"/>
+
+    </LinearLayout>
+
+    \<LinearLayout
+        android:id="@+id/ll_dache_reminder_prog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_alignTop="@+id/linearLayout7"
+        android:layout_alignLeft="@+id/linearLayout7"
+        android:layout_alignStart="@+id/linearLayout7"
+        android:layout_alignBottom="@+id/linearLayout7"
+        android:layout_alignRight="@+id/linearLayout7"
+        android:layout_alignEnd="@+id/linearLayout7">
+
+        <ProgressBar
+            android:id="@+id/progressBar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证中，请稍候…"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</RelativeLayout>
