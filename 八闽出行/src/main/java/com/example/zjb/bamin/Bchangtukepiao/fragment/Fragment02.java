@@ -42,7 +42,7 @@ import java.util.Map;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 
-public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRefreshListener{
+public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRefreshListener {
 
     private View mInflate;
     private TextView mNoneOrder;
@@ -104,6 +104,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         super.onStop();
         mSwipe.setRefreshing(false);
     }
+
     //查询所有有订单号
     private void queryAccountIdToOrder() {
         mNoneOrder.setVisibility(View.GONE);
@@ -177,7 +178,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     private void queryAllOrderState(final int i) {
         String url_web = Constant.URL.HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
-                "&bookLogID=" + mAccountOrder.getOrders().get(i-(orderPageCount-1)*8).getBookLogAID();
+                "&bookLogID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1) * 8).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
             }
@@ -196,13 +197,15 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      * 防止刷新不一致崩掉
                      */
                     if (!("正在生成".equals(orderStateList.get(mQueryOrderList.size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
+                        mIsupdata = true;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
-                        mIsupdata = true;
                         mOrderListview.setVisibility(View.VISIBLE);
                     }
                 } catch (DocumentException e) {
                     e.printStackTrace();
+                }catch (IndexOutOfBoundsException e) {
+                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
@@ -250,6 +253,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
                 } catch (DocumentException e) {
                     e.printStackTrace();
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
@@ -282,14 +287,16 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      * 防止刷新不一致崩掉
                      */
                     if (!("正在生成".equals(orderStateList.get(mAccountOrder.getOrders().size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
+                        mIsupdata = true;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
-                        mIsupdata = true;
                         mOrderListview.setVisibility(View.VISIBLE);
                     }
 
                 } catch (DocumentException e) {
                     e.printStackTrace();
+                }catch (IndexOutOfBoundsException e) {
+                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
@@ -315,13 +322,13 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position==mAccountOrderEntityList.size()){
-                if (orderPageCount<mPages){
+            if (position == mAccountOrderEntityList.size()) {
+                if (orderPageCount < mPages) {
                     queryAccountIdToOrder();
-                }else{
+                } else {
                     mTextView_moreOrder.setText("没有更多订单了");
                 }
-            }else{
+            } else {
                 queryOrderState(position);
             }
         }
@@ -398,17 +405,20 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         queryAccountIdToOrder();
         // 更新が終了したらインジケータ非表示
     }
+
     //清除订单页面数据
     private void clearData() {
-        orderPageCount=0;
+        orderPageCount = 0;
         mAccountOrderEntityList.clear();
         mQueryOrderList.clear();
         orderStateList.clear();
     }
+
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(getActivity());
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());

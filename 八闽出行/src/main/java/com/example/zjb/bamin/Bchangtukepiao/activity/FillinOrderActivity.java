@@ -314,6 +314,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                mPopupWindow.dismiss();
             }
 
             public void onResponse(String s) {
@@ -325,20 +326,24 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     String mResult;
                     mResult = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     mOrderInfo = GsonUtils.parseJSON(mResult, OrderInfo.class);
-                    if (mOrderInfo.getBookLogAID() == null) {
-                        if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())) {
-                            DialogShow.setDialog(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", "确定");
+                    if (mOrderInfo!=null){
+                        if (mOrderInfo.getBookLogAID() == null) {
+                            if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())) {
+                                DialogShow.setDialog(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", "确定");
+                            } else {
+                                DialogShow.setDialog(FillinOrderActivity.this, mOrderInfo.getMessage(), "确定");
+                            }
+                            mPopupWindow.dismiss();
                         } else {
-                            DialogShow.setDialog(FillinOrderActivity.this, mOrderInfo.getMessage(), "确定");
+                            /**
+                             * 传订单号到艾通服务器
+                             */
+                            commitOrderToAiTon();
                         }
+                    }else{
+                        DialogShow.setDialog(FillinOrderActivity.this,"提交订单失败","确认");
                         mPopupWindow.dismiss();
-                    } else {
-                        /**
-                         * 传订单号到艾通服务器
-                         */
-                        commitOrderToAiTon();
                     }
-
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
@@ -357,12 +362,12 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                mPopupWindow.dismiss();
             }
 
             @Override
             public void onResponse(String s) {
                 OrderList orderList = GsonUtils.parseJSON(s, OrderList.class);
-
                 Intent intent = new Intent();
                 intent.setClass(FillinOrderActivity.this, PayActivity.class);
                 intent.putExtra("BookLogAID", mOrderInfo.getBookLogAID());
