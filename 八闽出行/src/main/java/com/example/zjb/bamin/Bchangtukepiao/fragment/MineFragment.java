@@ -30,13 +30,14 @@ import android.widget.TextView;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.example.zjb.bamin.Bchangtukepiao.activity.BackTicketActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.CouponInfoActivity;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SettingActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SmsLoginActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TakeTickets;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TicketNotice;
 import com.example.zjb.bamin.Bchangtukepiao.activity.UsedContact;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.models.Zabout_user.User;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -417,5 +418,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
             return null;
         }
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 }

@@ -8,8 +8,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
+import com.example.zjb.bamin.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class Ours extends AppCompatActivity implements View.OnClickListener
 {
@@ -67,4 +68,12 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
         }
         return super.onKeyDown(keyCode, event);
     };
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

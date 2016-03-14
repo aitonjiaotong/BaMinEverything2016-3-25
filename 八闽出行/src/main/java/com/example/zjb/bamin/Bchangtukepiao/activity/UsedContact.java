@@ -27,6 +27,7 @@ import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.github.lguipeng.library.animcheckbox.AnimCheckBox;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -169,6 +170,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
     }
 
     class MyAdapter extends BaseAdapter {
@@ -334,5 +336,9 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 dialog.dismiss();
             }
         });
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

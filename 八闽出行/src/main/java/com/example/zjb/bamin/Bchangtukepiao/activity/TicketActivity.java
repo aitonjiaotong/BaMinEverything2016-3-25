@@ -24,13 +24,14 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_ticket.TicketInfo;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DateCompareUtil;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.LogUtil;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -90,6 +91,12 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         setOnclick();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     private void initData() {
         mTicketInfoList.clear();
         mRefrash.setVisibility(View.VISIBLE);
@@ -105,7 +112,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     initData();
                     queryTicketCount++;
                 } else {
-                    DialogShow.setDialog(TicketActivity.this, "网络连接异常或正在维护", "确认");
+                    setDialog01("网络连接异常或正在维护", "确认");
                 }
 
             }
@@ -292,11 +299,14 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
+        mDeviceId = sp.getString("DeviceId", "");
+        mId = sp.getString("id", "");
         if ("".equals(mPhoneNum)) {
             isLogin = false;
         } else {
             isLogin = true;
         }
+        MobclickAgent.onResume(this);
     }
 
 
@@ -391,6 +401,27 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //一个按钮的dialog提示
+    public void setDialog01(String messageTxt, String iSeeTxt) {
+        final AlertDialog dialog;
+        View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
+        TextView message = (TextView) commit_dialog.findViewById(R.id.message);
+        Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
+        message.setText(messageTxt);
+        ISee.setText(iSeeTxt);
+        AlertDialog.Builder builder = new AlertDialog.Builder(TicketActivity.this);
+        dialog = builder.setView(commit_dialog)
+                .create();
+        dialog.setCancelable(false);
+        dialog.show();
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
     //dialog提示
     private void setDialog(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
@@ -445,5 +476,9 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, mYear, mMonth - 1, mDayOfMonth).show(TicketActivity.this.getFragmentManager(), "datePicker");
 
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -24,6 +24,7 @@ import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment01;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment02;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.MineFragment;
 import com.example.zjb.bamin.Zutils.DialogShow;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -161,5 +162,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private void animFromBigToSmallOUT() {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

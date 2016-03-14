@@ -19,10 +19,10 @@ import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.administrator.shane_library.shane.widget.ListView4ScrollView;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.OrderDetial;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.QueryOrder;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
 import com.google.gson.reflect.TypeToken;
@@ -30,6 +30,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -288,5 +289,13 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

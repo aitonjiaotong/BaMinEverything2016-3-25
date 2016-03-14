@@ -8,8 +8,8 @@ android {
         applicationId "com.aiton.bamin.changtukepiao"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 8
+        versionName "1.0.7"
     }
     buildTypes {
         release {
@@ -35,6 +35,7 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile project(':lib_slidingmenu')
     compile project(':CheckBox')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
 
 android {
