@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -30,7 +29,7 @@ public class DialogShow {
         dialog = builder.setView(commit_dialog)
                 .create();
         dialog.setCancelable(false);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
         commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
