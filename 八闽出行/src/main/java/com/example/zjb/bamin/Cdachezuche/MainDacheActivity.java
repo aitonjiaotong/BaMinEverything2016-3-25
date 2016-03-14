@@ -19,9 +19,6 @@ public class MainDacheActivity extends AppCompatActivity {
         mJiemian = (LinearLayout) findViewById(R.id.jiemian);
     }
 
-    public void shouye(View view) {
-        mJiemian.setBackgroundResource(R.mipmap.yongche01);
-    }
     public void jigouyongche(View view) {
         Intent intent= new Intent();
         intent.setClass(MainDacheActivity.this,ZuChenJiGouYongCheActivity.class);
