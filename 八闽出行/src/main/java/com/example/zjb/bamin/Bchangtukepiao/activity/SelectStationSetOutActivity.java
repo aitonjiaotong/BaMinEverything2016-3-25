@@ -38,6 +38,7 @@ import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.GetLastWordUtil;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -578,5 +579,12 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         }
         return super.onKeyDown(keyCode, event);
     }
-
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

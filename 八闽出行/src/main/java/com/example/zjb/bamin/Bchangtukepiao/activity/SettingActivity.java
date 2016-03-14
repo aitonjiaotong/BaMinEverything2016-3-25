@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.zjb.bamin.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -93,6 +94,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         edit.clear();
                         edit.commit();
                         mExit.setVisibility(View.INVISIBLE);
+                        //友盟统计
+                        MobclickAgent.onProfileSignIn(mPhoneNum);
                         finish();
                         animFromBigToSmallOUT();
                     }
@@ -136,4 +139,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         }
         return super.onKeyDown(keyCode, event);
     };
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

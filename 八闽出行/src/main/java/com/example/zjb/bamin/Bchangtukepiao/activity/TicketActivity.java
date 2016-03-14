@@ -31,6 +31,7 @@ import com.example.zjb.bamin.Zutils.DateCompareUtil;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.LogUtil;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -305,6 +306,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             isLogin = true;
         }
+        MobclickAgent.onResume(this);
     }
 
 
@@ -474,5 +476,9 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             }
         }, mYear, mMonth - 1, mDayOfMonth).show(TicketActivity.this.getFragmentManager(), "datePicker");
 
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

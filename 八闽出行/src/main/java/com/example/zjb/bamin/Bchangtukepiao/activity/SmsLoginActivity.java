@@ -19,12 +19,13 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
-import com.example.zjb.bamin.models.Zabout_user.User;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.Installation;
 import com.example.zjb.bamin.Zutils.SmsContent;
+import com.example.zjb.bamin.models.Zabout_user.User;
+import com.umeng.analytics.MobclickAgent;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -84,6 +85,8 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                     edit.putString("id", mUser.getId() + "");
                                     edit.putString("DeviceId",DeviceId);
                                     edit.commit();
+                                    //友盟统计
+                                    MobclickAgent.onProfileSignIn(mPhoneNum);
                                     finish();
                                 }
                             });
@@ -268,4 +271,12 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         }
         return super.onKeyDown(keyCode, event);
     };
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

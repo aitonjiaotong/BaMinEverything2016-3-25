@@ -27,6 +27,7 @@ import com.example.zjb.bamin.Bchangtukepiao.models.about_order.QueryOrder;
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
+import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -111,7 +112,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         String url = Constant.URLFromAiTon.HOST + "front/ladorderbyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
-        map.put("page",orderPageCount+"");
+        map.put("page", orderPageCount + "");
         HTTPUtils.post(getActivity(), url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -259,7 +260,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
      */
     private void queryAllOrderInfo(final int i) {
         String url = Constant.URL.HOST +
-                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1)*8).getBookLogAID();
+                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1) * 8).getBookLogAID();
         HTTPUtils.get(getActivity(), url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -404,5 +405,12 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         mQueryOrderList.clear();
         orderStateList.clear();
     }
-
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
+    }
 }

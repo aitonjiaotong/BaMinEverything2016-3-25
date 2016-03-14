@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.ZcustomView.ViewPagerIndicator;
-import com.example.zjb.bamin.Bchangtukepiao.fragment.GuideFragment;
+import com.example.zjb.bamin.Zeverything.everything_fragment.GuideFragment;
 
 public class GuideActivity extends FragmentActivity {
     private int[] guideImg = new int[]{

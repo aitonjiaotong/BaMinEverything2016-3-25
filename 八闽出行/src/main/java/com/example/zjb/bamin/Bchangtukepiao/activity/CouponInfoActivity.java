@@ -20,11 +20,12 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_redpacket.RedPacket;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class CouponInfoActivity extends AppCompatActivity implements View.OnClic
         HTTPUtils.post(CouponInfoActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(CouponInfoActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(CouponInfoActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             @Override
@@ -165,13 +166,13 @@ public class CouponInfoActivity extends AppCompatActivity implements View.OnClic
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             int flag = mRedPacketList.get(position).getFlag();
             if (1==flag){
-                DialogShow.setDialog(CouponInfoActivity.this, "优惠券已使用","确认");
+                DialogShow.setDialog(CouponInfoActivity.this, "优惠券已使用", "确认");
             }else if(2==flag){
-                DialogShow.setDialog(CouponInfoActivity.this,"优惠券已过期","确认" );
+                DialogShow.setDialog(CouponInfoActivity.this, "优惠券已过期", "确认");
             }else if (0==flag){
                 Intent intent = new Intent();
                 intent.setAction("RedBag");
-                intent.putExtra("RedBag",mRedPacketList.get(position));
+                intent.putExtra("RedBag", mRedPacketList.get(position));
                 sendBroadcast(intent);
                 finish();
             }
@@ -198,5 +199,13 @@ public class CouponInfoActivity extends AppCompatActivity implements View.OnClic
             AnimFromRightToLeft();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

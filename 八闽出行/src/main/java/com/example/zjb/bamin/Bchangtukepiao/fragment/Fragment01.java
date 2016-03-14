@@ -32,6 +32,7 @@ import com.example.zjb.bamin.ZcustomView.ViewPagerIndicator;
 import com.example.zjb.bamin.Zutils.DateCompareUtil;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -372,5 +373,14 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
      */
     private void animFromBigToSmallOUT() {
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getActivity());
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getActivity());
     }
 }

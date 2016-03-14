@@ -32,6 +32,7 @@ import com.example.zjb.bamin.Bchangtukepiao.models.about_used_contact.UsedContac
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
+import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -403,5 +404,13 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             AnimFromRightToLeftOUT();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

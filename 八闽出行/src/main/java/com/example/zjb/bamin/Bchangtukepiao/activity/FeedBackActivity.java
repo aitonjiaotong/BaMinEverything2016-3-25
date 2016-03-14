@@ -15,9 +15,10 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
+import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DialogShow;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,4 +127,12 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         }
         return super.onKeyDown(keyCode, event);
     };
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

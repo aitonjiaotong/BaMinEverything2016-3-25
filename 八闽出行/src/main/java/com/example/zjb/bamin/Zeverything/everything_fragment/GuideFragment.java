@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Bchangtukepiao.fragment;
+package com.example.zjb.bamin.Zeverything.everything_fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
