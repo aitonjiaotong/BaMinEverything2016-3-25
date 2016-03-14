@@ -63,13 +63,14 @@
 
     </LinearLayout>
 
-    \<LinearLayout
+    <LinearLayout
         android:id="@+id/ll_dache_reminder_prog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99000000"
+        android:background="#CCFFFFFF"
         android:gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_alignTop="@+id/linearLayout7"
         android:layout_alignLeft="@+id/linearLayout7"
         android:layout_alignStart="@+id/linearLayout7"
@@ -81,12 +82,13 @@
             android:id="@+id/progressBar4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progressbar_animated_rotate"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="验证中，请稍候…"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
     </LinearLayout>
 </RelativeLayout>

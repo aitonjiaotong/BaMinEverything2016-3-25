@@ -31,99 +31,106 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:background="@color/white"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="司机姓名"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="司机姓名"/>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
+
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="小闽"/>
+
+        </LinearLayout>
 
         <TextView
-            android:layout_width="0.5dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:background="@color/line_gray"/>
 
-        <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="三明客运中心店"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车辆型号"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line_gray"/>
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="三明客运中心店"/>
+
+        </LinearLayout>
 
         <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取车门店"/>
-
-        <TextView
-            android:layout_width="0.5dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:background="@color/line_gray"/>
 
-        <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="三明客运中心店"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系电话"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line_gray"/>
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@color/line_gray"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            <TextView
+                style="@style/dachezuche_gray_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="13800000000"/>
 
-        <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取车门店"/>
-
-        <TextView
-            android:layout_width="0.5dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:background="@color/line_gray"/>
-
-        <TextView
-            style="@style/dachezuche_gray_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="三明客运中心店"/>
-
+        </LinearLayout>
     </LinearLayout>
 
     <Button
@@ -138,10 +145,10 @@
         style="@style/dachezuche_gray_small_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.5"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
         android:text="提交订单完成\n我们的工作人员会马上与您联系。\n请保持电话通畅，祝您生活愉快"/>
 
 </LinearLayout>

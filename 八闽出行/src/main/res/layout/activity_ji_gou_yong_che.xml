@@ -54,11 +54,12 @@
                     android:text="取车城市"/>
 
                 <TextView
+                    android:id="@+id/tv_dache_jg_city_name"
                     style="@style/dachezuche_gray_small_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="请选择"/>
+                    android:text="三明"/>
 
                 <ImageView
                     android:layout_width="wrap_content"

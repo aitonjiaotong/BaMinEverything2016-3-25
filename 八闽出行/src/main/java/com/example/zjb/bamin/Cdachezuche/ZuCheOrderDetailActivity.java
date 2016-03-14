@@ -21,6 +21,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
 
     private ImageView mIv_back;
     private Button mBtn_dache_commit_order;
+    private View mConfirm_order_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,16 +63,16 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
     public void showConfirmOrderDialog()
     {
         //TODO 弹出订单确认企业账号信息的对话框
-        final View confirm_order_dialog = getLayoutInflater().inflate(R.layout.dachezuche_order_detail_dailog_layout, null);
+        mConfirm_order_dialog = getLayoutInflater().inflate(R.layout.dachezuche_order_detail_dailog_layout, null);
         new AlertDialog.Builder(ZuCheOrderDetailActivity.this)
-                .setView(confirm_order_dialog)
+                .setView(mConfirm_order_dialog)
                 .create()
                 .show();
-        final EditText et_dachezuche_dialog_unit_of_account = (EditText) confirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_account);
-        final EditText et_dachezuche_dialog_unit_of_password = (EditText) confirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_password);
-        final EditText et_dachezuche_dialog_unit_of_phone = (EditText) confirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_phone);
-        final LinearLayout ll_dache_reminder_prog = (LinearLayout) confirm_order_dialog.findViewById(R.id.ll_dache_reminder_prog);
-        Button btn_dachezuche_dialog_comfire = (Button) confirm_order_dialog.findViewById(R.id.btn_dachezuche_dialog_comfire);
+        final EditText et_dachezuche_dialog_unit_of_account = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_account);
+        final EditText et_dachezuche_dialog_unit_of_password = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_password);
+        final EditText et_dachezuche_dialog_unit_of_phone = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_phone);
+        final LinearLayout ll_dache_reminder_prog = (LinearLayout) mConfirm_order_dialog.findViewById(R.id.ll_dache_reminder_prog);
+        Button btn_dachezuche_dialog_comfire = (Button) mConfirm_order_dialog.findViewById(R.id.btn_dachezuche_dialog_comfire);
         btn_dachezuche_dialog_comfire.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -87,7 +88,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
         });
     }
 
-    private void verifyTheUnitOfAccount(String unitOfAccount,String unitOfpassword,String unitOfphone)
+    private void verifyTheUnitOfAccount(String unitOfAccount, String unitOfpassword, String unitOfphone)
     {
         //TODO Http请求发送用户输入的相关信息对后台服务验证其信息的正确性
         //TODO 拼接get请求网址，添加对应参数
@@ -107,7 +108,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                 //TODO 2.根据服务端对传入的数据进行对比返回的结果，进行相关控件的判断
 
                 //如果验证通过则跳转页面到订单完成界面
-                startActivity(new Intent(ZuCheOrderDetailActivity.this,OrderSuccessfullyActivity.class));
+                startActivity(new Intent(ZuCheOrderDetailActivity.this, OrderSuccessfullyActivity.class));
             }
         });
     }

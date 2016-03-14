@@ -106,6 +106,7 @@
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progressbar_animated_rotate"
         android:id="@+id/refrash"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>

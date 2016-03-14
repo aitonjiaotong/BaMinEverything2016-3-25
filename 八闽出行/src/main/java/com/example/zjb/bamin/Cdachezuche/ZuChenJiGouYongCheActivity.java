@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.R;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd EE HH:mm");
     private long mCurrentTimeMillis;
     private TextView mTv_dache_jg_return_time;
+    private TextView mTv_dache_jg_city_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,6 +65,8 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
 
         mTv_dache_jg_get_time = (TextView) findViewById(R.id.tv_dache_jg_get_time);
         mTv_dache_jg_return_time = (TextView) findViewById(R.id.tv_dache_jg_return_time);
+
+        mTv_dache_jg_city_name = (TextView) findViewById(R.id.tv_dache_jg_city_name);
     }
 
     private void initUI()
@@ -150,7 +154,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 finish();
                 break;
             case R.id.ll_dache_jg_choose_city:
-                //TODO 跳转到城市选择列表界面
+                //跳转到城市选择列表界面
+                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheChooseCityActivity.class);
+                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE);
                 break;
             case R.id.ll_dache_jg_choose_time_get:
                 //TODO 跳转到选择取车的时间
@@ -176,6 +182,19 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null)
+        {
+             if(requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
+             {
+                 mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
+             }
         }
     }
 }
