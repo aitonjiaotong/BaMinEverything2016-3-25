@@ -314,6 +314,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                mPopupWindow.dismiss();
             }
 
             public void onResponse(String s) {
@@ -357,12 +358,12 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                mPopupWindow.dismiss();
             }
 
             @Override
             public void onResponse(String s) {
                 OrderList orderList = GsonUtils.parseJSON(s, OrderList.class);
-
                 Intent intent = new Intent();
                 intent.setClass(FillinOrderActivity.this, PayActivity.class);
                 intent.putExtra("BookLogAID", mOrderInfo.getBookLogAID());
