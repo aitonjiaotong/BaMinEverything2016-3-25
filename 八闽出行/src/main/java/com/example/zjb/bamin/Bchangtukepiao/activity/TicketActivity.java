@@ -90,6 +90,12 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         setOnclick();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     private void initData() {
         mTicketInfoList.clear();
         mRefrash.setVisibility(View.VISIBLE);
@@ -292,6 +298,8 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
+        mDeviceId = sp.getString("DeviceId", "");
+        mId = sp.getString("id", "");
         if ("".equals(mPhoneNum)) {
             isLogin = false;
         } else {
