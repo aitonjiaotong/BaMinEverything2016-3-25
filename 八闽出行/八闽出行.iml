@@ -103,6 +103,7 @@
     <orderEntry type="module" module-name="lib_slidingmenu" exported="" />
     <orderEntry type="module" module-name="SMSSDK" exported="" />
     <orderEntry type="module" module-name="下拉放大图片" exported="" />
+    <orderEntry type="module" module-name="slideDateTimePicker" exported="" />
     <orderEntry type="module" module-name="CheckBox" exported="" />
     <orderEntry type="module" module-name="lib_shane" exported="" />
     <orderEntry type="module" module-name="library" exported="" />

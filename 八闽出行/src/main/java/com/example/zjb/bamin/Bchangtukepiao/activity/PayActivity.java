@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -81,7 +82,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                      * docType=1) 建议商户依赖异步通知
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-
+                    Log.e("handleMessage ", "handleMessage "+resultInfo);
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
@@ -162,7 +163,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
         /**
-         * 向后台范松所用的红包和订单id
+         * 向后台发送所用的红包和订单id
          */
         String url01 = Constant.URLFromAiTon.HOST+ "order/completeorder";
         Map<String, String> map = new HashMap<>();
@@ -379,6 +380,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                  * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                  */
                 String sign = sign(orderInfo);
+                Log.e("pay ", "pay "+sign);
                 try {
                     /**
                      * 仅需对sign 做URL编码

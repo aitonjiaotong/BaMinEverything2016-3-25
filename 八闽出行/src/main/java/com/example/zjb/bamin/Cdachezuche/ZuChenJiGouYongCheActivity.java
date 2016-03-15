@@ -10,14 +10,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.R;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mIv_dache_jg_back;
     private LinearLayout mLl_dache_jg_choose_city;
@@ -35,10 +38,37 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private long mCurrentTimeMillis;
     private TextView mTv_dache_jg_return_time;
     private TextView mTv_dache_jg_city_name;
+    //车辆数量
+    private int carCount = 0;
+    private SlideDateTimeListener GetslideDateTimePickerListener = new SlideDateTimeListener() {
+        @Override
+        public void onDateTimeSet(Date date) {
+            boolean before = date.before(mGetDate);
+            if (!before){
+                mTv_dache_jg_get_time.setText(mSimpleDateFormat.format(date));
+            }else {
+                Toast.makeText(ZuChenJiGouYongCheActivity.this, "请选择合理的取车时间", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    private SlideDateTimeListener slideDateTimeListener = new SlideDateTimeListener() {
+        @Override
+        public void onDateTimeSet(Date date) {
+            Date date1 = new Date(mGetDate.getTime() + 24 * 3600 + 1000);
+            boolean before = date.before(date1);
+            if (!before){
+                mRg_dache_jg_months.clearCheck();
+                mTv_dache_jg_return_time.setText(mSimpleDateFormat.format(date)+"");
+            }else{
+                Toast.makeText(ZuChenJiGouYongCheActivity.this, "至少租车一天", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    private Date mGetDate;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ji_gou_yong_che);
 
@@ -49,8 +79,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     }
 
 
-    private void findViewID()
-    {
+    private void findViewID() {
         mIv_dache_jg_back = (ImageView) findViewById(R.id.iv_dache_jg_back);
         mLl_dache_jg_choose_city = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_city);
         mLl_dache_jg_choose_time_get = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_time_get);
@@ -69,16 +98,13 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mTv_dache_jg_city_name = (TextView) findViewById(R.id.tv_dache_jg_city_name);
     }
 
-    private void initUI()
-    {
+    private void initUI() {
+        mTv_dache_jg_car_count.setText(carCount+"");
         mTv_dache_jg_get_time.setText(getCurrentTimeMillisToString());
-        mRg_dache_jg_months.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        mRg_dache_jg_months.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch (checkedId)
-                {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
                     case R.id.rb_dache_jg_three_months:
                         mTv_dache_jg_return_time.setText(addCurrentTimeMillisToString(3L, 30L));
                         break;
@@ -95,8 +121,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         });
     }
 
-    private void setListener()
-    {
+    private void setListener() {
         mIv_dache_jg_back.setOnClickListener(this);
         mLl_dache_jg_choose_city.setOnClickListener(this);
         mLl_dache_jg_choose_time_get.setOnClickListener(this);
@@ -112,8 +137,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      *
      * @return hasDriver
      */
-    private boolean hasDriver()
-    {
+    private boolean hasDriver() {
         boolean hasDriver = mCb_dache_jg_hasdriver.isChecked();
         return hasDriver;
     }
@@ -123,9 +147,10 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      *
      * @param
      */
-    public String getCurrentTimeMillisToString()
-    {
-        mCurrentTimeMillis = System.currentTimeMillis();
+    public String getCurrentTimeMillisToString() {
+        //默认推迟2小时
+        mCurrentTimeMillis = System.currentTimeMillis()+2*3600*1000;
+        mGetDate=new Date(mCurrentTimeMillis);
         String format = mSimpleDateFormat.format(mCurrentTimeMillis);
         return format;
     }
@@ -137,47 +162,73 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      * @param daysofmonth 每个月的天数
      * @return
      */
-    public String addCurrentTimeMillisToString(Long months, Long daysofmonth)
-    {
+    public String addCurrentTimeMillisToString(Long months, Long daysofmonth) {
         long resultsOfAdd = mCurrentTimeMillis + (24L * 3600L * 1000L) * daysofmonth * months;
         String format = mSimpleDateFormat.format(resultsOfAdd);
         return format;
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.iv_dache_jg_back:
                 finish();
                 break;
             case R.id.ll_dache_jg_choose_city:
                 //跳转到城市选择列表界面
-                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheChooseCityActivity.class);
+                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCityActivity.class);
                 startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE);
                 break;
             case R.id.ll_dache_jg_choose_time_get:
-                //TODO 跳转到选择取车的时间
+                //默认推迟两小时
+                mGetDate = new Date(System.currentTimeMillis()+2*3600*1000);
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(GetslideDateTimePickerListener)
+                        .setInitialDate(mGetDate)
+//                        .setMinDate(minDate)
+//                    .setMaxDate(maxDate)
+                        .setIs24HourTime(true)
+//                    .setTheme(SlideDateTimePicker.HOLO_DARK)
+                                //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
                 break;
             case R.id.ll_dache_jg_return_time:
-                //TODO 跳转到选择还车的时间
+                //默认两天后还车
+                Date date = new Date(System.currentTimeMillis() + 24 * 2 * 3600 * 1000);
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(slideDateTimeListener)
+                        .setInitialDate(date)
+//                        .setMinDate(minDate)
+//                    .setMaxDate(maxDate)
+                        .setIs24HourTime(true)
+//                    .setTheme(SlideDateTimePicker.HOLO_DARK)
+                                //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
                 break;
             case R.id.ll_dache_jg_choose_car_type:
                 // 跳转到选择车型
-                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheChooseCarTypeActivity.class);
+                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCarTypeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_btn_dache_jg_add:
-                //TODO 对增加车辆数量进行操作
+                mIv_btn_dache_jg_minus.setEnabled(true);
+                carCount++;
+                mTv_dache_jg_car_count.setText(carCount+"");
                 break;
             case R.id.iv_btn_dache_jg_minus:
-                //TODO 对减少车辆数量进行操作
+                if (carCount>0){
+                    carCount--;
+                    mTv_dache_jg_car_count.setText(carCount+"");
+                }else{
+                    mIv_btn_dache_jg_minus.setEnabled(false);
+                }
                 break;
             case R.id.btn_dache_jg_next:
                 // 跳转到订单详情界面
-                intent.setClass(ZuChenJiGouYongCheActivity.this,ZuCheOrderDetailActivity.class);
+                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheOrderDetailActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -186,15 +237,14 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data != null)
-        {
-             if(requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
-             {
-                 mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
-             }
+        if (data != null) {
+            if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE) {
+                mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
+                carCount=1;
+                mTv_dache_jg_car_count.setText(carCount+"");
+            }
         }
     }
 }
