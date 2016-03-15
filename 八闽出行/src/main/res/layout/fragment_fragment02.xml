@@ -49,4 +49,12 @@
         android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"/>
 
+    <RelativeLayout
+        android:id="@+id/rela_unclick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout">
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -61,6 +62,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     private int mPages;
     private TextView mTextView_moreOrder;
     private View mOrder_list_foot;
+    private boolean isTouch = false;
 
     public Fragment02() {
         // Required empty public constructor
@@ -102,11 +104,13 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     @Override
     public void onStop() {
         super.onStop();
+        isTouch=false;
         mSwipe.setRefreshing(false);
     }
 
     //查询所有有订单号
     private void queryAccountIdToOrder() {
+        isTouch = true;
         mNoneOrder.setVisibility(View.GONE);
         mSwipe.setRefreshing(true);
         mOrderListview.setVisibility(View.INVISIBLE);
@@ -198,13 +202,14 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      */
                     if (!("正在生成".equals(orderStateList.get(mQueryOrderList.size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
+                        isTouch = false;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
                         mOrderListview.setVisibility(View.VISIBLE);
                     }
                 } catch (DocumentException e) {
                     e.printStackTrace();
-                }catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
@@ -273,7 +278,6 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
             @Override
             public void onResponse(String s) {
-                Log.e("onResponse ", "orderPageCount" + orderPageCount);
                 Document doc = null;
                 try {
                     doc = DocumentHelper.parseText(s);
@@ -288,6 +292,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                      */
                     if (!("正在生成".equals(orderStateList.get(mAccountOrder.getOrders().size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
+                        isTouch = false;
                         mMyAdapter.notifyDataSetChanged();
                         mSwipe.setRefreshing(false);
                         mOrderListview.setVisibility(View.VISIBLE);
@@ -295,7 +300,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
 
                 } catch (DocumentException e) {
                     e.printStackTrace();
-                }catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
@@ -315,7 +320,12 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         mMyAdapter = new MyAdapter();
         mOrderListview.setAdapter(mMyAdapter);
         mOrderListview.setOnItemClickListener(new MyItemClickListener());
-
+        mInflate.findViewById(R.id.rela_unclick).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return isTouch;
+            }
+        });
     }
 
     class MyItemClickListener implements AdapterView.OnItemClickListener {
