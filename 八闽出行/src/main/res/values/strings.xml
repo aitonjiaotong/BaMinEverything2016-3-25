@@ -132,5 +132,6 @@
     <string name="title_activity_zu_che_choose_city">ZuCheChooseCityActivity</string>
     <string name="title_activity_stores_map">StoresMapActivity</string>
     <string name="title_activity_kuai_di_wu_liu">KuaiDiWuLiuActivity</string>
+    <string name="title_activity_kuai_di">KuaiDiActivity</string>
 
 </resources>

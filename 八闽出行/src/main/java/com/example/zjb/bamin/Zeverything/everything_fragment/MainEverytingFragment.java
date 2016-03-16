@@ -27,6 +27,7 @@ import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
 import com.example.zjb.bamin.Ddaibanpaotui.MainDaiBanPaoTuiActivity;
 import com.example.zjb.bamin.Eqicheguanjia.MainQiCheGuanJiaActivity;
 import com.example.zjb.bamin.Flvyoulvxing.MainlvyouActivity;
+import com.example.zjb.bamin.GkuaiDi.KuaiDiActivity;
 import com.example.zjb.bamin.Itekuaishangcheng.TeKuaiShangChengActivity;
 import com.example.zjb.bamin.Jyouhuichongzhi.YuoHuiChongZhiActivity;
 import com.example.zjb.bamin.R;
@@ -41,8 +42,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainEverytingFragment extends Fragment implements View.OnClickListener
-{
+public class MainEverytingFragment extends Fragment implements View.OnClickListener {
 
     private View mLayout;
     private LinearLayout mLl_onlinebus;
@@ -56,15 +56,13 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
     private boolean isFrist = true;
     private boolean mDragging;
 
-    public MainEverytingFragment()
-    {
+    public MainEverytingFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         mLayout = inflater.inflate(R.layout.fragment_main, null);
         checkUpGrade();
         initData();
@@ -75,68 +73,57 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
     }
 
 
-    private void checkUpGrade()
-    {
-        UpgradeUtils.checkUpgrade(getActivity(),Constant.URLFromAiTon.UP_GRADE);
+    private void checkUpGrade() {
+        UpgradeUtils.checkUpgrade(getActivity(), Constant.URLFromAiTon.UP_GRADE);
     }
 
 
-    private void initData()
-    {
+    private void initData() {
         //初始化Banner数据
         initBannerData();
 
     }
 
-    private void initBannerData()
-    {
-        HTTPUtils.get(getActivity(), Constant.URLFromAiTon.GET_BANNER_IMG, new VolleyListener()
-        {
+    private void initBannerData() {
+        HTTPUtils.get(getActivity(), Constant.URLFromAiTon.GET_BANNER_IMG, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
-                DialogShow.setDialog(getActivity(), "网络连接异常或正在维护", "确认");            }
+            public void onErrorResponse(VolleyError volleyError) {
+                DialogShow.setDialog(getActivity(), "网络连接异常或正在维护", "确认");
+            }
 
             @Override
-            public void onResponse(String s)
-            {
-                Type type = new TypeToken<ArrayList<BannerInfo>>()
-                {
+            public void onResponse(String s) {
+                Type type = new TypeToken<ArrayList<BannerInfo>>() {
                 }.getType();
                 bannerData = GsonUtils.parseJSONArray(s, type);
             }
         });
     }
 
-    private void findID()
-    {
+    private void findID() {
         mLl_onlinebus = (LinearLayout) mLayout.findViewById(R.id.ll_onlinebus);
         mLl_ticket = (LinearLayout) mLayout.findViewById(R.id.ll_ticket);
         mLl_taxi = (LinearLayout) mLayout.findViewById(R.id.ll_taxi);
     }
 
-    private void initUI()
-    {
+    private void initUI() {
         initBanner();
     }
 
     /**
      * 设置广告条
      */
-    private void initBanner()
-    {
+    private void initBanner() {
         mViewPager_banner = (ViewPager) mLayout.findViewById(R.id.vp_headerview_pager);
         mViewPager_banner.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
         mViewPager_banner.addOnPageChangeListener(new BannerOnPageChangeListener());
         mViewPagerIndicator = (ViewPagerIndicator) mLayout.findViewById(R.id.ViewPagerIndicator);
-        if (isFrist)
-        {
+        if (isFrist) {
             autoScroll();
         }
     }
 
-    private void setListener()
-    {
+    private void setListener() {
         mLl_onlinebus.setOnClickListener(this);
         mLl_ticket.setOnClickListener(this);
         mLl_taxi.setOnClickListener(this);
@@ -153,21 +140,19 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
 
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.daibanpaotui:
-                intent.setClass(getActivity(),MainDaiBanPaoTuiActivity.class);
+                intent.setClass(getActivity(), MainDaiBanPaoTuiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.kuaidiwuliu:
-/*                intent.setClass(getActivity(), com.example.zjb.bamin.GkuaiDiWuLiu.KuaiDiWuLiuActivity.class);
-                startActivity(intent);*/
+                intent.setClass(getActivity(), KuaiDiActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lvyoulvxing:
-                intent.setClass(getActivity(),MainlvyouActivity.class);
+                intent.setClass(getActivity(), MainlvyouActivity.class);
                 startActivity(intent);
                 break;
             case R.id.qicheguanjia:
@@ -208,41 +193,32 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
     }
 
 
-    class MyPagerAdapter extends FragmentPagerAdapter
-    {
+    class MyPagerAdapter extends FragmentPagerAdapter {
 
-        public MyPagerAdapter(FragmentManager fm)
-        {
+        public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
-        public Fragment getItem(int position)
-        {
+        public Fragment getItem(int position) {
             int index = position % mImageID.length;
             // 数据下载之前
-            if (bannerData.size() == 0)
-            {
+            if (bannerData.size() == 0) {
                 return new BannerFragment(index, mImageID[index]);
-            } else
-            {
+            } else {
                 return new BannerFragment(index, bannerData.get(index).getUrl(), bannerData.get(index).getUrl2());
             }
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return mPagerCount;
         }
     }
 
-    class BannerOnPageChangeListener implements ViewPager.OnPageChangeListener
-    {
-        public void onPageScrollStateChanged(int state)
-        {
-            switch (state)
-            {
+    class BannerOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        public void onPageScrollStateChanged(int state) {
+            switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
                     mDragging = false;
                     break;
@@ -257,27 +233,21 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
             }
         }
 
-        public void onPageScrolled(int position, float arg1, int arg2)
-        {
+        public void onPageScrolled(int position, float arg1, int arg2) {
             position = position % 3;
             mViewPagerIndicator.move(arg1, position);
         }
 
-        public void onPageSelected(int arg0)
-        {
+        public void onPageSelected(int arg0) {
         }
     }
 
-    private void autoScroll()
-    {
+    private void autoScroll() {
         mViewPager_banner.setCurrentItem(mPagerCount / 2);
-        mViewPager_banner.postDelayed(new Runnable()
-        {
-            public void run()
-            {
+        mViewPager_banner.postDelayed(new Runnable() {
+            public void run() {
                 int position = mViewPager_banner.getCurrentItem() + 1;
-                if (!mDragging)
-                {
+                if (!mDragging) {
                     isFrist = false;
                     mViewPager_banner.setCurrentItem(position);
                 }
@@ -285,6 +255,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
             }
         }, 3000);
     }
+
     /**
      * 从小到大打开动画
      */
