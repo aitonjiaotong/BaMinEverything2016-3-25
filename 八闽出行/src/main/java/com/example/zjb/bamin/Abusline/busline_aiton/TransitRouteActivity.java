@@ -137,10 +137,6 @@ public class TransitRouteActivity extends AppCompatActivity implements View.OnCl
                     VehicleInfo vehicleInfo = allStep.get(position).getVehicleInfo();
                     tv_rusult_title.setText(allStep.get(position).getInstructions());
                     tv_about_station.setText("途经"+vehicleInfo.getPassStationNum()+"个站点");
-                    Log.e("vehicleInfo:getTitle ", vehicleInfo.getTitle());
-                    Log.e("vehicleInfo:getUid ", vehicleInfo.getUid());
-                    Log.e("vehicleInfo:getTotalPrice ", "途经"+vehicleInfo.getPassStationNum()+"个站点");
-                    Log.e("vehicleInfo:getZonePrice ", vehicleInfo.getZonePrice()+"");
                 }
             }
 
@@ -179,15 +175,9 @@ public class TransitRouteActivity extends AppCompatActivity implements View.OnCl
                     allStep = transitRouteLine.getAllStep();
                     for (int i = 0; i < allStep.size(); i++)
                     {
-                        Log.e("allStep.get(i).getInstructions()", allStep.get(i).getInstructions());
                         if(allStep.get(i).getStepType() == TransitRouteLine.TransitStep.TransitRouteStepType.BUSLINE)
                         {
                             VehicleInfo vehicleInfo = allStep.get(i).getVehicleInfo();
-                            Log.e("vehicleInfo:getTitle ", vehicleInfo.getTitle());
-                            Log.e("vehicleInfo:getUid ", vehicleInfo.getUid());
-                            Log.e("vehicleInfo:getPassStationNum ", vehicleInfo.getPassStationNum()+"");
-                            Log.e("vehicleInfo:getTotalPrice ", vehicleInfo.getTotalPrice()+"");
-                            Log.e("vehicleInfo:getZonePrice ", vehicleInfo.getZonePrice()+"");
                         }
                     }
 

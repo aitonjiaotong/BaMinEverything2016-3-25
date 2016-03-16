@@ -339,7 +339,11 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     mTextView_moreOrder.setText("没有更多订单了");
                 }
             } else {
-                queryOrderState(position);
+                if (mAccountOrderEntityList.get(position).getFlag()==1){
+                    DialogShow.setDialog(getActivity(),"订单出现异常，请联系客服","确认");
+                }else{
+                    queryOrderState(position);
+                }
             }
         }
     }

@@ -148,18 +148,37 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
      * 支付成功，确认订单
      */
     private void confrimOrder() {
-        setSuccessDialog("支付成功", "查看订单");
+
         String url = Constant.URL.HOST +
                 "SellTicket_NoBill_Confirm?scheduleCompanyCode=" + "YongAn" +
                 "&bookLogAID=" + mBookLogAID;
         HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this,"网络连接异常或正在维护","确认");
+                //订单异常0正常1失败
+                DialogShow.setDialog(PayActivity.this,"订单出现异常，请联系客服","确认");
+                /**
+                 * 向后台发送所用的红包和订单id
+                 */
+                String url01 = Constant.URLFromAiTon.HOST+ "/front/exceptionorder";
+                Map<String, String> map = new HashMap<>();
+                map.put("order_id",mOrderId);
+                map.put("flag",1+"");
+                HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                    }
+
+                    @Override
+                    public void onResponse(String s) {
+                    }
+                });
             }
 
             @Override
             public void onResponse(String s) {
+                setSuccessDialog("支付成功", "查看订单");
             }
         });
         /**
@@ -174,7 +193,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             @Override
@@ -232,6 +251,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mRadioButton_weixin = (RadioButton) findViewById(R.id.radioButton_weixin);
         mRela_useTheRedBag = (RelativeLayout) findViewById(R.id.rela_useTheRedBag);
         mTextView_redBagCount = (TextView) findViewById(R.id.textView_redBagCount);
+        mTicket_count = (TextView) findViewById(R.id.ticket_count);
+        mSurplusTime = (TextView) findViewById(R.id.surplusTime);
     }
 
     private void queryOrderInfo() {
@@ -266,7 +287,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 "&bookLogID=" + mBookLogAID;
         HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             public void onResponse(String s) {
@@ -348,12 +369,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initUI() {
-        mTicket_count = (TextView) findViewById(R.id.ticket_count);
         mTicket_count.setText(mQueryOrder.getFullTicket() + "");
         mPrice = mQueryOrder.getPrice();
         realPayPrice=mPrice;
         mTicket_price.setText("¥" + realPayPrice);
-        mSurplusTime = (TextView) findViewById(R.id.surplusTime);
         TextView textView_detialOrderDate = (TextView) findViewById(R.id.textView_detialOrderDate);
         textView_detialOrderDate.setText("出发日期"+ TimeAndDateFormate.dateFormate(mQueryOrder.getSetoutTime()));
         TextView textView_detialOrderStartPlace = (TextView) findViewById(R.id.textView_detialOrderStartPlace);
@@ -380,7 +399,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                  * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                  */
                 String sign = sign(orderInfo);
-                Log.e("pay ", "pay "+sign);
                 try {
                     /**
                      * 仅需对sign 做URL编码
@@ -446,7 +464,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+        orderInfo += "&notify_url=" + "\"" + "http://120.24.46.15:8080/upload_2/return/return" + "\"";
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";
