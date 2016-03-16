@@ -36,9 +36,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--webview定位权限-->
+    <!-- webview定位权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--webview定位权限-->
+    <!-- webview定位权限 -->
     <!-- 友盟统计 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -464,6 +464,14 @@
         <activity
             android:name=".Cdachezuche.StoresMapActivity"
             android:label="@string/title_activity_stores_map" >
+        </activity>
+        <activity
+            android:name=".Gkuaidibao.activity.KuaiDiActivity"
+            android:label="@string/title_activity_kuai_di" >
+        </activity>
+        <activity
+            android:name=".Gkuaidibao.activity.SearchActivity"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 
