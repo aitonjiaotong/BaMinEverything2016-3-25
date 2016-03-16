@@ -393,14 +393,6 @@
         </activity>
         <!-- 旅行旅游 -->
         <!-- 快递物流 -->
-        <activity
-            android:name=".Gkuaidiwuliu.WuLiuXiaDanActivity"
-            android:label="@string/title_activity_wu_liu_xia_dan" >
-        </activity>
-        <activity
-            android:name=".Gkuaidiwuliu.WuLiuChaXunActivity"
-            android:label="@string/title_activity_wu_liu_cha_xun" >
-        </activity>
         <!-- 快递物流 -->
 
 
@@ -468,10 +460,6 @@
         <activity
             android:name=".Cdachezuche.ZuCheChooseCityActivity"
             android:label="@string/title_activity_zu_che_choose_city" >
-        </activity>
-        <activity
-            android:name=".GkuaiDiWuLiu.KuaiDiWuLiuActivity"
-            android:label="@string/title_activity_kuai_di_wu_liu" >
         </activity>
         <activity
             android:name=".Cdachezuche.StoresMapActivity"
