@@ -232,6 +232,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mRadioButton_weixin = (RadioButton) findViewById(R.id.radioButton_weixin);
         mRela_useTheRedBag = (RelativeLayout) findViewById(R.id.rela_useTheRedBag);
         mTextView_redBagCount = (TextView) findViewById(R.id.textView_redBagCount);
+        mTicket_count = (TextView) findViewById(R.id.ticket_count);
+        mSurplusTime = (TextView) findViewById(R.id.surplusTime);
     }
 
     private void queryOrderInfo() {
@@ -266,7 +268,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 "&bookLogID=" + mBookLogAID;
         HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this,"网络连接异常或正在维护","确认");
+                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
             }
 
             public void onResponse(String s) {
@@ -348,12 +350,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initUI() {
-        mTicket_count = (TextView) findViewById(R.id.ticket_count);
         mTicket_count.setText(mQueryOrder.getFullTicket() + "");
         mPrice = mQueryOrder.getPrice();
         realPayPrice=mPrice;
         mTicket_price.setText("¥" + realPayPrice);
-        mSurplusTime = (TextView) findViewById(R.id.surplusTime);
         TextView textView_detialOrderDate = (TextView) findViewById(R.id.textView_detialOrderDate);
         textView_detialOrderDate.setText("出发日期"+ TimeAndDateFormate.dateFormate(mQueryOrder.getSetoutTime()));
         TextView textView_detialOrderStartPlace = (TextView) findViewById(R.id.textView_detialOrderStartPlace);
@@ -446,7 +446,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+        orderInfo += "&notify_url=" + "\"" + "http://121.207.141.188:8080/return/return" + "\"";
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";
