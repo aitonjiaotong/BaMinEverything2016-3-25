@@ -133,5 +133,6 @@
     <string name="title_activity_stores_map">StoresMapActivity</string>
     <string name="title_activity_kuai_di_wu_liu">KuaiDiWuLiuActivity</string>
     <string name="title_activity_kuai_di">KuaiDiActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -27,7 +27,7 @@ import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
 import com.example.zjb.bamin.Ddaibanpaotui.MainDaiBanPaoTuiActivity;
 import com.example.zjb.bamin.Eqicheguanjia.MainQiCheGuanJiaActivity;
 import com.example.zjb.bamin.Flvyoulvxing.MainlvyouActivity;
-import com.example.zjb.bamin.GkuaiDi.KuaiDiActivity;
+import com.example.zjb.bamin.Gkuaidibao.activity.KuaiDiActivity;
 import com.example.zjb.bamin.Itekuaishangcheng.TeKuaiShangChengActivity;
 import com.example.zjb.bamin.Jyouhuichongzhi.YuoHuiChongZhiActivity;
 import com.example.zjb.bamin.R;

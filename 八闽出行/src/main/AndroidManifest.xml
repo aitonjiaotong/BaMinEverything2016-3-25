@@ -466,8 +466,12 @@
             android:label="@string/title_activity_stores_map" >
         </activity>
         <activity
-            android:name=".GkuaiDi.KuaiDiActivity"
+            android:name=".Gkuaidibao.activity.KuaiDiActivity"
             android:label="@string/title_activity_kuai_di" >
+        </activity>
+        <activity
+            android:name=".Gkuaidibao.activity.SearchActivity"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 
