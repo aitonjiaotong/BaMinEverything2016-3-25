@@ -189,8 +189,8 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
     private void initIntent() {
         Intent intent = getIntent();
         mMOrderInfoBookLogAID = intent.getStringExtra("BookLogAID");
+        Log.e("initIntent ", "mMOrderInfoBookLogAID"+mMOrderInfoBookLogAID);
         mIsSure = intent.getStringExtra("isSure");
-        Log.e("initIntent ", "initIntent " + mMOrderInfoBookLogAID);
     }
 
     private void setListener() {

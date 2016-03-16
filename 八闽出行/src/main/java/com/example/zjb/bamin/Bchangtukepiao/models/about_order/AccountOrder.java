@@ -48,6 +48,15 @@ public class AccountOrder {
         private int account_id;
         private Object redEnvelope_id;
         private String phone;
+        private int flag;
+
+        public int getFlag() {
+            return flag;
+        }
+
+        public void setFlag(int flag) {
+            this.flag = flag;
+        }
 
         public void setId(int id) {
             this.id = id;

@@ -20,6 +20,7 @@ import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
 import com.example.zjb.bamin.Cdachezuche.MainDacheActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.MainActivity;
+import com.example.zjb.bamin.GkuaiDiWuLiu.KuaiDiWuLiuActivity;
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Itekuaishangcheng.TeKuaiShangChengActivity;
 import com.example.zjb.bamin.Jyouhuichongzhi.YuoHuiChongZhiActivity;
@@ -28,7 +29,6 @@ import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.ZcustomView.ViewPagerIndicator;
 import com.example.zjb.bamin.Ddaibanpaotui.MainDaiBanPaoTuiActivity;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.BannerFragment;
-import com.example.zjb.bamin.Gkuaidiwuliu.MainkuaidiwuliuActivity;
 import com.example.zjb.bamin.Flvyoulvxing.MainlvyouActivity;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_banner.BannerInfo;
 import com.example.zjb.bamin.Eqicheguanjia.MainQiCheGuanJiaActivity;
@@ -67,7 +67,6 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState)
     {
         mLayout = inflater.inflate(R.layout.fragment_main, null);
-
         checkUpGrade();
         initData();
         findID();
@@ -165,7 +164,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.kuaidiwuliu:
-                intent.setClass(getActivity(), MainkuaidiwuliuActivity.class);
+                intent.setClass(getActivity(), KuaiDiWuLiuActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lvyoulvxing:
