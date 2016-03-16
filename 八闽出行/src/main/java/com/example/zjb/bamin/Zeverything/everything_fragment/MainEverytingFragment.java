@@ -168,7 +168,6 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.lvyoulvxing:
                 intent.setClass(getActivity(),MainlvyouActivity.class);
-                intent.setClass(getActivity(), MainDaiBanPaoTuiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.qicheguanjia:
