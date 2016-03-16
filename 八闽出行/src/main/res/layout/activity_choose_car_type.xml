@@ -19,13 +19,63 @@
             android:src="@mipmap/icon_back_dache"/>
 
         <TextView
+            style="@style/dachezuche_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="选择车型"
-            style="@style/dachezuche_title_text"/>
+            android:text="选择车型"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line_up"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/relativeLayout13"
+        android:background="@color/line_gray"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll_dache_jg_choose_car_type_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_up"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/dachezuche_ic_routelist_dropdown_arrow"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="价格优先"/>
+
+        <TextView
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:gravity="center"
+            android:padding="1dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@mipmap/dachezuche_ic_routelist_dropdown_arrow"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="车型排序"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/line_down"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ll_dache_jg_choose_car_type_rank"
+        android:background="@color/line_gray"/>
+
 
     <ListView
         android:id="@+id/lv_zuche_choose_car_type"
@@ -33,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout13"
+        android:layout_below="@+id/line_down"
         android:layout_marginTop="5dp"
         android:divider="#00000000"/>
 

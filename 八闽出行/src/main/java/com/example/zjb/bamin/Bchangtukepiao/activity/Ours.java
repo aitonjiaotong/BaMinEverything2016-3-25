@@ -1,5 +1,7 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.R;
@@ -16,6 +19,7 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
 {
 
     private WebView mWebViewTicketNotice;
+    private LinearLayout mLl_ours_customer_telephone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,8 +27,15 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ours);
 
+        findViewID();
         initUI();
         setListener();
+    }
+
+    private void findViewID()
+    {
+        mWebViewTicketNotice = (WebView) findViewById(R.id.webview_about_us);
+        mLl_ours_customer_telephone = (LinearLayout) findViewById(R.id.ll_ours_customer_telephone);
     }
 
     private void initUI()
@@ -34,7 +45,7 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
 
     private void initWebView()
     {
-        mWebViewTicketNotice = (WebView) findViewById(R.id.webview_about_us);
+
         WebSettings settings = mWebViewTicketNotice.getSettings();
         settings.setJavaScriptEnabled(true);
         mWebViewTicketNotice.setWebViewClient(new WebViewClient());
@@ -44,6 +55,7 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
     private void setListener()
     {
         findViewById(R.id.iv_back).setOnClickListener(this);
+        mLl_ours_customer_telephone.setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +66,10 @@ public class Ours extends AppCompatActivity implements View.OnClickListener
             case R.id.iv_back:
                 finish();
                 AnimFromRightToLeft();
+                break;
+            case R.id.ll_ours_customer_telephone:
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:4000593330"));
+                startActivity(intent);
                 break;
         }
     }

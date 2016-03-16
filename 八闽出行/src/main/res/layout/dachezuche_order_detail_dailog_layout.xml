@@ -8,12 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:paddingTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="20dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:paddingTop="20dp">
 
         <TextView
             style="@style/dachezuche_title_text"
@@ -41,15 +41,15 @@
             android:hint="密码"
             android:textSize="@dimen/normalTextSize"/>
 
-        <EditText
-            android:id="@+id/et_dachezuche_dialog_unit_of_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/zuche_edittext_bg"
-            android:gravity="center"
-            android:hint="联系人手机号"
-            android:textSize="@dimen/normalTextSize"/>
+        <!--<EditText-->
+        <!--android:id="@+id/et_dachezuche_dialog_unit_of_phone"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@drawable/zuche_edittext_bg"-->
+        <!--android:gravity="center"-->
+        <!--android:hint="联系人手机号"-->
+        <!--android:textSize="@dimen/normalTextSize"/>-->
 
         <Button
             android:id="@+id/btn_dachezuche_dialog_comfire"
@@ -67,23 +67,23 @@
         android:id="@+id/ll_dache_reminder_prog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/linearLayout7"
+        android:layout_alignEnd="@+id/linearLayout7"
+        android:layout_alignLeft="@+id/linearLayout7"
+        android:layout_alignRight="@+id/linearLayout7"
+        android:layout_alignStart="@+id/linearLayout7"
+        android:layout_alignTop="@+id/linearLayout7"
         android:background="#CCFFFFFF"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_alignTop="@+id/linearLayout7"
-        android:layout_alignLeft="@+id/linearLayout7"
-        android:layout_alignStart="@+id/linearLayout7"
-        android:layout_alignBottom="@+id/linearLayout7"
-        android:layout_alignRight="@+id/linearLayout7"
-        android:layout_alignEnd="@+id/linearLayout7">
+        android:visibility="gone">
 
         <ProgressBar
             android:id="@+id/progressBar4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/progressbar_animated_rotate"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:indeterminateDrawable="@drawable/progressbar_animated_rotate"/>
 
         <TextView
             android:layout_width="wrap_content"

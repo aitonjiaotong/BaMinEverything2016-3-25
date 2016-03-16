@@ -29,6 +29,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
         setListener();
     }
 
+
     private void findViewID()
     {
         mIv_back = (ImageView) findViewById(R.id.iv_zuche_choose_car_type_back);

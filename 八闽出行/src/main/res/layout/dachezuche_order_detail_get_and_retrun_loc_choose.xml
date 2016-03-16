@@ -6,26 +6,28 @@
               android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_dache_jg_order_get_car"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center"
+        android:background="@drawable/dachezuche_linearlayout_selector"
         android:orientation="horizontal">
 
         <TextView
             style="@style/dachezuche_gray_small_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="取车门店"/>
 
         <TextView
             android:layout_width="0.5dp"
             android:layout_height="35dp"
-            android:background="@color/line_gray"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:background="@color/line_gray"/>
 
         <TextView
+            android:id="@+id/tv_dache_jg_store_name_get"
             style="@style/dachezuche_gray_small_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:src="@mipmap/loction_img"/>
 
     </LinearLayout>
@@ -45,10 +48,10 @@
         android:background="@color/line_gray"/>
 
     <LinearLayout
+        android:id="@+id/ll_dache_jg_order_return_car"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:background="@drawable/dachezuche_linearlayout_selector"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -56,15 +59,17 @@
             style="@style/dachezuche_gray_small_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取车门店"/>
+            android:layout_marginLeft="10dp"
+            android:text="还车门店"/>
 
         <TextView
             android:layout_width="0.5dp"
             android:layout_height="35dp"
-            android:background="@color/line_gray"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:background="@color/line_gray"/>
 
         <TextView
+            android:id="@+id/tv_dache_jg_store_name_return"
             style="@style/dachezuche_gray_small_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,6 +79,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:src="@mipmap/loction_img"/>
 
     </LinearLayout>

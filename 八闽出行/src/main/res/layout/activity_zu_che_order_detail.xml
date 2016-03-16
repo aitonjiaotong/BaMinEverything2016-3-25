@@ -43,11 +43,6 @@
 
             <include layout="@layout/dachezuche_order_detail_head"></include>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/line_gray"/>
-
             <include layout="@layout/dachezuche_order_detail_time"></include>
 
             <TextView

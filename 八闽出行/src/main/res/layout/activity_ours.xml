@@ -87,6 +87,7 @@
             android:layout_height="1dp"
             android:background="@color/line_gray"/>
         <LinearLayout
+            android:id="@+id/ll_ours_customer_telephone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
@@ -107,7 +108,7 @@
                 android:gravity="right"
                 android:layout_weight="1"
                 android:textColor="@color/aiton_basic_color"
-                android:text=""/>
+                android:text="400-0593-330"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

@@ -130,5 +130,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_zu_che_choose_city">ZuCheChooseCityActivity</string>
+    <string name="title_activity_stores_map">StoresMapActivity</string>
 
 </resources>

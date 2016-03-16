@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:background="@drawable/dachezuche_linearlayout_selector"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:background="@drawable/dachezuche_linearlayout_selector"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -110,7 +110,7 @@
                 android:id="@+id/ll_dache_jg_return_time"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white"
+                android:background="@drawable/dachezuche_linearlayout_selector"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -202,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:background="@drawable/dachezuche_linearlayout_selector"
                 android:gravity="center_vertical">
 
                 <TextView
