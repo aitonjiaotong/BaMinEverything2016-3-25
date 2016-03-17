@@ -112,7 +112,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     initData();
                     queryTicketCount++;
                 } else {
-                    setDialog01("网络连接异常或正在维护", "确认");
+                    Toast.makeText(TicketActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -283,7 +283,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
             if ((longtime-currentTimeMillis)<3600L*1000L){
-                DialogShow.setDialog(TicketActivity.this,"据发车时间一小时内，停止售票","确认");
+                DialogShow.setDialog(TicketActivity.this, "据发车时间一小时内，停止售票", "确认");
             }else{
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }
@@ -381,7 +381,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             HTTPUtils.post(TicketActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    DialogShow.setDialog(TicketActivity.this, "网络连接异常或正在维护", "确认");
+                    Toast.makeText(TicketActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

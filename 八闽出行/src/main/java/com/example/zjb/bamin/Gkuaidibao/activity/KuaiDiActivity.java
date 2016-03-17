@@ -1,5 +1,6 @@
 package com.example.zjb.bamin.Gkuaidibao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,9 +33,11 @@ public class KuaiDiActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Intent intent= new Intent();
         switch (v.getId()){
             case R.id.rela_search:
-
+                intent.setClass(KuaiDiActivity.this,SearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rela_jijian:
 

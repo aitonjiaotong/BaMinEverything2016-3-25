@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -98,7 +99,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                             HTTPUtils.get(AddFetcherActivity.this, yanzhengdizhi, new VolleyListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError volleyError) {
-                                    DialogShow.setDialog(AddFetcherActivity.this,"网络连接异常或正在维护","确认");
+                                    Toast.makeText(AddFetcherActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -122,7 +123,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                                 HTTPUtils.post(AddFetcherActivity.this, url, map, new VolleyListener() {
                                                     @Override
                                                     public void onErrorResponse(VolleyError volleyError) {
-                                                        DialogShow.setDialog(AddFetcherActivity.this,"网络连接异常或正在维护","确认");
+                                                        Toast.makeText(AddFetcherActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                                                     }
 
                                                     @Override
@@ -154,31 +155,31 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                                             finish();
                                                             animFromLeftToRightOUT();
                                                         }else {
-                                                            DialogShow.setDialog(AddFetcherActivity.this,"身份证号重复","确认");
+                                                            DialogShow.setDialog(AddFetcherActivity.this, "身份证号重复", "确认");
                                                         }
                                                     }
                                                 });
                                             }
 
                                         } else {
-                                            DialogShow.setDialog(AddFetcherActivity.this,"请输入正确的手机号", "确定");
+                                            DialogShow.setDialog(AddFetcherActivity.this, "请输入正确的手机号", "确定");
                                         }
                                     } else if (203801==error_code) {
-                                        DialogShow.setDialog(AddFetcherActivity.this,usedPersonID.getReason(), "确定");
+                                        DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
                                     } else if (203802==error_code) {
-                                        DialogShow.setDialog(AddFetcherActivity.this,usedPersonID.getReason(), "确定" );
+                                        DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
                                     } else if (203803==error_code) {
-                                        DialogShow.setDialog(AddFetcherActivity.this,usedPersonID.getReason(), "确定" );
+                                        DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
                                     }else if (203804==error_code) {
-                                        DialogShow.setDialog(AddFetcherActivity.this,usedPersonID.getReason(), "确定" );
+                                        DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
                                     } else {
-                                        DialogShow.setDialog(AddFetcherActivity.this,"未知错误/未联网", "确定");
+                                        DialogShow.setDialog(AddFetcherActivity.this, "未知错误/未联网", "确定");
                                     }
                                 }
                             });
                         }
                     } else {
-                        DialogShow.setDialog(AddFetcherActivity.this,"姓名不要包含数字和字符", "谢谢" );
+                        DialogShow.setDialog(AddFetcherActivity.this, "姓名不要包含数字和字符", "谢谢");
                     }
                 }
                 break;

@@ -1,7 +1,9 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -29,16 +31,24 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
     private ImageView mBack;
     private EditText mEditText_feedback;
     private TextView mSend;
+    private String mId;
+    private String mDeviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
-
+        initSp();
         initUI();
         setListener();
 
+    }
+
+    private void initSp() {
+        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        mId = sp.getString("id", "");
+        mDeviceId = sp.getString("DeviceId", "");
     }
 
     private void initUI()
@@ -89,8 +99,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tv_send:
                 String str_feedback = mEditText_feedback.getText().toString();
                 Map<String, String> mapData = new HashMap<>();
-                //TODO 真实数据时需传account_id的相关值，测试数据默认为 1
-                mapData.put("account_id", "1");
+                mapData.put("account_id", mId);
                 mapData.put("content", str_feedback);
                 HTTPUtils.post(FeedBackActivity.this, Constant.WebViewURL.FEED_BACK, mapData, new VolleyListener()
                 {

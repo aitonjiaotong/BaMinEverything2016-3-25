@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -82,7 +83,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.post(UsedContact.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(UsedContact.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(UsedContact.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override

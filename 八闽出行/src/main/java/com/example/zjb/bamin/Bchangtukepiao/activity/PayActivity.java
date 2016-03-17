@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -82,7 +81,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                      * docType=1) 建议商户依赖异步通知
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                    Log.e("handleMessage ", "handleMessage "+resultInfo);
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
@@ -167,7 +165,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                        Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -193,7 +191,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -234,7 +232,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this,"网络连接异常或正在维护","确认");
+                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -261,7 +259,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -287,7 +285,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 "&bookLogID=" + mBookLogAID;
         HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             public void onResponse(String s) {
@@ -655,7 +653,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(PayActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override

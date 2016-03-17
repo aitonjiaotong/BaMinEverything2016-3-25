@@ -14,16 +14,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment01;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment02;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.MineFragment;
-import com.example.zjb.bamin.Zutils.DialogShow;
+import com.example.zjb.bamin.R;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    DialogShow.setDialog(MainActivity.this, "网络连接异常或正在维护", "确认");
+                    Toast.makeText(MainActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

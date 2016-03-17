@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -313,7 +314,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 "&insured=" + mCheckBox_baoxian.isChecked();
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(FillinOrderActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 mPopupWindow.dismiss();
             }
 
@@ -329,9 +330,9 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     if (mOrderInfo!=null){
                         if (mOrderInfo.getBookLogAID() == null) {
                             if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())) {
-                                DialogShow.setDialog(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", "确定");
+                                Toast.makeText(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", Toast.LENGTH_SHORT).show();
                             } else {
-                                DialogShow.setDialog(FillinOrderActivity.this, mOrderInfo.getMessage(), "确定");
+                                Toast.makeText(FillinOrderActivity.this, mOrderInfo.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                             mPopupWindow.dismiss();
                         } else {
@@ -341,7 +342,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                             commitOrderToAiTon();
                         }
                     }else{
-                        DialogShow.setDialog(FillinOrderActivity.this,"提交订单失败","确认");
+                        Toast.makeText(FillinOrderActivity.this, "提交订单失败", Toast.LENGTH_SHORT).show();
                         mPopupWindow.dismiss();
                     }
                 } catch (DocumentException e) {
@@ -361,7 +362,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.post(FillinOrderActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(FillinOrderActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(FillinOrderActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 mPopupWindow.dismiss();
             }
 

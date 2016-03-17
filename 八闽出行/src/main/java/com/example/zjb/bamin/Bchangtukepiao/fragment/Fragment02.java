@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -121,7 +122,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         HTTPUtils.post(getActivity(), url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(getActivity(), "网络连接异常或正在维护", "确认");
+                Toast.makeText(getActivity(), "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override

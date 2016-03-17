@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -35,7 +36,6 @@ import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.CompanyS
 import com.example.zjb.bamin.Bchangtukepiao.models.about_companysubzone.SubZone_;
 import com.example.zjb.bamin.Bchangtukepiao.sql.MySqLite;
 import com.example.zjb.bamin.R;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.GetLastWordUtil;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
@@ -183,7 +183,7 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         {
             public void onErrorResponse(VolleyError volleyError)
             {
-                DialogShow.setDialog(SelectStationSetOutActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(SelectStationSetOutActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             public void onResponse(String s)

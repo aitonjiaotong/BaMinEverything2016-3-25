@@ -17,15 +17,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.UILUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_redpacket.RedPacket;
-import com.example.zjb.bamin.Zutils.DialogShow;
+import com.example.zjb.bamin.R;
 
 public class BannerFragment extends Fragment
 {
@@ -105,7 +105,7 @@ public class BannerFragment extends Fragment
                             {
                                 if ("".equals(s))
                                 {
-                                    DialogShow.setDialog(getActivity(),"您已领取过红包，每个用户限领一份","确认");
+                                    Toast.makeText(getActivity(), "您已领取过红包，每个用户限领一份", Toast.LENGTH_SHORT).show();
                                 } else
                                 {
                                     RedPacket redPacket = GsonUtils.parseJSON(s, RedPacket.class);
@@ -115,7 +115,7 @@ public class BannerFragment extends Fragment
                         });
                     } else
                     {
-                        DialogShow.setDialog(getActivity(),"您还未登录","确认");
+                        Toast.makeText(getActivity(), "您还未登录", Toast.LENGTH_SHORT).show();
                     }
 
                 }
