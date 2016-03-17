@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -23,7 +23,6 @@ import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.OrderDetial;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.QueryOrder;
 import com.example.zjb.bamin.R;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
 import com.google.gson.reflect.TypeToken;
 import com.google.zxing.BarcodeFormat;
@@ -83,7 +82,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(OrderDeatilActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(OrderDeatilActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -161,7 +160,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(OrderDeatilActivity.this, "网络连接异常或正在维护", "确认");
+                Toast.makeText(OrderDeatilActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -189,7 +188,6 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
     private void initIntent() {
         Intent intent = getIntent();
         mMOrderInfoBookLogAID = intent.getStringExtra("BookLogAID");
-        Log.e("initIntent ", "mMOrderInfoBookLogAID"+mMOrderInfoBookLogAID);
         mIsSure = intent.getStringExtra("isSure");
     }
 

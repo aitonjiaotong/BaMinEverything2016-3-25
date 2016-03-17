@@ -21,7 +21,6 @@ import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.R;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.Installation;
 import com.example.zjb.bamin.Zutils.SmsContent;
 import com.example.zjb.bamin.models.Zabout_user.User;
@@ -73,7 +72,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                             String url = Constant.URLFromAiTon.HOST+"front/FrontLogin?phone=" + mPhoneNum+"&login_id="+DeviceId;
                             HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener() {
                                 public void onErrorResponse(VolleyError volleyError) {
-                                    DialogShow.setDialog(SmsLoginActivity.this, "网络连接异常或正在维护", "确认");
+                                    toast("网络连接异常或正在维护");
                                 }
 
                                 public void onResponse(String s) {

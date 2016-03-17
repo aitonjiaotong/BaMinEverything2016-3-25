@@ -1,39 +1,59 @@
 package com.example.zjb.bamin.Gkuaidibao.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
 
+import com.android.volley.VolleyError;
+import com.example.administrator.shane_library.shane.utils.HTTPUtils;
+import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.R;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private EditText mEditText_kuaidi_company;
+    private EditText mEditText_kuaidi_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        findID();
+        initUI();
+        setListener();
+    }
+
+    private void setListener() {
+        findViewById(R.id.button_search).setOnClickListener(this);
+    }
+
+    private void initUI() {
+
+    }
+
+    private void findID() {
+        mEditText_kuaidi_company = (EditText) findViewById(R.id.editText_kuaidi_company);
+        mEditText_kuaidi_code = (EditText) findViewById(R.id.editText_kuaidi_code);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
-    }
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_search:
+                String url = ;
+                HTTPUtils.post(SearchActivity.this, url, map, new VolleyListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+                    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                    @Override
+                    public void onResponse(String s) {
+
+                    }
+                });
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
