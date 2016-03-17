@@ -3,6 +3,7 @@ package com.example.zjb.bamin.Flvyoulvxing;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -48,12 +49,14 @@ public class MainlvyouActivity extends AppCompatActivity implements View.OnClick
         WebSettings settings = mWv_journey.getSettings();
         settings.setJavaScriptEnabled(true);
         // 设置可以支持缩放
+        settings.setBuiltInZoomControls(true);
         settings.setSupportZoom(true);
-        //扩大比例的缩放
-        settings.setUseWideViewPort(true);
+
         //自适应屏幕
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
+
+        mWv_journey.requestFocusFromTouch();
 
         mWv_journey.setWebViewClient(new MyWebViewClient());
         mWv_journey.loadUrl(mWebViewUrl);
@@ -91,5 +94,15 @@ public class MainlvyouActivity extends AppCompatActivity implements View.OnClick
             mLl_loading.setVisibility(View.GONE);
             mWv_journey.setVisibility(View.VISIBLE);
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWv_journey.canGoBack())
+        {
+            mWv_journey.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
