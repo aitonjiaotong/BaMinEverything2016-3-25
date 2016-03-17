@@ -473,6 +473,10 @@
             android:name=".Gkuaidibao.activity.SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
+        <activity
+            android:name=".Gkuaidibao.activity.KuaiDiDetailActivity"
+            android:label="@string/title_activity_kuai_di_detail" >
+        </activity>
     </application>
 
 </manifest>
