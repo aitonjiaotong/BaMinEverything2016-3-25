@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.android.volley.VolleyError;
-import com.example.administrator.shane_library.shane.utils.HTTPUtils;
-import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.R;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,19 +38,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_search:
-                String url = ;
-                HTTPUtils.post(SearchActivity.this, url, map, new VolleyListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String s) {
-
-                    }
-                });
-                break;
+//                String url = ;
+//                HTTPUtils.post(SearchActivity.this, url, map, new VolleyListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String s) {
+//
+//                    }
+//                });
+//                break;
         }
     }
 }
