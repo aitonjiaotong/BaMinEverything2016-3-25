@@ -128,12 +128,12 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
 
                                                     @Override
                                                     public void onResponse(String s) {
-                                                        if ("0".equals(s)){
+//                                                        if ("0".equals(s)){
                                                             finish();
                                                             animFromLeftToRightOUT();
-                                                        }else {
-                                                            DialogShow.setDialog(AddFetcherActivity.this,"身份证号重复","确认");
-                                                        }
+//                                                        }else {
+//                                                            DialogShow.setDialog(AddFetcherActivity.this,"身份证号重复","确认");
+//                                                        }
                                                     }
                                                 });
                                             }else{

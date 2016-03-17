@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
-            android:id="@+id/imageView25"
+            android:id="@+id/imageView_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -106,7 +106,7 @@
                         android:textSize="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="查件"
+                        android:text="寄件"
                         android:id="@+id/textView64"
                         android:layout_below="@+id/imageView27"
                         android:layout_centerHorizontal="true"/>
