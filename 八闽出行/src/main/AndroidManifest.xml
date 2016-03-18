@@ -52,7 +52,12 @@
     <uses-feature android:name="android.hardware.camera.flash" />
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 二维码相关权限 -->
 
     <application
@@ -491,6 +496,11 @@
         </activity>
         <activity android:name=".Gkuaidibao.activity.KuaiDiCompanyListActivity" >
         </activity>
+        <activity
+            android:name=".Gkuaidibao.activity.CommonScanActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+
     </application>
 
 </manifest>

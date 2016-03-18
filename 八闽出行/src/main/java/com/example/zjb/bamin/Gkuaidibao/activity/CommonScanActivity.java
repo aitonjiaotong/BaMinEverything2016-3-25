@@ -221,6 +221,7 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
                 Intent intent = new Intent();
                 intent.putExtra("code",mResultCode);
                 setResult(1, intent);
+                finish();
                 break;
             case R.id.authorize_return:
                 finish();

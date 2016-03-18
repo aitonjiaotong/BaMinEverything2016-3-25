@@ -31,7 +31,7 @@
                 android:background="@null"
                 android:paddingLeft="12dp"
                 android:paddingRight="20dp"
-                android:src="@mipmap/ic_my_returns_arrow"
+                android:src="@drawable/ic_my_returns_arrow"
                 />
             <TextView
                 android:id="@+id/common_title_TV_center"
@@ -78,6 +78,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             />
+
         <TextView
             android:id="@+id/iv_light"
             android:layout_width="wrap_content"
@@ -87,6 +88,7 @@
             android:layout_below="@id/scan_hint"
             android:background="@drawable/shouquan_qrcode_s_flashgun"
             android:clickable="true" />
+
         <TextView
             android:id="@+id/qrcode_ic_back"
             android:layout_width="wrap_content"
@@ -158,8 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="5dp"
-                android:background="@mipmap/scanning_line" />
-            <com.liang.scancode.defineview.MyImageView
+                android:background="@drawable/scanning_line" />
+            <com.example.zjb.bamin.zxing.defineview.MyImageView
                 android:id="@+id/scan_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
