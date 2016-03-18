@@ -3,6 +3,7 @@ package com.example.zjb.bamin.Gkuaidibao.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -74,5 +75,19 @@ public class KuaiDiDetailActivity extends AppCompatActivity {
 
     public void back(View view) {
         finish();
+        AnimFromRightToLeftOUT();
+    }
+    /**
+     * 从右往左结束动画
+     */
+    private void AnimFromRightToLeftOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
+    }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            AnimFromRightToLeftOUT();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

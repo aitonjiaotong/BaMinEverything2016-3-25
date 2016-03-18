@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
@@ -215,6 +216,7 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
                 break;
             case R.id.qrcode_ic_back:
                 finish();
+                animFromBigToSmallOUT();
                 break;
             case R.id.service_register_rescan://完成扫描
 //                startScan();
@@ -222,13 +224,33 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
                 intent.putExtra("code",mResultCode);
                 setResult(1, intent);
                 finish();
+                animFromBigToSmallOUT();
                 break;
             case R.id.authorize_return:
                 finish();
+                animFromBigToSmallOUT();
                 break;
             default:
                 break;
         }
     }
-
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
+    /**
+     * 从右往左结束动画
+     */
+    private void AnimFromRightToLeftOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
+    }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            AnimFromRightToLeftOUT();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

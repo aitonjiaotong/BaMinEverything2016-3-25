@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -156,9 +157,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 intent.setClass(SearchActivity.this,CommonScanActivity.class);
                 intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_BARCODE_MODE);
                 startActivityForResult(intent, Constant.REQUEST_SCAN_TIAOXING_CODE_RESULT);
+                animFromSmallToBigIN();
                 break;
             case R.id.imageView_back:
                 finish();
+                AnimFromRightToLeftOUT();
                 break;
             case R.id.button_search:
                 companyCode = "";
@@ -188,6 +191,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) mKuaiDiCompanyCodeList);
                 }
                 startActivityForResult(intent, REQUEST_CODE);
+                animFromSmallToBigIN();
                 break;
         }
     }
@@ -274,6 +278,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra("kuaiDiInfo", kuaiDiInfo);
                 intent.setClass(SearchActivity.this, KuaiDiDetailActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
             }
         });
     }
@@ -308,6 +313,24 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
-
+    /**
+     * 从小到大打开动画
+     */
+    private void animFromSmallToBigIN() {
+        overridePendingTransition(R.anim.magnify_fade_in, R.anim.fade_out);
+    }
+    /**
+     * 从右往左结束动画
+     */
+    private void AnimFromRightToLeftOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
+    }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            AnimFromRightToLeftOUT();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

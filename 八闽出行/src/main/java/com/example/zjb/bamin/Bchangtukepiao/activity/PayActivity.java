@@ -155,9 +155,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             public void onErrorResponse(VolleyError volleyError) {
                 //订单异常0正常1失败
                 DialogShow.setDialog(PayActivity.this,"订单出现异常，请联系客服","确认");
-                /**
-                 * 向后台发送所用的红包和订单id
-                 */
                 String url01 = Constant.URLFromAiTon.HOST+ "/front/exceptionorder";
                 Map<String, String> map = new HashMap<>();
                 map.put("order_id",mOrderId);
@@ -433,7 +430,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             }
 
         }else{
-            setFailDialog("支付超时，失败", "确认");
+            setFailDialog01("支付超时，失败", "确认");
         }
 
     }
@@ -543,6 +540,27 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 intent.putExtra("BookLogAID",mBookLogAID);
                 intent.setClass(PayActivity.this, OrderDeatilActivity.class);
                 startActivity(intent);
+                animFromBigToSmallOUT();
+            }
+        });
+    }
+    //支付失败dialog提示
+    private void setFailDialog01(String messageTxt, String iSeeTxt) {
+        View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
+        TextView message = (TextView) commit_dialog.findViewById(R.id.message);
+        Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
+        message.setText(messageTxt);
+        ISee.setText(iSeeTxt);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+        final AlertDialog dialog = builder.setView(commit_dialog)
+                .create();
+        dialog.setCancelable(false);
+        dialog.show();
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startToMainActivity();
                 animFromBigToSmallOUT();
             }
         });
