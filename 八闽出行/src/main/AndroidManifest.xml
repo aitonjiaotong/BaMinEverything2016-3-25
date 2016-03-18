@@ -304,78 +304,62 @@
         <!-- 吃喝玩乐 -->
         <!-- 代办跑腿 -->
         <activity
-            android:name=".Ddaibanpaotui.DaiBanPaoTuiMainActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.DaiBanPaoTuiMainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiActivity"
             android:label="@string/title_activity_pao_tui" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiShunGouActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiShunGouActivity"
             android:label="@string/title_activity_pao_tui_shun_gou" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.GouWuCheActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.GouWuCheActivity"
             android:label="@string/title_activity_gou_wu_che" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiQuSongActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiQuSongActivity"
             android:label="@string/title_activity_pao_tui_qu_song" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiQuSong02Activity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiQuSong02Activity"
             android:label="@string/title_activity_pao_tui_qu_song02" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiPaiDuiActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiPaiDuiActivity"
             android:label="@string/title_activity_pao_tui_pai_dui" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.PaoTuiPaiDui02Activity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.PaoTuiPaiDui02Activity"
             android:label="@string/title_activity_pao_tui_pai_dui02" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.SiRenDingZhiActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.SiRenDingZhiActivity"
             android:label="@string/title_activity_si_ren_ding_zhi" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.SiRenDingZhi02Activity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.SiRenDingZhi02Activity"
             android:label="@string/title_activity_si_ren_ding_zhi02" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.DaiJiaActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.DaiJiaActivity"
             android:label="@string/title_activity_dai_jia" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.DaiJia02Activity"
-            android:label="@string/title_activity_dai_jia02" >
-        </activity>
-        <activity
-            android:name=".Ddaibanpaotui.JiaoNaFaKuanActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.JiaoNaFaKuanActivity"
             android:label="@string/title_activity_jiao_na_fa_kuan" >
         </activity>
         <activity
-            android:name=".Ddaibanpaotui.SongCanActivity"
+            android:name=".Ddaibanpaotui.activity_daibanpaotui.SongCanActivity"
             android:label="@string/title_activity_song_can" >
         </activity>
         <!-- 代办跑腿 -->
         <!-- 汽车管家 -->
         <activity
-            android:name=".Eqicheguanjia.MainQiCheGuanJiaActivity"
+            android:name=".Eqicheguanjia.activity_qicheguanjia.QiCheGuanJiaMainActivity"
             android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".Eqicheguanjia.AActivity"
-            android:label="@string/title_activity_a" >
-        </activity>
-        <activity
-            android:name=".Eqicheguanjia.BActivity"
-            android:label="@string/title_activity_b" >
-        </activity>
-        <activity
-            android:name=".Eqicheguanjia.CActivity"
-            android:label="@string/title_activity_c" >
         </activity>
         <!-- 汽车管家 -->
         <activity

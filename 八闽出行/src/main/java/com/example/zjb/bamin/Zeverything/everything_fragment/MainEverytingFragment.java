@@ -24,8 +24,8 @@ import com.example.zjb.bamin.Bchangtukepiao.fragment.BannerFragment;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_banner.BannerInfo;
 import com.example.zjb.bamin.Cdachezuche.MainDacheActivity;
 import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
-import com.example.zjb.bamin.Ddaibanpaotui.DaiBanPaoTuiMainActivity;
-import com.example.zjb.bamin.Eqicheguanjia.MainQiCheGuanJiaActivity;
+import com.example.zjb.bamin.Ddaibanpaotui.activity_daibanpaotui.DaiBanPaoTuiMainActivity;
+import com.example.zjb.bamin.Eqicheguanjia.activity_qicheguanjia.QiCheGuanJiaMainActivity;
 import com.example.zjb.bamin.Flvyoulvxing.MainlvyouActivity;
 import com.example.zjb.bamin.Gkuaidibao.activity.KuaiDiActivity;
 import com.example.zjb.bamin.Itekuaishangcheng.TeKuaiShangChengActivity;
@@ -156,7 +156,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.qicheguanjia:
-                intent.setClass(getActivity(), MainQiCheGuanJiaActivity.class);
+                intent.setClass(getActivity(), QiCheGuanJiaMainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.chihewanle:

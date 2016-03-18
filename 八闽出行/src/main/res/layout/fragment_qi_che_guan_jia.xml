@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_dabanpaotui_back"
+                android:id="@+id/iv_qicheguanjia_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -33,7 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:text="代办跑腿"/>
+                android:text="汽车管家"/>
         </RelativeLayout>
 
 
@@ -65,7 +65,7 @@
     </RelativeLayout>
 
     <GridView
-        android:id="@+id/gv_dabanpaogui_classify"
+        android:id="@+id/gv_qicheguanjia_classify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
