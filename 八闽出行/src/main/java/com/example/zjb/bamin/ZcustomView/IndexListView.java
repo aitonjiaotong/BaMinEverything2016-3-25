@@ -18,8 +18,7 @@ public class IndexListView extends View
 	private final int LETTER_LENGTH = 26;
 	private final String PRIME_TEXTCOLOR = "#666666";
 	private final String CHOOSE_TEXTCOLOR = "#FFCCCC";
-//	private final String CHOOSE_VIEWBACKGROUD = "#7F6699CC";
-	private final String CHOOSE_VIEWBACKGROUD = "#7F199989";
+	private final String CHOOSE_VIEWBACKGROUD = "#7Ff3712a";
 	private GetLetterListener listener;//回调接口
 
 	public IndexListView(Context context, AttributeSet attrs)

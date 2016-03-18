@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,8 +22,6 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
     private static String KEY = "kuaidi_list_company_name";
     private static int RESULTCODE = 0;
     private List<KuaiDiCompanyCode> mKuaiDiCompanyCodeList = new ArrayList<KuaiDiCompanyCode>();
-    //    private List<String> mPinYinCode = new ArrayList<String>();
-//    private List<String> mCompanyName = new ArrayList<String>();
     private ListView mLv_kuaidi_company_list;
     private IndexListView mIndexlistview;
     private TextView mTv_letter;
@@ -51,6 +50,15 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
     {
         mAdapter = new IndexListAdapter();
         mLv_kuaidi_company_list.setAdapter(mAdapter);
+        mLv_kuaidi_company_list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                setResultRerun(mKuaiDiCompanyCodeList.get(position).getKuaiDiCompany());
+                finish();
+            }
+        });
 
         mIndexlistview.setOnGetLetterListener(new IndexListView.GetLetterListener()
         {
@@ -108,10 +116,19 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
             TextView tv_kuaidi_company_name = (TextView) layout.findViewById(R.id.tv_kuaidi_company_name);
             if (mKuaiDiCompanyCodeList != null && mKuaiDiCompanyCodeList.size() > 0)
             {
-                tv_frist_letter.setText(mKuaiDiCompanyCodeList.get(position).getKuaiDiCode());
+                String substring_fristletter = mKuaiDiCompanyCodeList.get(position).getKuaiDiCode().substring(0, 1).toUpperCase();
+                tv_frist_letter.setText(substring_fristletter);
                 tv_kuaidi_company_name.setText(mKuaiDiCompanyCodeList.get(position).getKuaiDiCompany());
+                if (position > 0)
+                {
+                    //上一行首字母
+                    String lastletter = mKuaiDiCompanyCodeList.get(position - 1).getKuaiDiCode().substring(0, 1).toUpperCase();
+                    if (substring_fristletter.equals(lastletter))
+                    {
+                        tv_frist_letter.setVisibility(View.GONE);
+                    }
+                }
             }
-
             return layout;
         }
     }

@@ -16,7 +16,7 @@
             android:id="@+id/tv_fristletter"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="#C2C2C2"
+            android:background="#cecece"
             android:gravity="center"
             android:text="A"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
