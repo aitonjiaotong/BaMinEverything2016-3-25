@@ -218,12 +218,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         queryOrderInfo();
         //查询优惠券信息
         queryRedBag();
+        //更新时间
+        queryTime();
         setListener();
     }
     private void queryRedBag() {
         String url = Constant.URLFromAiTon.HOST+"redenvelope/getnumofredenvelopebyuser";
         Map<String, String> map = new HashMap<>();
-        map.put("account_id",mId);
+        map.put("account_id", mId);
         HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -232,7 +234,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onResponse(String s) {
-                mTextView_redBagCount.setText(s+"张");
+                mTextView_redBagCount.setText(s + "张");
             }
         });
     }
@@ -273,7 +275,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
-
     private void queryTime() {
         String url_web = Constant.URL.HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
@@ -299,7 +300,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     lastTime = Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
                     //设置票订单倒计时
                     setTime();
-                    pay();
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
@@ -624,8 +624,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.pay:
                 if ("支付宝".equals(payMode)){
-                    //查询剩余时间
-                    queryTime();
+                    pay();
                 }
                 break;
             case R.id.iv_back:
