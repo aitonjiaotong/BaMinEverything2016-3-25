@@ -63,6 +63,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void setListener() {
         findViewById(R.id.button_search).setOnClickListener(this);
         findViewById(R.id.imageView_back).setOnClickListener(this);
+        findViewById(R.id.imageView_kuaidi_camera).setOnClickListener(this);
     }
 
     private void initUI() {
@@ -91,16 +92,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void initAutoComplete(String field, AutoCompleteTextView auto) {
         auto.setAdapter(mAdapter);
         auto.setThreshold(1);
-//        auto.setCompletionHint("最近的5条记录");
-//        auto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                AutoCompleteTextView view = (AutoCompleteTextView) v;
-//                if (hasFocus) {
-//                    view.showDropDown();
-//                }
-//            }
-//        });
     }
 
     private void initHistoryCodeSP() {
@@ -150,6 +141,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.imageView_kuaidi_camera:
+
+                break;
             case R.id.imageView_back:
                 finish();
                 break;
