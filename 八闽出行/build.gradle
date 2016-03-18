@@ -37,6 +37,7 @@ dependencies {
     compile project(':CheckBox')
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':slideDateTimePicker')
+    compile files('libs/butterknife-7.0.1.jar')
 }
 
 android {
