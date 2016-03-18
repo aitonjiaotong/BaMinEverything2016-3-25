@@ -146,26 +146,32 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
             case R.id.daibanpaotui:
                 intent.setClass(getActivity(), DaiBanPaoTuiMainActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.kuaidiwuliu:
                 intent.setClass(getActivity(), KuaiDiActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.lvyoulvxing:
                 intent.setClass(getActivity(), MainlvyouActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.qicheguanjia:
                 intent.setClass(getActivity(), QiCheGuanJiaMainActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.chihewanle:
                 intent.setClass(getActivity(), MainCheHeWanLeActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.ll_onlinebus:
                 intent.setClass(getActivity(), MainBusLineActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.ll_ticket:
                 intent.setClass(getActivity(), MainActivity.class);
@@ -175,18 +181,22 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
             case R.id.ll_taxi:
                 intent.setClass(getActivity(), MainDacheActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.youhuishangcheng:
                 intent.setClass(getActivity(), YuoHuiChongZhiActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.tekuaishangcheng:
                 intent.setClass(getActivity(), TeKuaiShangChengActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
             case R.id.baoxianchaoshi:
                 intent.setClass(getActivity(), com.example.zjb.bamin.Hbaoxianchaoshi.MainActivity.class);
                 startActivity(intent);
+                animFromSmallToBigIN();
                 break;
 
         }

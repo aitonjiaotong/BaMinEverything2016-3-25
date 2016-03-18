@@ -3,6 +3,7 @@ package com.example.zjb.bamin.Gkuaidibao.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,8 +18,7 @@ import com.example.zjb.bamin.ZcustomView.IndexListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KuaiDiCompanyListActivity extends AppCompatActivity
-{
+public class KuaiDiCompanyListActivity extends AppCompatActivity implements View.OnClickListener {
     private static String KEY = "kuaidi_list_company_name";
     private static int RESULTCODE = 0;
     private List<KuaiDiCompanyCode> mKuaiDiCompanyCodeList = new ArrayList<KuaiDiCompanyCode>();
@@ -36,7 +36,11 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
         initIntent();
         findViewID();
         initUI();
+        setListener();
+    }
 
+    private void setListener() {
+        findViewById(R.id.imageView_back).setOnClickListener(this);
     }
 
     private void findViewID()
@@ -57,6 +61,7 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
             {
                 setResultRerun(mKuaiDiCompanyCodeList.get(position).getKuaiDiCompany());
                 finish();
+                animFromBigToSmallOUT();
             }
         });
 
@@ -84,6 +89,12 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
     {
         Intent intent = getIntent();
         mKuaiDiCompanyCodeList = intent.getParcelableArrayListExtra("data");
+    }
+
+    @Override
+    public void onClick(View v) {
+        finish();
+        AnimFromRightToLeftOUT();
     }
 
     class IndexListAdapter extends BaseAdapter
@@ -161,5 +172,23 @@ public class KuaiDiCompanyListActivity extends AppCompatActivity
         }
         return -1;
     }
-
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
+    /**
+     * 从右往左结束动画
+     */
+    private void AnimFromRightToLeftOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
+    }
+    public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            AnimFromRightToLeftOUT();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
