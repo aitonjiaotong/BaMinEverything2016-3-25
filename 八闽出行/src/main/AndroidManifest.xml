@@ -308,7 +308,7 @@
         <!-- 吃喝玩乐 -->
         <!-- 代办跑腿 -->
         <activity
-            android:name=".Ddaibanpaotui.MainDaiBanPaoTuiActivity"
+            android:name=".Ddaibanpaotui.DaiBanPaoTuiMainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

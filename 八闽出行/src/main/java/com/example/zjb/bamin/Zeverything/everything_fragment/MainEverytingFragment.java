@@ -24,7 +24,7 @@ import com.example.zjb.bamin.Bchangtukepiao.fragment.BannerFragment;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_banner.BannerInfo;
 import com.example.zjb.bamin.Cdachezuche.MainDacheActivity;
 import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
-import com.example.zjb.bamin.Ddaibanpaotui.MainDaiBanPaoTuiActivity;
+import com.example.zjb.bamin.Ddaibanpaotui.DaiBanPaoTuiMainActivity;
 import com.example.zjb.bamin.Eqicheguanjia.MainQiCheGuanJiaActivity;
 import com.example.zjb.bamin.Flvyoulvxing.MainlvyouActivity;
 import com.example.zjb.bamin.Gkuaidibao.activity.KuaiDiActivity;
@@ -144,7 +144,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.daibanpaotui:
-                intent.setClass(getActivity(), MainDaiBanPaoTuiActivity.class);
+                intent.setClass(getActivity(), DaiBanPaoTuiMainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.kuaidiwuliu:

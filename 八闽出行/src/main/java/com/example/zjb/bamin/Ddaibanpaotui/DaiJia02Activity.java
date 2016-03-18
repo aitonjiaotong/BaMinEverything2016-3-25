@@ -19,7 +19,7 @@ public class DaiJia02Activity extends AppCompatActivity {
     public void queren(View view){
         Intent intent=new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setClass(DaiJia02Activity.this, MainDaiBanPaoTuiActivity.class);
+        intent.setClass(DaiJia02Activity.this, DaiBanPaoTuiMainActivity.class);
         startActivity(intent);
     }
 
