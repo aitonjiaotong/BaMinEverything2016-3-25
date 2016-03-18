@@ -1,9 +1,7 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -22,7 +20,6 @@ import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.Installation;
-import com.example.zjb.bamin.Zutils.SmsContent;
 import com.example.zjb.bamin.models.Zabout_user.User;
 import com.umeng.analytics.MobclickAgent;
 
@@ -53,9 +50,9 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         initUI();
         setListener();
         sms();
-        SmsContent content = new SmsContent(SmsLoginActivity.this, new Handler(), mSms);
-        // 注册短信变化监听
-        this.getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, content);
+//        SmsContent content = new SmsContent(SmsLoginActivity.this, new Handler(), mSms);
+//        // 注册短信变化监听
+//        this.getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, content);
     }
 
     private void sms() {
