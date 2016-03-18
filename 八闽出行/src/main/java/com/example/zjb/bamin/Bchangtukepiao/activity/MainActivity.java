@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private String[] tabsItem = new String[]{
             "查询",
             "订单",
-            "我的",
+            "我的"
     };
     private Class[] fragment = new Class[]{
             Fragment01.class,
             Fragment02.class,
-            MineFragment.class,
+            MineFragment.class
     };
     private int[] imgRes = new int[]{
             R.drawable.ic_home_search_selector,

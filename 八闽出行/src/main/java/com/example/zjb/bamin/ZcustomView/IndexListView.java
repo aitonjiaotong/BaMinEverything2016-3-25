@@ -26,7 +26,7 @@ public class IndexListView extends View
 		super(context, attrs);
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setColor(Color.parseColor(PRIME_TEXTCOLOR));
-		paint.setTextSize(20);
+		paint.setTextSize(26);
 	}
 
 	@Override
@@ -70,7 +70,6 @@ public class IndexListView extends View
 			isPressed = true;
 			String letter_down = "" + (char) ('A' + index);
 			this.listener.onLetterChanged(letter_down);
-			Log.e("--->>Event", "按下");
 			break;
 
 		case MotionEvent.ACTION_MOVE:
@@ -78,7 +77,6 @@ public class IndexListView extends View
 			isPressed = true;
 			String letter_move = "" + (char) ('A' + index);
 			this.listener.onLetterChanged(letter_move);
-			Log.e("--->>Event", "移动");
 			break;
 
 		case MotionEvent.ACTION_UP:
@@ -86,7 +84,6 @@ public class IndexListView extends View
 			isPressed = false;
 			index = -1;
 			this.listener.onActionUp();
-			Log.e("--->>Event", "抬起");
 			break;
 
 		default:

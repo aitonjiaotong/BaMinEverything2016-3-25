@@ -62,5 +62,6 @@
         android:gravity="center"
         android:text="A"
         android:textColor="@color/white"
+        android:visibility="gone"
         android:textSize="28sp"/>
 </RelativeLayout>

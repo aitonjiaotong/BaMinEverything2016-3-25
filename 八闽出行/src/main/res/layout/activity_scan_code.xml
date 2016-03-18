@@ -31,7 +31,8 @@
                 android:background="@null"
                 android:paddingLeft="12dp"
                 android:paddingRight="20dp"
-                android:src="@drawable/ic_my_returns_arrow"/>
+                android:src="@mipmap/ic_my_returns_arrow"
+                />
             <TextView
                 android:id="@+id/common_title_TV_center"
                 android:layout_width="wrap_content"
@@ -157,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="5dp"
-                android:background="@drawable/scanning_line" />
+                android:background="@mipmap/scanning_line" />
             <com.liang.scancode.defineview.MyImageView
                 android:id="@+id/scan_image"
                 android:layout_width="match_parent"
