@@ -74,7 +74,7 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
     TextView scan_hint;
     @Bind(R.id.tv_scan_result)
     TextView tv_scan_result;
-
+    private String mResultCode;
 
 
     @Override
@@ -156,7 +156,8 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
         rescan.setVisibility(View.VISIBLE);
         scan_image.setVisibility(View.VISIBLE);
         tv_scan_result.setVisibility(View.VISIBLE);
-        tv_scan_result.setText("结果："+rawResult.getText());
+        mResultCode = rawResult.getText();
+        tv_scan_result.setText("结果："+ mResultCode);
     }
 
     void startScan() {
@@ -217,7 +218,9 @@ public final class CommonScanActivity extends Activity implements ScanListener, 
                 break;
             case R.id.service_register_rescan://完成扫描
 //                startScan();
-
+                Intent intent = new Intent();
+                intent.putExtra("code",mResultCode);
+                setResult(1, intent);
                 break;
             case R.id.authorize_return:
                 finish();
