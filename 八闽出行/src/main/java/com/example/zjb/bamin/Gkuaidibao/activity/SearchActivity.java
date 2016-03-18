@@ -298,9 +298,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 String kuaidi_list_company_name = data.getStringExtra(KEY);
                 mEditText_kuaidi_company.setText(kuaidi_list_company_name);
             }
-//            else if (){
-//
-//            }
+            else if (requestCode == Constant.REQUEST_SCAN_TIAOXING_CODE_RESULT && resultCode == 1){
+
+            }
         }
     }
 
