@@ -216,8 +216,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         findID();
         //查询订单信息
         queryOrderInfo();
-        //查询剩余时间
-        queryTime();
         //查询优惠券信息
         queryRedBag();
         setListener();
@@ -301,6 +299,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     lastTime = Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
                     //设置票订单倒计时
                     setTime();
+                    pay();
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
@@ -625,7 +624,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.pay:
                 if ("支付宝".equals(payMode)){
-                    pay();
+                    //查询剩余时间
+                    queryTime();
                 }
                 break;
             case R.id.iv_back:
