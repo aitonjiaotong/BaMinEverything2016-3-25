@@ -77,7 +77,6 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             />
-
         <TextView
             android:id="@+id/iv_light"
             android:layout_width="wrap_content"
@@ -87,7 +86,6 @@
             android:layout_below="@id/scan_hint"
             android:background="@drawable/shouquan_qrcode_s_flashgun"
             android:clickable="true" />
-
         <TextView
             android:id="@+id/qrcode_ic_back"
             android:layout_width="wrap_content"
