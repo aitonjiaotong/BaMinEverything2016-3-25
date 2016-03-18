@@ -477,6 +477,8 @@
             android:name=".Gkuaidibao.activity.KuaiDiDetailActivity"
             android:label="@string/title_activity_kuai_di_detail" >
         </activity>
+        <activity android:name=".Gkuaidibao.activity.KuaiDiCompanyListActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zjb.bamin.Gkuaidibao.activity.KuaiDiCompanyListActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout17"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/imageView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:src="@mipmap/ic_header_back"/>
+
+        <TextView
+            android:id="@+id/textView68"
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="选择快递"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_kuaidi_company_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/indexlistview"/>
+
+    <com.example.zjb.bamin.ZcustomView.IndexListView
+        android:id="@+id/indexlistview"
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/relativeLayout17"
+        android:layout_gravity="right"/>
+
+    <TextView
+        android:id="@+id/tv_letter"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@color/title_bar"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/white"
+        android:textSize="28sp"/>
+</RelativeLayout>
