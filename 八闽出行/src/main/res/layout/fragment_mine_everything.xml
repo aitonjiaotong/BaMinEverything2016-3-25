@@ -56,17 +56,6 @@
 
                 <TextView
                     android:textSize="@dimen/normalTextSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="张小闽"
-                    android:textColor="@color/title_bar"
-                    android:id="@+id/textView17"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-                <TextView
-                    android:textSize="@dimen/normalTextSize"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

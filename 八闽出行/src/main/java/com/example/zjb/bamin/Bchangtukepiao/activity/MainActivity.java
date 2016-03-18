@@ -22,7 +22,7 @@ import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment01;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment02;
-import com.example.zjb.bamin.Bchangtukepiao.fragment.MineFragment;
+import com.example.zjb.bamin.Bchangtukepiao.fragment.MoreFragment;
 import com.example.zjb.bamin.R;
 import com.umeng.analytics.MobclickAgent;
 
@@ -33,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
     private String[] tabsItem = new String[]{
             "查询",
             "订单",
-            "我的"
+            "更多"
     };
     private Class[] fragment = new Class[]{
             Fragment01.class,
             Fragment02.class,
-            MineFragment.class
+            MoreFragment.class
     };
     private int[] imgRes = new int[]{
             R.drawable.ic_home_search_selector,
             R.drawable.ic_home_order_selector,
-            R.drawable.ic_home_me_selector
+            R.drawable.ic_home_me_gengduo_selector
     };
     private FragmentTabHost mTabHost;
     private BroadcastReceiver recevier = new BroadcastReceiver() {

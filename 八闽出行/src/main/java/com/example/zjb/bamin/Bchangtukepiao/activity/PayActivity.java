@@ -259,7 +259,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -285,7 +285,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 "&bookLogID=" + mBookLogAID;
         HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             public void onResponse(String s) {
@@ -653,7 +653,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(PayActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override

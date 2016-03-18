@@ -106,10 +106,6 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".Bchangtukepiao.activity.TicketActivity" />
         <activity
-            android:name=".Bchangtukepiao.activity.SettingActivity"
-            android:label="@string/title_activity_setting" >
-        </activity>
-        <activity
             android:name=".Bchangtukepiao.activity.SmsLoginActivity"
             android:label="@string/title_activity_sms_login" >
         </activity>

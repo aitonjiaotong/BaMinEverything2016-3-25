@@ -314,7 +314,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 "&insured=" + mCheckBox_baoxian.isChecked();
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(FillinOrderActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FillinOrderActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
                 mPopupWindow.dismiss();
             }
 
