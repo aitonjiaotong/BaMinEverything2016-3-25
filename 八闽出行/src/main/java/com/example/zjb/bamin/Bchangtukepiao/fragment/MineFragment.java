@@ -30,7 +30,6 @@ import android.widget.TextView;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.example.zjb.bamin.Bchangtukepiao.activity.BackTicketActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.CouponInfoActivity;
-import com.example.zjb.bamin.Bchangtukepiao.activity.SettingActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SmsLoginActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TakeTickets;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TicketNotice;
@@ -115,13 +114,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
     private void setListener() {
         mPullRootView.findViewById(R.id.setting).setOnClickListener(this);
+        mPullRootView.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
         mPullRootView.findViewById(R.id.used_contact).setOnClickListener(this);
         mPullRootView.findViewById(R.id.Discount).setOnClickListener(this);
         mPullRootView.findViewById(R.id.wallet).setOnClickListener(this);
         mPullRootView.setOnClickListener(this);
         mPullRootView.findViewById(R.id.unlogin).setOnClickListener(this);
         mPullRootView.findViewById(R.id.ic_avatar).setOnClickListener(this);
-        mPullRootView.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
         mPullRootView.findViewById(R.id.rl_back_ticket).setOnClickListener(this);
     }
 
@@ -283,9 +282,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.setting:
-                intent.setClass(getActivity(), SettingActivity.class);
-                startActivity(intent);
-                animFromLeftToRight();
                 break;
             case R.id.used_contact:
                 if (!isLogined) {

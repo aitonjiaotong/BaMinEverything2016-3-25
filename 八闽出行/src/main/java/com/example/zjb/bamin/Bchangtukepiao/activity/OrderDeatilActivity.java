@@ -82,7 +82,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(OrderDeatilActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDeatilActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -160,7 +160,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(OrderDeatilActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDeatilActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -112,7 +112,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     initData();
                     queryTicketCount++;
                 } else {
-                    Toast.makeText(TicketActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TicketActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
                 }
 
             }
