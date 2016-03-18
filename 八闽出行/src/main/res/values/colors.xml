@@ -45,4 +45,5 @@
     <color name="dachezuche_black">#222222</color>
     <color name="dachezuche_gray">#888888</color>
     <color name="dachezuche_yellow">#FFFE9703</color>
+    <color name="scan_bg">#7f000000</color>
 </resources>
