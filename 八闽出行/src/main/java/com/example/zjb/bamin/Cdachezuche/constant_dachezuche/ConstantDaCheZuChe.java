@@ -8,6 +8,11 @@ public class ConstantDaCheZuChe
     /**--------打车租车服务器网址--------------*/
     public class Url
     {
+        public static final String HOST = "http://120.24.46.15:8080/bmpw/";
+        //取车城市列表接口地址
+        public static final String CITY_LIST = HOST + "zc/store/loadcities";
+
+
         public static final String DACHEZUCHE_COMFIRE_UNIT_INFO = "";
     }
 
