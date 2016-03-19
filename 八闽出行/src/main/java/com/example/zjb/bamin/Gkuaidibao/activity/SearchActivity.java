@@ -1,9 +1,13 @@
 package com.example.zjb.bamin.Gkuaidibao.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -154,10 +158,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.imageView_kuaidi_camera:
-                intent.setClass(SearchActivity.this,CommonScanActivity.class);
-                intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_BARCODE_MODE);
-                startActivityForResult(intent, Constant.REQUEST_SCAN_TIAOXING_CODE_RESULT);
-                animFromSmallToBigIN();
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                            0);
+                }else{
+                    intent.setClass(SearchActivity.this,CommonScanActivity.class);
+                    intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_BARCODE_MODE);
+                    startActivityForResult(intent, Constant.REQUEST_SCAN_TIAOXING_CODE_RESULT);
+                    animFromSmallToBigIN();
+                }
                 break;
             case R.id.imageView_back:
                 finish();

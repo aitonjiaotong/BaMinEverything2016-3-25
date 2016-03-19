@@ -362,7 +362,6 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.post(FillinOrderActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(FillinOrderActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 mPopupWindow.dismiss();
             }
 

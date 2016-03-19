@@ -1,11 +1,15 @@
 package com.example.zjb.bamin.Zeverything.everything_fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +59,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
     private ViewPagerIndicator mViewPagerIndicator;
     private boolean isFrist = true;
     private boolean mDragging;
-
+    private int PERMISSION_WRITE_SETTINGS = 0;
     public MainEverytingFragment() {
         // Required empty public constructor
     }
@@ -138,7 +142,6 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
         mLayout.findViewById(R.id.baoxianchaoshi).setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
@@ -169,9 +172,16 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                 animFromSmallToBigIN();
                 break;
             case R.id.ll_onlinebus:
-                intent.setClass(getActivity(), MainBusLineActivity.class);
-                startActivity(intent);
-                animFromSmallToBigIN();
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            0);
+                }else{
+                    intent.setClass(getActivity(), MainBusLineActivity.class);
+                    startActivity(intent);
+                    animFromSmallToBigIN();
+                }
                 break;
             case R.id.ll_ticket:
                 intent.setClass(getActivity(), MainActivity.class);

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -25,7 +24,6 @@ import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_used_contact.AddContant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_used_contact.UsedContactInfo;
 import com.example.zjb.bamin.R;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.github.lguipeng.library.animcheckbox.AnimCheckBox;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
@@ -83,7 +81,6 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
         HTTPUtils.post(UsedContact.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(UsedContact.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -318,7 +315,6 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 HTTPUtils.post(UsedContact.this, url, map, new VolleyListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        DialogShow.setDialog(UsedContact.this, "网络连接异常或正在维护", "确认");
                     }
 
                     @Override

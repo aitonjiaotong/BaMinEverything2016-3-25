@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(MainActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
