@@ -59,7 +59,6 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
     private ViewPagerIndicator mViewPagerIndicator;
     private boolean isFrist = true;
     private boolean mDragging;
-    private int PERMISSION_WRITE_SETTINGS = 0;
     public MainEverytingFragment() {
         // Required empty public constructor
     }

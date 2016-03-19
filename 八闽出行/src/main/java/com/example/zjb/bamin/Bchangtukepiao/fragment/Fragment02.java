@@ -334,6 +334,7 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
             if (position == mAccountOrderEntityList.size()) {
                 if (orderPageCount < mPages) {
                     queryAccountIdToOrder();
+                    mTextView_moreOrder.setText("更多订单");
                 } else {
                     mTextView_moreOrder.setText("没有更多订单了");
                 }

@@ -60,7 +60,6 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
      */
     private String mIsSure;
     private ListView4ScrollView mListView4ScrollView_passager;
-    private OrderDetial mOrderDetial;
     private MyAdapter mAdapter;
 
     @Override
