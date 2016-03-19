@@ -183,7 +183,7 @@
                 <LinearLayout
                     android:id="@+id/chihewanle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -205,7 +205,7 @@
                 <LinearLayout
                     android:id="@+id/daibanpaotui"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -227,7 +227,7 @@
                 <LinearLayout
                     android:id="@+id/qicheguanjia"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -249,7 +249,7 @@
                 <LinearLayout
                     android:id="@+id/lvyoulvxing"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -279,7 +279,7 @@
                 <LinearLayout
                     android:id="@+id/kuaidiwuliu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -301,7 +301,7 @@
                 <LinearLayout
                     android:id="@+id/baoxianchaoshi"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -323,7 +323,7 @@
                 <LinearLayout
                     android:id="@+id/tekuaishangcheng"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
@@ -345,7 +345,7 @@
                 <LinearLayout
                     android:id="@+id/youhuishangcheng"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"

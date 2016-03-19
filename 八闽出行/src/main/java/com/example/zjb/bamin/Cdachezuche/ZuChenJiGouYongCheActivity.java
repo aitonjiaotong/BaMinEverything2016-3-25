@@ -198,9 +198,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.ll_dache_jg_choose_city:
                 //跳转到城市选择列表界面
-                Toast.makeText(ZuChenJiGouYongCheActivity.this, "此功能暂时仅针对三明地区开放", Toast.LENGTH_SHORT).show();
-//                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCityActivity.class);
-//                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE);
+//                Toast.makeText(ZuChenJiGouYongCheActivity.this, "此功能暂时仅针对三明地区开放", Toast.LENGTH_SHORT).show();
+                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCityActivity.class);
+                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE);
                 break;
             case R.id.ll_dache_jg_choose_time_get:
                 //默认推迟两小时

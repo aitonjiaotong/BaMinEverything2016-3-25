@@ -77,7 +77,7 @@
         <!-- 百度地图开发KEY -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="xpbshYcb2G95AFA63fo8TZ4Z" />
+            android:value="bupntBWbyPT4bs4PflT8eGpQ" />
 
         <activity
             android:name=".Bchangtukepiao.activity.MainActivity"
