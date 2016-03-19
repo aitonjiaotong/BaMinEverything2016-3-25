@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -183,7 +182,6 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
         {
             public void onErrorResponse(VolleyError volleyError)
             {
-                Toast.makeText(SelectStationSetOutActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
             }
 
             public void onResponse(String s)

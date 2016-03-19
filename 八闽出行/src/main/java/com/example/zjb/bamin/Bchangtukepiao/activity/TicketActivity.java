@@ -29,7 +29,6 @@ import com.example.zjb.bamin.Bchangtukepiao.models.about_ticket.TicketInfo;
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zutils.DateCompareUtil;
 import com.example.zjb.bamin.Zutils.DialogShow;
-import com.example.zjb.bamin.Zutils.LogUtil;
 import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
@@ -112,7 +111,6 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     initData();
                     queryTicketCount++;
                 } else {
-                    Toast.makeText(TicketActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -145,14 +143,11 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initIntent() {
         Intent intent = getIntent();
-
         mYear = intent.getIntExtra(Constant.IntentKey.CURR_YEAR, -1);
         mMonth = intent.getIntExtra(Constant.IntentKey.CURR_MONTH, -1);
         mDayOfMonth = intent.getIntExtra(Constant.IntentKey.CURR_DAY_OF_MONTH, -1);
         start = intent.getStringExtra(Constant.IntentKey.FINAIL_SET_OUT_STATION);
-        LogUtil.show("initIntent TicketActivity-->start:", start);
         end = intent.getStringExtra(Constant.IntentKey.FINAIL_ARRIVE_STATION);
-        LogUtil.show("initIntent TicketActivity-->end", end);
     }
 
     private void initUI() {
@@ -381,7 +376,6 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             HTTPUtils.post(TicketActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(TicketActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

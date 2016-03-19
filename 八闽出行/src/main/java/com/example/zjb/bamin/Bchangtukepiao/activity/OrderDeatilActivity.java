@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -82,7 +82,6 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(OrderDeatilActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -160,7 +159,6 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(OrderDeatilActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -188,6 +186,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
     private void initIntent() {
         Intent intent = getIntent();
         mMOrderInfoBookLogAID = intent.getStringExtra("BookLogAID");
+        Log.e("initIntent ", "mMOrderInfoBookLogAID "+mMOrderInfoBookLogAID);
         mIsSure = intent.getStringExtra("isSure");
     }
 

@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -99,7 +98,6 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                             HTTPUtils.get(AddFetcherActivity.this, yanzhengdizhi, new VolleyListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError volleyError) {
-                                    Toast.makeText(AddFetcherActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -123,7 +121,6 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                                 HTTPUtils.post(AddFetcherActivity.this, url, map, new VolleyListener() {
                                                     @Override
                                                     public void onErrorResponse(VolleyError volleyError) {
-                                                        Toast.makeText(AddFetcherActivity.this, "网络连接异常或正在维护", Toast.LENGTH_SHORT).show();
                                                     }
 
                                                     @Override

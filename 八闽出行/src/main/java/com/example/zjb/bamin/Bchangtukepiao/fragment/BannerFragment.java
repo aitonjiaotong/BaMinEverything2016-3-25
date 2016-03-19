@@ -64,7 +64,7 @@ public class BannerFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        mLayout = inflater.inflate(R.layout.fragment_banner, container, false);
+        mLayout = inflater.inflate(R.layout.fragment_banner, null);
         initUI();
         return mLayout;
     }

@@ -19,7 +19,6 @@ import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.R;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
@@ -119,7 +118,6 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onErrorResponse(VolleyError volleyError)
                     {
-                        DialogShow.setDialog(FeedBackActivity.this, "网络连接异常或正在维护", "确认");
                     }
                 });
                 break;

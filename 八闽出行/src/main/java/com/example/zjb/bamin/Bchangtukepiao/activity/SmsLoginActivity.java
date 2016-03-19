@@ -69,7 +69,6 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                             String url = Constant.URLFromAiTon.HOST+"front/FrontLogin?phone=" + mPhoneNum+"&login_id="+DeviceId;
                             HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener() {
                                 public void onErrorResponse(VolleyError volleyError) {
-                                    toast("网络连接异常或正在维护");
                                 }
 
                                 public void onResponse(String s) {
