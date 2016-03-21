@@ -19,6 +19,7 @@ import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Cdachezuche.models.CarInfoList;
 import com.example.zjb.bamin.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
     private ListView mLv_zuche_choose_car_type;
     private CarTypeAdapter mCarTypeAdapter;
     private int mPages = 0;
-    private List<CarInfoList.ContainsEntity> mCarInfoListContains;
+    private List<CarInfoList.ContainsEntity> mCarInfoListContains = new ArrayList<>();
     private int mPagesMAX;
     private TextView mTextView_noneCarInfo;
 
@@ -118,7 +119,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
 
         @Override
         public int getCount() {
-            return 6;
+            return mCarInfoListContains.size();
         }
 
         @Override
