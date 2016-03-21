@@ -33,6 +33,8 @@ public class ConstantDaCheZuChe
 
         //选择车型的请求码
         public static final int CHOOSE_CAR_TYPE_REQUEST_CODE = 5;
+        //选择车型返回码
+        public static final int CHOOSE_CAR_TYPE_RETRUN_CODE = 6;
     }
 
     public class IntentKey

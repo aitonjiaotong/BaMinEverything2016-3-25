@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,14 +48,27 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TicketActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private Calendar c = Calendar.getInstance();
-
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private ListView mLv_ticket;
     private TicketListViewAdapter mAdapter = new TicketListViewAdapter();
+    private LinearLayout[] checkLinear = new LinearLayout[3];
+    private TextView[] checkText01 = new TextView[3];
+    private TextView[] checkText02 = new TextView[3];
+    private boolean[] isSelect = new boolean[]{false, false, false};
+    private int checkPosition = 0;
+    private int checkTimePosition = 0;
+    private int checkStartStationPosition = 0;
+    private int checkEndStationPosition = 0;
+    private Set<String> checkStartStationSet = new LinkedHashSet<>();
+    private Set<String> checkEndStationSet = new LinkedHashSet<>();
     private int mYear;
     private int mMonth;
     private int mDayOfMonth;
@@ -62,6 +78,11 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView mBack;
     private String mResult;
     private List<TicketInfo> mTicketInfoList = new ArrayList<>();
+    private List<TicketInfo> mCheckTimeTicketInfoList = new ArrayList<>();
+    private List<TicketInfo> mCheckStartTicketInfoList = new ArrayList<>();
+    private List<TicketInfo> mCheckEndTicketInfoList = new ArrayList<>();
+    //筛选容器
+    private List<String> mCheckList = new ArrayList<>();
     private String start;
     private String end;
     private String mDateMath;
@@ -75,6 +96,10 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     private int queryTicketCount = 0;
     private String mPhoneNum;
     private boolean isLogin = false;
+    private ListView mListView_check;
+    private MyCkeckListAdapter mCheckAdapter;
+    private RelativeLayout mRela_dismiss;
+    private RelativeLayout mRela_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +150,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     Type type = new TypeToken<ArrayList<TicketInfo>>() {
                     }.getType();
                     mTicketInfoList = GsonUtils.parseJSONArray(mResult, type);
+                    mCheckEndTicketInfoList.addAll(mTicketInfoList);
                     /**
                      * 没票提示
                      */
@@ -151,11 +177,59 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initUI() {
+        mRela_check = (RelativeLayout) findViewById(R.id.rela_check);
+        mRela_dismiss = (RelativeLayout) findViewById(R.id.rela_dismiss);
+        checkText01[0] = (TextView) findViewById(R.id.textView_checkTime01);
+        checkText01[1] = (TextView) findViewById(R.id.textView_checkStartStation01);
+        checkText01[2] = (TextView) findViewById(R.id.textView_checkEndStartStation01);
+        checkText02[0] = (TextView) findViewById(R.id.textView_checkTime02);
+        checkText02[1] = (TextView) findViewById(R.id.textView_checkStartStation02);
+        checkText02[2] = (TextView) findViewById(R.id.textView_checkEndStartStation02);
+        checkLinear[0] = (LinearLayout) findViewById(R.id.time_check);
+        checkLinear[1] = (LinearLayout) findViewById(R.id.start_station_check);
+        checkLinear[2] = (LinearLayout) findViewById(R.id.end_station_check);
         mBack = (ImageView) findViewById(R.id.iv_back);
         mRefrash = (ProgressBar) findViewById(R.id.refrash);
         mTv_order_logout = (TextView) findViewById(R.id.tv_order_logout);
         initBtnForTranTime();
         initTicketListView();
+        initCheckList();
+    }
+
+    private void initCheckList() {
+        mListView_check = (ListView) findViewById(R.id.listView_check);
+        mCheckAdapter = new MyCkeckListAdapter();
+        mListView_check.setAdapter(mCheckAdapter);
+    }
+
+    class MyCkeckListAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return mCheckList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflate = getLayoutInflater().inflate(R.layout.checklist_item, null);
+            ImageView imageView_checkED = (ImageView) inflate.findViewById(R.id.imageView_checkED);
+            if (position == checkPosition) {
+                imageView_checkED.setVisibility(View.VISIBLE);
+            }
+            TextView textView_checkItem = (TextView) inflate.findViewById(R.id.textView_checkItem);
+            textView_checkItem.setText(mCheckList.get(position));
+            return inflate;
+        }
     }
 
     private void initBtnForTranTime() {
@@ -196,21 +270,182 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setOnclick() {
+        mListView_check.setOnItemClickListener(new CheckItemClickListener());
+        mRela_dismiss.setOnClickListener(this);
         mTv_yesterday.setOnClickListener(this);
         mTv_tomorrow.setOnClickListener(this);
         mBack.setOnClickListener(this);
         mTv_today.setOnClickListener(this);
         mLv_ticket.setOnItemClickListener(this);
+        for (int i = 0; i < checkLinear.length; i++) {
+            checkLinear[i].setOnClickListener(this);
+        }
+    }
+
+    private void checkResult() {
+        mCheckTimeTicketInfoList.clear();
+        mCheckStartTicketInfoList.clear();
+        mCheckEndTicketInfoList.clear();
+        if (checkTimePosition == 0) {
+            mCheckTimeTicketInfoList.addAll(mTicketInfoList);
+        } else if (checkTimePosition == 1) {
+            for (int i = 0; i < mTicketInfoList.size(); i++) {
+                String setoutTime = mTicketInfoList.get(i).getSetoutTime();
+                long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
+                try {
+                    Date checkedTimeDate = sdf.parse(mCheckedTime);
+                    long checkTime = checkedTimeDate.getTime();
+                    long redundantTime = (longtime - checkTime) / (3600 * 1000);
+                    if (redundantTime >= 0 && redundantTime < 12) {
+                        mCheckTimeTicketInfoList.add(mTicketInfoList.get(i));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (checkTimePosition == 2) {
+            for (int i = 0; i < mTicketInfoList.size(); i++) {
+                String setoutTime = mTicketInfoList.get(i).getSetoutTime();
+                long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
+                try {
+                    Date checkedTimeDate = sdf.parse(mCheckedTime);
+                    long checkTime = checkedTimeDate.getTime();
+                    long redundantTime = (longtime - checkTime) / (3600 * 1000);
+                    Log.e("checkResult ", "redundantTime"+redundantTime);
+                    if (redundantTime >= 12 && redundantTime <= 18) {
+                        mCheckTimeTicketInfoList.add(mTicketInfoList.get(i));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (checkTimePosition == 3) {
+            for (int i = 0; i < mTicketInfoList.size(); i++) {
+                String setoutTime = mTicketInfoList.get(i).getSetoutTime();
+                long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
+                try {
+                    Date checkedTimeDate = sdf.parse(mCheckedTime);
+                    long checkTime = checkedTimeDate.getTime();
+                    long redundantTime = (longtime - checkTime) / (3600 * 1000);
+                    if (redundantTime >= 18 && redundantTime <= 24) {
+                        mCheckTimeTicketInfoList.add(mTicketInfoList.get(i));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (checkStartStationPosition == 0) {
+            mCheckStartTicketInfoList.addAll(mCheckTimeTicketInfoList);
+        } else {
+            for (int i = 0; i < mCheckTimeTicketInfoList.size(); i++) {
+                if (mCheckTimeTicketInfoList.get(i).getStationName().equals(checkText02[1].getText().toString().trim())) {
+                    mCheckStartTicketInfoList.add(mCheckTimeTicketInfoList.get(i));
+                }
+            }
+        }
+        if (checkEndStationPosition==0){
+            mCheckEndTicketInfoList.addAll(mCheckStartTicketInfoList);
+        }else {
+            for (int i = 0; i < mCheckStartTicketInfoList.size(); i++) {
+                if (mCheckStartTicketInfoList.get(i).getEndSiteName().equals(checkText02[2].getText().toString().trim())){
+                    mCheckEndTicketInfoList.add(mCheckStartTicketInfoList.get(i));
+                }
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    class CheckItemClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (isSelect[0]) {
+                if (position == 0) {
+                    checkText02[0].setText("全天");
+                } else if (position == 1) {
+                    checkText02[0].setText("早上");
+                } else if (position == 2) {
+                    checkText02[0].setText("下午");
+                } else if (position == 3) {
+                    checkText02[0].setText("晚上");
+                }
+                checkTimePosition = position;
+            }
+            if (isSelect[1]) {
+                checkText02[1].setText(mCheckList.get(position));
+                checkStartStationPosition = position;
+            }
+            if (isSelect[2]) {
+                checkText02[2].setText(mCheckList.get(position));
+                checkEndStationPosition = position;
+            }
+            for (int i = 0; i < isSelect.length; i++) {
+                isSelect[i] = false;
+            }
+            isNoneCheck();
+            checkResult();
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rela_dismiss:
+                for (int i = 0; i < isSelect.length; i++) {
+                    isSelect[i] = false;
+                }
+                isNoneCheck();
+                break;
+            case R.id.time_check:
+                isSelect[0] = !isSelect[0];
+                isSelect[1] = false;
+                isSelect[2] = false;
+                if (isSelect[0]) {
+                    ischeckED(0);
+                    checkPosition = checkTimePosition;
+                    initCheckTimeData();
+                    mRela_dismiss.setVisibility(View.VISIBLE);
+                    mRela_check.setVisibility(View.VISIBLE);
+                } else {
+                    isNoneCheck();
+
+                }
+                break;
+            case R.id.start_station_check:
+                isSelect[1] = !isSelect[1];
+                isSelect[0] = false;
+                isSelect[2] = false;
+                if (isSelect[1]) {
+                    ischeckED(1);
+                    checkPosition = checkStartStationPosition;
+                    initCheckStartStationData();
+                    mRela_dismiss.setVisibility(View.VISIBLE);
+                    mRela_check.setVisibility(View.VISIBLE);
+                } else {
+                    isNoneCheck();
+                }
+                break;
+            case R.id.end_station_check:
+                isSelect[2] = !isSelect[2];
+                isSelect[0] = false;
+                isSelect[1] = false;
+                if (isSelect[2]) {
+                    ischeckED(2);
+                    checkPosition = checkEndStationPosition;
+                    initCheckEndStationData();
+                    mRela_dismiss.setVisibility(View.VISIBLE);
+                    mRela_check.setVisibility(View.VISIBLE);
+                } else {
+                    isNoneCheck();
+                }
+                break;
             case R.id.tv_today:
                 showDatePickerDialog();
+                initPosition();
                 break;
             case R.id.tv_yesterday:
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
                 //得到指定模范的时间
                 try {
                     Date d = sdf.parse(mCheckedTime);
@@ -219,11 +454,11 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     mTv_today.setText(mCheckedTime);
                     checkTimeBtn();
                     updateDate();
-
                     initData();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                initPosition();
                 break;
             case R.id.tv_tomorrow:
                 //得到指定模范的时间
@@ -240,6 +475,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                initPosition();
                 break;
             case R.id.iv_back:
                 finish();
@@ -247,6 +483,77 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
+
+    private void initPosition() {
+        checkTimePosition = 0;
+        checkStartStationPosition = 0;
+        checkEndStationPosition = 0;
+    }
+
+    private void isNoneCheck() {
+        int colorBlack = getResources().getColor(R.color.black);
+        int colorBasic = getResources().getColor(R.color.title_bar);
+        for (int i = 0; i < checkLinear.length; i++) {
+            checkLinear[i].setBackgroundResource(R.color.white);
+            checkText01[i].setTextColor(colorBlack);
+            checkText02[i].setTextColor(colorBasic);
+        }
+        mRela_dismiss.setVisibility(View.GONE);
+        mRela_check.setVisibility(View.GONE);
+    }
+
+    private void ischeckED(int i) {
+        int colorWhite = getResources().getColor(R.color.white);
+        int colorBlack = getResources().getColor(R.color.black);
+        int colorBasic = getResources().getColor(R.color.title_bar);
+        checkLinear[i % 3].setBackgroundResource(R.color.title_bar);
+        checkLinear[(i + 1) % 3].setBackgroundResource(R.color.white);
+        checkLinear[(i + 2) % 3].setBackgroundResource(R.color.white);
+        checkText01[i].setTextColor(colorWhite);
+        checkText01[(i + 1) % 3].setTextColor(colorBlack);
+        checkText01[(i + 2) % 3].setTextColor(colorBlack);
+        checkText02[i].setTextColor(colorWhite);
+        checkText02[(i + 1) % 3].setTextColor(colorBasic);
+        checkText02[(i + 2) % 3].setTextColor(colorBasic);
+    }
+
+    private void initCheckEndStationData() {
+        mCheckList.clear();
+        checkStartStationSet.clear();
+        checkStartStationSet.add("全部车站");
+        for (int i = 0; i < mTicketInfoList.size(); i++) {
+            checkStartStationSet.add(mTicketInfoList.get(i).getEndSiteName());
+        }
+        Iterator<String> iterator = checkStartStationSet.iterator();
+        while (iterator.hasNext()){
+            mCheckList.add(iterator.next());
+        }
+        mCheckAdapter.notifyDataSetChanged();
+    }
+
+    private void initCheckStartStationData() {
+        mCheckList.clear();
+        checkEndStationSet.clear();
+        checkEndStationSet.add("全部车站");
+        for (int i = 0; i < mTicketInfoList.size(); i++) {
+            checkEndStationSet.add(mTicketInfoList.get(i).getStationName());
+        }
+        Iterator<String> iterator = checkEndStationSet.iterator();
+        while (iterator.hasNext()){
+            mCheckList.add(iterator.next());
+        }
+        mCheckAdapter.notifyDataSetChanged();
+    }
+
+    private void initCheckTimeData() {
+        mCheckList.clear();
+        mCheckList.add("全天");
+        mCheckList.add("早上00:00-12:00");
+        mCheckList.add("下午12:00-18:00");
+        mCheckList.add("晚上18:00-24:00");
+        mCheckAdapter.notifyDataSetChanged();
+    }
+
 
     private void updateDate() {
         /**
@@ -277,9 +584,9 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
-            if ((longtime-currentTimeMillis)<3600L*1000L){
+            if ((longtime - currentTimeMillis) < 3600L * 1000L) {
                 DialogShow.setDialog(TicketActivity.this, "据发车时间一小时内，停止售票", "确认");
-            }else{
+            } else {
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }
         } else {
@@ -309,7 +616,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public int getCount() {
-            return mTicketInfoList.size();
+            return mCheckEndTicketInfoList.size();
         }
 
         @Override
@@ -329,7 +636,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             TextView start_station = (TextView) layout.findViewById(R.id.start_station);
             TextView destination = (TextView) layout.findViewById(R.id.destination);
             TextView ticket_price = (TextView) layout.findViewById(R.id.ticket_price);
-            final TicketInfo ticketInfo = mTicketInfoList.get(position);
+            final TicketInfo ticketInfo = mCheckEndTicketInfoList.get(position);
             TextView reserve = (TextView) layout.findViewById(R.id.reserve);
             reserve.setText("预订\n余票:" + ticketInfo.getFreeSeats());
             String outTime = timeFormate(ticketInfo.getSetoutTime());
@@ -370,7 +677,6 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     private void checkIsLoginOnOtherDevice(final TicketInfo ticketInfo) {
         if (!"".equals(mDeviceId)) {
             String url = Constant.URLFromAiTon.HOST + "account/findLogin_id";
-//            String url = "https://218.5.80.24:3061/api/Busline/Get";
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
             HTTPUtils.post(TicketActivity.this, url, map, new VolleyListener() {
@@ -393,27 +699,6 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                 }
             });
         }
-    }
-
-    //一个按钮的dialog提示
-    public void setDialog01(String messageTxt, String iSeeTxt) {
-        final AlertDialog dialog;
-        View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
-        TextView message = (TextView) commit_dialog.findViewById(R.id.message);
-        Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
-        message.setText(messageTxt);
-        ISee.setText(iSeeTxt);
-        AlertDialog.Builder builder = new AlertDialog.Builder(TicketActivity.this);
-        dialog = builder.setView(commit_dialog)
-                .create();
-        dialog.setCancelable(false);
-        dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
     }
 
     //dialog提示
@@ -471,6 +756,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         }, mYear, mMonth - 1, mDayOfMonth).show(TicketActivity.this.getFragmentManager(), "datePicker");
 
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);

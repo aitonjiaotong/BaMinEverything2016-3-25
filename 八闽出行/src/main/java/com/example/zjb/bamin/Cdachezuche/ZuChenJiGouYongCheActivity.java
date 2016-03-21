@@ -20,8 +20,7 @@ import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mIv_dache_jg_back;
     private LinearLayout mLl_dache_jg_choose_city;
@@ -41,35 +40,27 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private TextView mTv_dache_jg_city_name;
     //车辆数量
     private int carCount = 0;
-    private SlideDateTimeListener GetslideDateTimePickerListener = new SlideDateTimeListener()
-    {
+    private SlideDateTimeListener GetslideDateTimePickerListener = new SlideDateTimeListener() {
         @Override
-        public void onDateTimeSet(Date date)
-        {
+        public void onDateTimeSet(Date date) {
             boolean before = date.before(mGetDate);
-            if (!before)
-            {
+            if (!before) {
                 mTv_dache_jg_get_time.setText(mSimpleDateFormat.format(date));
-            } else
-            {
+            } else {
                 Toast.makeText(ZuChenJiGouYongCheActivity.this, "请选择合理的取车时间", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-    private SlideDateTimeListener slideDateTimeListener = new SlideDateTimeListener()
-    {
+    private SlideDateTimeListener slideDateTimeListener = new SlideDateTimeListener() {
         @Override
-        public void onDateTimeSet(Date date)
-        {
+        public void onDateTimeSet(Date date) {
             Date date1 = new Date(mGetDate.getTime() + 24 * 3600 + 1000);
             boolean before = date.before(date1);
-            if (!before)
-            {
+            if (!before) {
                 mRg_dache_jg_months.clearCheck();
                 mTv_dache_jg_return_time.setText(mSimpleDateFormat.format(date) + "");
-            } else
-            {
+            } else {
                 Toast.makeText(ZuChenJiGouYongCheActivity.this, "至少租车一天", Toast.LENGTH_SHORT).show();
             }
         }
@@ -77,8 +68,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private Date mGetDate;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ji_gou_yong_che);
 
@@ -89,8 +79,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     }
 
 
-    private void findViewID()
-    {
+    private void findViewID() {
         mIv_dache_jg_back = (ImageView) findViewById(R.id.iv_dache_jg_back);
         mLl_dache_jg_choose_city = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_city);
         mLl_dache_jg_choose_time_get = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_time_get);
@@ -109,17 +98,13 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mTv_dache_jg_city_name = (TextView) findViewById(R.id.tv_dache_jg_city_name);
     }
 
-    private void initUI()
-    {
+    private void initUI() {
         mTv_dache_jg_car_count.setText(carCount + "");
         mTv_dache_jg_get_time.setText(getCurrentTimeMillisToString());
-        mRg_dache_jg_months.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        mRg_dache_jg_months.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch (checkedId)
-                {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
                     case R.id.rb_dache_jg_three_months:
                         mTv_dache_jg_return_time.setText(addCurrentTimeMillisToString(3L, 30L));
                         break;
@@ -136,8 +121,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         });
     }
 
-    private void setListener()
-    {
+    private void setListener() {
         mIv_dache_jg_back.setOnClickListener(this);
         mLl_dache_jg_choose_city.setOnClickListener(this);
         mLl_dache_jg_choose_time_get.setOnClickListener(this);
@@ -153,8 +137,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      *
      * @return hasDriver
      */
-    private boolean hasDriver()
-    {
+    private boolean hasDriver() {
         boolean hasDriver = mCb_dache_jg_hasdriver.isChecked();
         return hasDriver;
     }
@@ -164,8 +147,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      *
      * @param
      */
-    public String getCurrentTimeMillisToString()
-    {
+    public String getCurrentTimeMillisToString() {
         //默认推迟2小时
         mCurrentTimeMillis = System.currentTimeMillis() + 2 * 3600 * 1000;
         mGetDate = new Date(mCurrentTimeMillis);
@@ -180,19 +162,16 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      * @param daysofmonth 每个月的天数
      * @return
      */
-    public String addCurrentTimeMillisToString(Long months, Long daysofmonth)
-    {
+    public String addCurrentTimeMillisToString(Long months, Long daysofmonth) {
         long resultsOfAdd = mCurrentTimeMillis + (24L * 3600L * 1000L) * daysofmonth * months;
         String format = mSimpleDateFormat.format(resultsOfAdd);
         return format;
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.iv_dache_jg_back:
                 finish();
                 break;
@@ -233,7 +212,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             case R.id.ll_dache_jg_choose_car_type:
                 // 跳转到选择车型
                 intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCarTypeActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_REQUEST_CODE);
                 break;
             case R.id.iv_btn_dache_jg_add:
                 mIv_btn_dache_jg_minus.setEnabled(true);
@@ -241,12 +220,10 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 mTv_dache_jg_car_count.setText(carCount + "");
                 break;
             case R.id.iv_btn_dache_jg_minus:
-                if (carCount > 0)
-                {
+                if (carCount > 0) {
                     carCount--;
                     mTv_dache_jg_car_count.setText(carCount + "");
-                } else
-                {
+                } else {
                     mIv_btn_dache_jg_minus.setEnabled(false);
                 }
                 break;
@@ -261,16 +238,19 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null)
-        {
-            if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
-            {
-                mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
-                carCount = 1;
-                mTv_dache_jg_car_count.setText(carCount + "");
+        if (data != null) {
+            if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE) {
+                if (resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE){
+                    mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
+                    carCount = 1;
+                    mTv_dache_jg_car_count.setText(carCount + "");
+                }
+            } else if (requestCode==ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_REQUEST_CODE){
+                if (resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE){
+                    
+                }
             }
 
         }

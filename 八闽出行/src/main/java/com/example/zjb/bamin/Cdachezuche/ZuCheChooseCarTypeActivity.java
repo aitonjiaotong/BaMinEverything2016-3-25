@@ -1,5 +1,6 @@
 package com.example.zjb.bamin.Cdachezuche;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.UILUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
+import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.CarInfoList;
 import com.example.zjb.bamin.R;
 
@@ -62,10 +64,10 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
                 mPagesMAX = carInfoList.getNum();
                 List<CarInfoList.ContainsEntity> carInfoListContains = carInfoList.getContains();
                 mCarInfoListContains.addAll(carInfoListContains);
-                if (mCarInfoListContains.size()>0){
+                if (mCarInfoListContains.size() > 0) {
                     mLv_zuche_choose_car_type.setVisibility(View.VISIBLE);
                     mCarTypeAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     mLv_zuche_choose_car_type.setVisibility(View.GONE);
                 }
             }
@@ -94,18 +96,22 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
     class MyItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position==mCarInfoListContains.size()){
-                if (mPages<mPagesMAX){
+            if (position == mCarInfoListContains.size()) {
+                if (mPages < mPagesMAX) {
                     queryCarInfoList();
                     mTextView_noneCarInfo.setText("更多车辆信息");
-                }else {
+                } else {
                     mTextView_noneCarInfo.setText("没有更多车辆信息了");
                 }
-            }else{
-
+            } else {
+                CarInfoList.ContainsEntity carContainsEntity = mCarInfoListContains.get(position);
+                Intent intent = new Intent();
+                intent.putExtra("carContainsEntity ",carContainsEntity );
+                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_RETRUN_CODE, intent);
             }
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -142,18 +148,18 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
             TextView tv_carriage_count = (TextView) layout.findViewById(R.id.tv_carriage_count);//厢数(三厢)
             TextView tv_displacement = (TextView) layout.findViewById(R.id.tv_displacement);//排量(1.4自动)
             TextView tv_car_seat_count = (TextView) layout.findViewById(R.id.tv_car_seat_count);//可乘坐位数(乘坐5人)
-            if (mCarInfoListContains.size()>0){
+            if (mCarInfoListContains.size() > 0) {
                 CarInfoList.ContainsEntity carInfo = mCarInfoListContains.get(position);
                 UILUtils.displayImageNoAnim(carInfo.getImage(), iv_car_img);
                 tv_car_name.setText(carInfo.getModel() + carInfo.getType());
                 tv_car_price.setText(carInfo.getPlan().getPrice() + "");
                 tv_carriage_count.setText(carInfo.getBox());
-                if (carInfo.getZidong()==0){
-                    tv_displacement.setText(carInfo.getPailiang()+"自动");
-                }else {
-                    tv_displacement.setText(carInfo.getPailiang()+"手动");
+                if (carInfo.getZidong() == 0) {
+                    tv_displacement.setText(carInfo.getPailiang() + "自动");
+                } else {
+                    tv_displacement.setText(carInfo.getPailiang() + "手动");
                 }
-                tv_car_seat_count.setText("乘坐"+carInfo.getSeat()+"人");
+                tv_car_seat_count.setText("乘坐" + carInfo.getSeat() + "人");
             }
             return layout;
         }

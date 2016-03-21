@@ -36,7 +36,6 @@ import com.example.zjb.bamin.Itekuaishangcheng.TeKuaiShangChengActivity;
 import com.example.zjb.bamin.Jyouhuichongzhi.YuoHuiChongZhiActivity;
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.ZcustomView.ViewPagerIndicator;
-import com.example.zjb.bamin.Zutils.DialogShow;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -91,7 +90,6 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
         HTTPUtils.get(getActivity(), Constant.URLFromAiTon.GET_BANNER_IMG, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                DialogShow.setDialog(getActivity(), "网络连接异常或正在维护", "确认");
             }
 
             @Override

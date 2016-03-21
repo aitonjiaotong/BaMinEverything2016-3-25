@@ -80,6 +80,111 @@ public class TicketInfo implements Serializable
     private Object RebateDescript;
     private int InsurePrice;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TicketInfo that = (TicketInfo) o;
+
+        if (State != that.State) return false;
+        if (ScheduleType != that.ScheduleType) return false;
+        if (Limit != that.Limit) return false;
+        if (TimeOffset != that.TimeOffset) return false;
+        if (Double.compare(that.FullPrice, FullPrice) != 0) return false;
+        if (Double.compare(that.HalfPrice, HalfPrice) != 0) return false;
+        if (Mileage != that.Mileage) return false;
+        if (FreeSeats != that.FreeSeats) return false;
+        if (CoachSeatNumber != that.CoachSeatNumber) return false;
+        if (MaxTicket != that.MaxTicket) return false;
+        if (Rebate != that.Rebate) return false;
+        if (ScheduleAttribute != that.ScheduleAttribute) return false;
+        if (OuternalShare != that.OuternalShare) return false;
+        if (StationCanTakeTicket != that.StationCanTakeTicket) return false;
+        if (InsurePrice != that.InsurePrice) return false;
+        if (ExecuteScheduleID != null ? !ExecuteScheduleID.equals(that.ExecuteScheduleID) : that.ExecuteScheduleID != null)
+            return false;
+        if (ExecuteDate != null ? !ExecuteDate.equals(that.ExecuteDate) : that.ExecuteDate != null)
+            return false;
+        if (SetoutTime != null ? !SetoutTime.equals(that.SetoutTime) : that.SetoutTime != null)
+            return false;
+        if (StartSiteID != null ? !StartSiteID.equals(that.StartSiteID) : that.StartSiteID != null)
+            return false;
+        if (StartSiteName != null ? !StartSiteName.equals(that.StartSiteName) : that.StartSiteName != null)
+            return false;
+        if (EndSiteID != null ? !EndSiteID.equals(that.EndSiteID) : that.EndSiteID != null)
+            return false;
+        if (EndSiteName != null ? !EndSiteName.equals(that.EndSiteName) : that.EndSiteName != null)
+            return false;
+        if (StationName != null ? !StationName.equals(that.StationName) : that.StationName != null)
+            return false;
+        if (GateName != null ? !GateName.equals(that.GateName) : that.GateName != null)
+            return false;
+        if (ScheduleBelong != null ? !ScheduleBelong.equals(that.ScheduleBelong) : that.ScheduleBelong != null)
+            return false;
+        if (PlanScheduleCode != null ? !PlanScheduleCode.equals(that.PlanScheduleCode) : that.PlanScheduleCode != null)
+            return false;
+        if (LineName != null ? !LineName.equals(that.LineName) : that.LineName != null)
+            return false;
+        if (EndTicketTime != null ? !EndTicketTime.equals(that.EndTicketTime) : that.EndTicketTime != null)
+            return false;
+        if (LineViaSiteDesc != null ? !LineViaSiteDesc.equals(that.LineViaSiteDesc) : that.LineViaSiteDesc != null)
+            return false;
+        if (CoachGradeName != null ? !CoachGradeName.equals(that.CoachGradeName) : that.CoachGradeName != null)
+            return false;
+        if (SeatTypeName != null ? !SeatTypeName.equals(that.SeatTypeName) : that.SeatTypeName != null)
+            return false;
+        if (CompanyCode != null ? !CompanyCode.equals(that.CompanyCode) : that.CompanyCode != null)
+            return false;
+        if (EndZoneName != null ? !EndZoneName.equals(that.EndZoneName) : that.EndZoneName != null)
+            return false;
+        return !(RebateDescript != null ? !RebateDescript.equals(that.RebateDescript) : that.RebateDescript != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = ExecuteScheduleID != null ? ExecuteScheduleID.hashCode() : 0;
+        result = 31 * result + (ExecuteDate != null ? ExecuteDate.hashCode() : 0);
+        result = 31 * result + (SetoutTime != null ? SetoutTime.hashCode() : 0);
+        result = 31 * result + State;
+        result = 31 * result + ScheduleType;
+        result = 31 * result + (StartSiteID != null ? StartSiteID.hashCode() : 0);
+        result = 31 * result + (StartSiteName != null ? StartSiteName.hashCode() : 0);
+        result = 31 * result + (EndSiteID != null ? EndSiteID.hashCode() : 0);
+        result = 31 * result + (EndSiteName != null ? EndSiteName.hashCode() : 0);
+        result = 31 * result + Limit;
+        result = 31 * result + (StationName != null ? StationName.hashCode() : 0);
+        result = 31 * result + TimeOffset;
+        result = 31 * result + (GateName != null ? GateName.hashCode() : 0);
+        result = 31 * result + (ScheduleBelong != null ? ScheduleBelong.hashCode() : 0);
+        result = 31 * result + (PlanScheduleCode != null ? PlanScheduleCode.hashCode() : 0);
+        result = 31 * result + (LineName != null ? LineName.hashCode() : 0);
+        result = 31 * result + (EndTicketTime != null ? EndTicketTime.hashCode() : 0);
+        temp = Double.doubleToLongBits(FullPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(HalfPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + Mileage;
+        result = 31 * result + FreeSeats;
+        result = 31 * result + (LineViaSiteDesc != null ? LineViaSiteDesc.hashCode() : 0);
+        result = 31 * result + CoachSeatNumber;
+        result = 31 * result + MaxTicket;
+        result = 31 * result + (CoachGradeName != null ? CoachGradeName.hashCode() : 0);
+        result = 31 * result + (SeatTypeName != null ? SeatTypeName.hashCode() : 0);
+        result = 31 * result + (Rebate ? 1 : 0);
+        result = 31 * result + ScheduleAttribute;
+        result = 31 * result + (OuternalShare ? 1 : 0);
+        result = 31 * result + (StationCanTakeTicket ? 1 : 0);
+        result = 31 * result + (CompanyCode != null ? CompanyCode.hashCode() : 0);
+        result = 31 * result + (EndZoneName != null ? EndZoneName.hashCode() : 0);
+        result = 31 * result + (RebateDescript != null ? RebateDescript.hashCode() : 0);
+        result = 31 * result + InsurePrice;
+        return result;
+    }
+
     public void setExecuteScheduleID(String ExecuteScheduleID) {
         this.ExecuteScheduleID = ExecuteScheduleID;
     }

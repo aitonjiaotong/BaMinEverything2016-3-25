@@ -87,7 +87,8 @@
         android:layout_below="@+id/ll_time"
         android:layout_width="match_parent"
         android:divider="#00000000"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout8">
     </ListView>
 
     <TextView
@@ -110,5 +111,153 @@
         android:id="@+id/refrash"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout8">
+
+        <LinearLayout
+            android:id="@+id/time_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView76"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="出发时段"
+                android:id="@+id/textView_checkTime01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全天"
+                android:id="@+id/textView_checkTime02"/>
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/line_background"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView79"/>
+
+        <LinearLayout
+            android:id="@+id/start_station_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView77"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="出发汽车站"
+                android:id="@+id/textView_checkStartStation01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全部车站"
+                android:id="@+id/textView_checkStartStation02"/>
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/line_background"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView80"/>
+
+        <LinearLayout
+            android:id="@+id/end_station_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView78"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="到达汽车站"
+                android:id="@+id/textView_checkEndStartStation01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全部车站"
+                android:id="@+id/textView_checkEndStartStation02"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="#22000000"
+        android:id="@+id/rela_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout8"
+        android:layout_alignTop="@+id/ll_time">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:gravity="bottom"
+        android:id="@+id/rela_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout8"
+        android:layout_alignTop="@+id/ll_time">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView_check"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 </RelativeLayout>
