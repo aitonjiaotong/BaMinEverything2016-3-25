@@ -54,7 +54,7 @@ public class CardEverytingFragment extends Fragment {
         WebSettings settings = mWebViewTicketNotice.getSettings();
         settings.setJavaScriptEnabled(true);
         mWebViewTicketNotice.setWebViewClient(new MyWebViewClient());
-        mWebViewTicketNotice.loadUrl(Constant.WebViewURL.SOFTWARE_INFO);
+        mWebViewTicketNotice.loadUrl(Constant.WebViewURL.EVETHING_LDCARD);
     }
 
     private void setListener() {

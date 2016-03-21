@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SmsLoginActivity;
+import com.example.zjb.bamin.Zeverything.EveryThingSoftInfoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +54,7 @@ public class MineEverythingFragment extends Fragment implements View.OnClickList
     private void setListener() {
         mLoginED.setOnClickListener(this);
         button_cancle_login.setOnClickListener(this);
+        mInflate.findViewById(R.id.rl_mine_evething_soft_info).setOnClickListener(this);
     }
 
     private void findID() {
@@ -131,6 +133,10 @@ public class MineEverythingFragment extends Fragment implements View.OnClickList
                     intent.setClass(getActivity(), SmsLoginActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.rl_mine_evething_soft_info:
+                intent.setClass(getActivity(), EveryThingSoftInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

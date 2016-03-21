@@ -49,8 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="6dp"
-            android:visibility="gone"
-            android:src="@mipmap/actionbar_icon_scan"/>
+            android:src="@mipmap/actionbar_icon_scan"
+            android:visibility="gone"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -99,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -122,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -145,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -167,7 +170,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
@@ -185,9 +188,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -207,9 +212,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -229,9 +236,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -251,9 +260,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -281,9 +292,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -303,9 +316,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -325,9 +340,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -347,9 +364,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="6dp">
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="wrap_content"

@@ -1,7 +1,11 @@
 package com.example.zjb.bamin.Cdachezuche;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -69,14 +73,30 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                 showConfirmOrderDialog();
                 break;
             case R.id.ll_dache_jg_order_get_car:
-                intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
-                intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
-                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_GET_REQUEST_CODE);
+                if (ContextCompat.checkSelfPermission(ZuCheOrderDetailActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(ZuCheOrderDetailActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                } else
+                {
+                    intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
+                    intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
+                    startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_GET_REQUEST_CODE);
+                }
+
                 break;
             case R.id.ll_dache_jg_order_return_car:
-                intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
-                intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_RETURN);
-                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RETRUN_REQUEST_CODE);
+                if (ContextCompat.checkSelfPermission(ZuCheOrderDetailActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(ZuCheOrderDetailActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                } else
+                {
+                    intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
+                    intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_RETURN);
+                    startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RETRUN_REQUEST_CODE);
+                }
+
                 break;
         }
     }
@@ -85,10 +105,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
     {
         //TODO 弹出订单确认企业账号信息的对话框
         mConfirm_order_dialog = getLayoutInflater().inflate(R.layout.dachezuche_order_detail_dailog_layout, null);
-        new AlertDialog.Builder(ZuCheOrderDetailActivity.this)
-                .setView(mConfirm_order_dialog)
-                .create()
-                .show();
+        new AlertDialog.Builder(ZuCheOrderDetailActivity.this).setView(mConfirm_order_dialog).create().show();
         final EditText et_dachezuche_dialog_unit_of_account = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_account);
         final EditText et_dachezuche_dialog_unit_of_password = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_password);
 //        final EditText et_dachezuche_dialog_unit_of_phone = (EditText) mConfirm_order_dialog.findViewById(R.id.et_dachezuche_dialog_unit_of_phone);

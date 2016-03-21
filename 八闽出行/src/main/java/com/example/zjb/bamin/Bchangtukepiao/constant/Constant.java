@@ -93,10 +93,12 @@ public class Constant
         public static final String TAKE_TICKETS = "http://120.24.46.15:8080/bmpw/front/qupiaoxuzhi";
         //常见问题
         public static final String NORMAL_PROBLEM = "http://192.168.1.10:8080/bmpw/ooo";
-        //软件介绍
-//        public static final String SOFTWARE_INFO = "http://192.168.1.10:8080/bmpw/ooo";
-        //软件介绍[易企秀测试网址]
-        public static final String SOFTWARE_INFO = "http://scene.bluemp.net/index.php?file=front&id=21280&Redirection=1";
+        //票务的软件介绍
+        public static final String SOFTWARE_INFO = "http://q.eqxiu.com/s/16f5zj5p";
+        //八闽出行_三明绿者卡
+        public static final String EVETHING_LDCARD = "http://q.eqxiu.com/s/B3xTuwQc";
+        //八闽出行_软件介绍
+        public static final String EVETHING_SOFTWARE_INFO = "http://u.eqxiu.com/s/bOwsz5Xr";
         //关于我们
         public static final String ABOUT_US = "http://192.168.1.10:8080/bmpw/ooo";
         //意见反馈
