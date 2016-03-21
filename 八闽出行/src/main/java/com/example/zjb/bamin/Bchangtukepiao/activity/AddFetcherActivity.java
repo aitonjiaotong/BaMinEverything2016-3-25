@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
@@ -86,13 +87,13 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                 final String personID = mPerson_id.getText().toString().trim();
                 final String passagerPhoneNum = mPassager_phoneNum.getText().toString().trim();
                 if ("".equals(passagerName)) {
-                    DialogShow.setDialog(AddFetcherActivity.this,"请输入您的真实姓名", "确定");
+                    Toast.makeText(AddFetcherActivity.this, "请输入您的真实姓名", Toast.LENGTH_SHORT).show();
                 } else {
                     Pattern p = Pattern.compile("[\u4e00-\u9fa5]*");
                     Matcher m = p.matcher(passagerName);
                     if (m.matches()) {
                         if (passagerName.length() < 2 || passagerName.length() > 15) {
-                            DialogShow.setDialog(AddFetcherActivity.this, "姓名长度为2-15个汉字！", "确定");
+                            Toast.makeText(AddFetcherActivity.this, "姓名长度为2-15个汉字！", Toast.LENGTH_SHORT).show();
                         } else {
                             String yanzhengdizhi = "http://apis.juhe.cn/idcard/index?key=86c3cf00ca77641e108196c609ca3c08&cardno="+personID;
                             HTTPUtils.get(AddFetcherActivity.this, yanzhengdizhi, new VolleyListener() {
@@ -152,14 +153,14 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                                             finish();
                                                             animFromLeftToRightOUT();
                                                         }else {
-                                                            DialogShow.setDialog(AddFetcherActivity.this, "身份证号重复", "确认");
+                                                            Toast.makeText(AddFetcherActivity.this, "身份证号重复", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
                                             }
 
                                         } else {
-                                            DialogShow.setDialog(AddFetcherActivity.this, "请输入正确的手机号", "确定");
+                                            Toast.makeText(AddFetcherActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                                         }
                                     } else if (203801==error_code) {
                                         DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
@@ -170,13 +171,13 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                     }else if (203804==error_code) {
                                         DialogShow.setDialog(AddFetcherActivity.this, usedPersonID.getReason(), "确定");
                                     } else {
-                                        DialogShow.setDialog(AddFetcherActivity.this, "未知错误/未联网", "确定");
+                                        Toast.makeText(AddFetcherActivity.this, "未知错误/未联网", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                         }
                     } else {
-                        DialogShow.setDialog(AddFetcherActivity.this, "姓名不要包含数字和字符", "谢谢");
+                        Toast.makeText(AddFetcherActivity.this, "姓名不要包含数字和字符", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

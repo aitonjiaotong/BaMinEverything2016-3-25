@@ -223,6 +223,16 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mLl_dache_choos_driver.setOnClickListener(this);
     }
 
+    /**
+     * 查询是否附带司机
+     *
+     * @return hasDriver
+     */
+    private boolean hasDriver()
+    {
+        boolean hasDriver = mCb_dache_jg_hasdriver.isChecked();
+        return hasDriver;
+    }
 
     /**
      * 获取系统时间并转换时间格式 "yy-MM-dd EE HH:mm:ss"

@@ -1,5 +1,6 @@
 package com.example.zjb.bamin.Cdachezuche.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class CarInfoList {
         return contains;
     }
 
-    public static class ContainsEntity {
+    public static class ContainsEntity implements Serializable{
         private String model;
         private String type;
         private String box;
