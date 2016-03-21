@@ -39,27 +39,27 @@
             android:background="@drawable/zuche_edittext_bg"
             android:gravity="center"
             android:hint="密码"
+            android:inputType="textPassword"
             android:textSize="@dimen/normalTextSize"/>
-
-        <!--<EditText-->
-        <!--android:id="@+id/et_dachezuche_dialog_unit_of_phone"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:background="@drawable/zuche_edittext_bg"-->
-        <!--android:gravity="center"-->
-        <!--android:hint="联系人手机号"-->
-        <!--android:textSize="@dimen/normalTextSize"/>-->
 
         <Button
             android:id="@+id/btn_dachezuche_dialog_comfire"
             style="@style/dachezuche_btn_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginTop="10dp"
             android:text="身份验证"
             android:textSize="19dp"/>
+
+        <TextView
+            android:id="@+id/tv_check_failure_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="验证失败！\n请检查您的账号及密码是否填写正确"/>
 
     </LinearLayout>
 
@@ -91,4 +91,5 @@
             android:text="验证中，请稍候…"
             android:textColor="@color/black"/>
     </LinearLayout>
+
 </RelativeLayout>

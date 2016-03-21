@@ -32,13 +32,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout13"
-        android:background="@color/white"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
 
         <ListView
             android:id="@+id/lv_dachezuche_city_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tv_choose_city_more"/>
+
+        <TextView
+            android:id="@+id/tv_choose_city_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="12dp"
+            android:text="加载更多"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
     </RelativeLayout>
 
 </RelativeLayout>

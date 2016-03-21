@@ -5,15 +5,21 @@ package com.example.zjb.bamin.Cdachezuche.constant_dachezuche;
  */
 public class ConstantDaCheZuChe
 {
-    /**--------打车租车服务器网址--------------*/
+    /**
+     * --------打车租车服务器网址--------------
+     */
     public class Url
     {
         public static final String HOST = "http://120.24.46.15:8080/bmpw/";
-        //取车城市列表接口地址
+        //取车城市列表接口地址 传入的参数:page 默认值0
         public static final String CITY_LIST = HOST + "zc/store/loadcities";
 
+        //机构认证服务接口 String code,String password，code为机构编号  password为密码，返回true和false
+        public static final String DACHEZUCHE_COMFIRE_UNIT_INFO = HOST + "/zc/institutions/checkinstitutions";
 
-        public static final String DACHEZUCHE_COMFIRE_UNIT_INFO = "";
+        //司机列表接口地址 传入的参数:page 默认值0
+        public static final String DRIVER_LIST = HOST + "zc/driver/loadfreedriver";
+
     }
 
     public class RequestAndResultCode
@@ -33,6 +39,9 @@ public class ConstantDaCheZuChe
 
         //选择车型的请求码
         public static final int CHOOSE_CAR_TYPE_REQUEST_CODE = 5;
+
+        //选择司机的请求码
+        public static final int CHOOSE_DRIVER_REQUEST_CODE = 6;
     }
 
     public class IntentKey
@@ -44,7 +53,7 @@ public class ConstantDaCheZuChe
         public static final int GET_MAP_LOC_RETURN = 2;
 
         //选择城市地区的KEY
-        public static final String CHOOSE_CITY= "choose_city";
+        public static final String CHOOSE_CITY = "choose_city";
 
         //取车门店返回值的KEY
         public static final String STORES_MAP_KEY = "stores_map_marker_title";

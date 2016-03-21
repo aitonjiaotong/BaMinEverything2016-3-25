@@ -11,19 +11,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.example.administrator.shane_library.shane.utils.GsonUtils;
+import com.example.administrator.shane_library.shane.utils.HTTPUtils;
+import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
+import com.example.zjb.bamin.Cdachezuche.models.CityInfo;
 import com.example.zjb.bamin.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ZuCheChooseCityActivity extends AppCompatActivity implements View.OnClickListener
 {
-
+    private Map<String, String> mParams = new HashMap<>();
+    private int mPage = 0;
     private ListView mLv_dachezuche_city_list;
     private List<String> mCity_list_data = new ArrayList<String>();
     private MyCityListAdapter mMyCityListAdapter;
     private ImageView mIv_zuche_choose_city_back;
+    private TextView mTv_choose_city_more;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,12 +40,6 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zu_che_choose_city);
 
-        //测试数据
-        mCity_list_data.add("三明");
-        mCity_list_data.add("永安");
-        mCity_list_data.add("宁化");
-        mCity_list_data.add("沙县");
-        mCity_list_data.add("泰宁");
         findViewID();
         setListener();
         initUI();
@@ -46,11 +49,35 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
     private void setListener()
     {
         mIv_zuche_choose_city_back.setOnClickListener(this);
+        mTv_choose_city_more.setOnClickListener(this);
     }
 
     private void initData()
     {
-        //TODO 通过后台服务端加载取车城市列表数据
+        mParams.put("page", mPage + "");
+        HTTPUtils.post(ZuCheChooseCityActivity.this, ConstantDaCheZuChe.Url.CITY_LIST, mParams, new VolleyListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError)
+            {
+
+            }
+
+            @Override
+            public void onResponse(String s)
+            {
+                CityInfo cityInfo = GsonUtils.parseJSON(s, CityInfo.class);
+                if (cityInfo.getNum() == (mPage + 1))
+                {
+                    mTv_choose_city_more.setVisibility(View.GONE);
+                } else
+                {
+                    mTv_choose_city_more.setVisibility(View.VISIBLE);
+                }
+                mCity_list_data.addAll(cityInfo.getContains());
+                mMyCityListAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -64,8 +91,8 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Intent data = new Intent();
-                data.putExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY,mCity_list_data.get(position));
-                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE,data);
+                data.putExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY, mCity_list_data.get(position));
+                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE, data);
                 finish();
             }
         });
@@ -75,6 +102,7 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
     {
         mLv_dachezuche_city_list = (ListView) findViewById(R.id.lv_dachezuche_city_list);
         mIv_zuche_choose_city_back = (ImageView) findViewById(R.id.iv_zuche_choose_city_back);
+        mTv_choose_city_more = (TextView) findViewById(R.id.tv_choose_city_more);
     }
 
     @Override
@@ -84,6 +112,10 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
         {
             case R.id.iv_zuche_choose_city_back:
                 finish();
+                break;
+            case R.id.tv_choose_city_more:
+                mPage++;
+                initData();
                 break;
         }
     }
@@ -114,7 +146,7 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
         {
             View layout = getLayoutInflater().inflate(R.layout.dachezuche_city_list_item, null);
             TextView tv_dache_city_name = (TextView) layout.findViewById(R.id.tv_dache_city_name);
-            if(mCity_list_data != null && mCity_list_data.size()>0)
+            if (mCity_list_data != null && mCity_list_data.size() > 0)
             {
                 tv_dache_city_name.setText(mCity_list_data.get(position));
             }

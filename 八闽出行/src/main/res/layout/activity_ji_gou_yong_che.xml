@@ -197,35 +197,6 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_dache_jg_choose_car_type"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/dachezuche_linearlayout_selector"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/dachezuche_normal_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="选择车型"/>
-
-                <TextView
-                    style="@style/dachezuche_gray_small_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="请选择"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/dache_arrow_right"/>
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -235,52 +206,10 @@
                 android:background="@color/line_gray"/>
 
             <LinearLayout
+                android:id="@+id/ll_dache_choos_driver"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/dachezuche_normal_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="车辆数"/>
-
-                <ImageView
-                    android:id="@+id/iv_btn_dache_jg_minus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/dache_pre_gray"/>
-
-                <TextView
-                    android:id="@+id/tv_dache_jg_car_count"
-                    style="@style/dachezuche_gray_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="1"/>
-
-                <ImageView
-                    android:id="@+id/iv_btn_dache_jg_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/dache_add"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/line_gray"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/white"
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -291,13 +220,98 @@
                     android:layout_weight="1"
                     android:text="带司机"/>
 
-                <CheckBox
-                    android:id="@+id/cb_dache_jg_hasdriver"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:button="@drawable/dache_checkbutton_selector"/>
+                    android:src="@mipmap/dache_arrow_right"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="16dp"
+                    android:src="@mipmap/gongwu1_2x"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="16dp"
+                    android:src="@mipmap/gongwu2_2x"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="16dp"
+                    android:src="@mipmap/shangwuxing_2x"/>
+            </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:button="@drawable/radiobutton_choose_car_type"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/normalTextSize"
+                    android:text="公务一型"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:button="@drawable/radiobutton_choose_car_type"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normalTextSize"
+                        android:text="公务二型"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:button="@drawable/radiobutton_choose_car_type"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normalTextSize"
+                        android:text="商务型"/>
+                </LinearLayout>
+            </RadioGroup>
 
             <Button
                 android:id="@+id/btn_dache_jg_next"

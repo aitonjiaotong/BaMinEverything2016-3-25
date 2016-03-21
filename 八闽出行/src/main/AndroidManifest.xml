@@ -481,6 +481,8 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"/>
         <activity android:name=".Zeverything.EveryThingSoftInfoActivity">
         </activity>
+        <activity android:name=".Cdachezuche.ZuCheChooseDriverActivity">
+        </activity>
     </application>
 
 </manifest>
