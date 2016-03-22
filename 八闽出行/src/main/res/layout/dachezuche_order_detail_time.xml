@@ -24,12 +24,14 @@
                 android:text="取车时间"/>
 
             <TextView
+                android:id="@+id/tv_dache_get_time_date"
                 style="@style/dachezuche_yellow_big_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="02-26"/>
 
             <TextView
+                android:id="@+id/tv_dache_get_time_time"
                 style="@style/dachezuche_gray_small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,6 +45,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_dache_how_long"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3个月"
@@ -65,15 +68,17 @@
                 style="@style/dachezuche_gray_small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="取车时间"/>
+                android:text="还车时间"/>
 
             <TextView
+                android:id="@+id/tv_dache_return_time_date"
                 style="@style/dachezuche_yellow_big_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="02-26"/>
 
             <TextView
+                android:id="@+id/tv_dache_return_time_time"
                 style="@style/dachezuche_gray_small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

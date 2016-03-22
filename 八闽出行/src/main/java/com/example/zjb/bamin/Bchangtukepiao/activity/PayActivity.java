@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,10 @@ import com.example.zjb.bamin.R;
 import com.example.zjb.bamin.Zalipay.PayResult;
 import com.example.zjb.bamin.Zalipay.SignUtils;
 import com.example.zjb.bamin.Zutils.DialogShow;
+import com.example.zjb.bamin.Zutils.GetIpAddressUtil;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
@@ -49,7 +53,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-public class PayActivity extends AppCompatActivity implements View.OnClickListener {
+public class PayActivity extends AppCompatActivity implements View.OnClickListener
+{
     private Handler mHandlerTime = new Handler();
     //真正支付的金额
     private double realPayPrice;
@@ -70,10 +75,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_CHECK_FLAG = 2;
 
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SDK_PAY_FLAG: {
+    private Handler mHandler = new Handler()
+    {
+        public void handleMessage(Message msg)
+        {
+            switch (msg.what)
+            {
+                case SDK_PAY_FLAG:
+                {
                     PayResult payResult = new PayResult((String) msg.obj);
                     /**
                      * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
@@ -83,16 +92,20 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-                    if (TextUtils.equals(resultStatus, "9000")) {
+                    if (TextUtils.equals(resultStatus, "9000"))
+                    {
                         //支付成功向金点通发送确认订单
                         confrimOrder();
 
-                    } else {
+                    } else
+                    {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-                        if (TextUtils.equals(resultStatus, "8000")) {
+                        if (TextUtils.equals(resultStatus, "8000"))
+                        {
                             setFailDialog("支付结果确认中", "确认");
-                        } else {
+                        } else
+                        {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
 //                            cancleOrder();
                             setFailDialog("支付失败", "确认");
@@ -100,7 +113,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     }
                     break;
                 }
-                case SDK_CHECK_FLAG: {
+                case SDK_CHECK_FLAG:
+                {
                     Toast.makeText(PayActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -117,22 +131,26 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private RadioButton mRadioButton_zhifubao;
     private RadioButton mRadioButton_weixin;
     //支付方式
-    private String payMode="支付宝";
+    private String payMode = "支付宝";
     private RelativeLayout mRela_useTheRedBag;
     private TextView mTextView_redBagCount;
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private BroadcastReceiver receiver = new BroadcastReceiver()
+    {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, Intent intent)
+        {
             String action = intent.getAction();
-            switch (action){
+            switch (action)
+            {
                 case "RedBag":
                     mRedBag = (RedPacket) intent.getSerializableExtra("RedBag");
                     double amount = mRedBag.getAmount();
-                    realPayPrice= mPrice-amount;
-                    if (realPayPrice<0){
-                        realPayPrice=0;
+                    realPayPrice = mPrice - amount;
+                    if (realPayPrice < 0)
+                    {
+                        realPayPrice = 0;
                     }
-                    mTicket_price.setText("¥"+realPayPrice+"="+mPrice+"-"+amount);
+                    mTicket_price.setText("¥" + realPayPrice + "=" + mPrice + "-" + amount);
                     break;
             }
         }
@@ -145,52 +163,63 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 支付成功，确认订单
      */
-    private void confrimOrder() {
+    private void confrimOrder()
+    {
 
         String url = Constant.URL.HOST +
                 "SellTicket_NoBill_Confirm?scheduleCompanyCode=" + "YongAn" +
                 "&bookLogAID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
+        HTTPUtils.get(PayActivity.this, url, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
                 //订单异常0正常1失败
-                DialogShow.setDialog(PayActivity.this,"订单出现异常，请联系客服","确认");
-                String url01 = Constant.URLFromAiTon.HOST+ "/front/exceptionorder";
+                DialogShow.setDialog(PayActivity.this, "订单出现异常，请联系客服", "确认");
+                String url01 = Constant.URLFromAiTon.HOST + "/front/exceptionorder";
                 Map<String, String> map = new HashMap<>();
-                map.put("order_id",mOrderId);
-                map.put("flag",1+"");
-                HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
+                map.put("order_id", mOrderId);
+                map.put("flag", 1 + "");
+                HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener()
+                {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
+                    public void onErrorResponse(VolleyError volleyError)
+                    {
                     }
 
                     @Override
-                    public void onResponse(String s) {
+                    public void onResponse(String s)
+                    {
                     }
                 });
             }
 
             @Override
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
                 setSuccessDialog("支付成功", "查看订单");
             }
         });
         /**
          * 向后台发送所用的红包和订单id
          */
-        String url01 = Constant.URLFromAiTon.HOST+ "order/completeorder";
+        String url01 = Constant.URLFromAiTon.HOST + "order/completeorder";
         Map<String, String> map = new HashMap<>();
-        map.put("order_id",mOrderId);
-        if (mRedBag!=null){
+        map.put("order_id", mOrderId);
+        if (mRedBag != null)
+        {
             map.put("redEnvelope_id", mRedBag.getId() + "");
         }
-        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
+        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
             }
         });
 
@@ -200,9 +229,23 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private String mPhoneNum;
     private String mId;
     //支付宝相关以上end
+
+    //微信支付相关------sta|rt
+    private static final String APP_ID = "wxa67cb8a1e90e486a";
+    private IWXAPI api;
+
+    private void regToWx()
+    {
+        api = WXAPIFactory.createWXAPI(PayActivity.this, APP_ID, true);
+        api.registerApp(APP_ID);
+    }
+    //微信支付相关------end
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        regToWx();
         setContentView(R.layout.activity_pay);
         /**
          * 获取用户id
@@ -220,23 +263,29 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         queryTime();
         setListener();
     }
-    private void queryRedBag() {
-        String url = Constant.URLFromAiTon.HOST+"redenvelope/getnumofredenvelopebyuser";
+
+    private void queryRedBag()
+    {
+        String url = Constant.URLFromAiTon.HOST + "redenvelope/getnumofredenvelopebyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
-        HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
+        HTTPUtils.post(PayActivity.this, url, map, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
                 mTextView_redBagCount.setText(s + "张");
             }
         });
     }
 
-    private void findID() {
+    private void findID()
+    {
         mTicket_price = (TextView) findViewById(R.id.ticket_price);
         mPay_mode = (RadioGroup) findViewById(R.id.pay_mode);
         mRadioButton_zhifubao = (RadioButton) findViewById(R.id.radioButton_zhifubao);
@@ -247,41 +296,53 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mSurplusTime = (TextView) findViewById(R.id.surplusTime);
     }
 
-    private void queryOrderInfo() {
+    private void queryOrderInfo()
+    {
         String url = Constant.URL.HOST +
                 "QueryBookLog?getTicketCodeOrAID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
+        HTTPUtils.get(PayActivity.this, url, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
                 Document doc = null;
-                try {
+                try
+                {
                     doc = DocumentHelper.parseText(s);
                     Element testElement = doc.getRootElement();
                     String testxml = testElement.asXML();
                     String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     mQueryOrder = GsonUtils.parseJSON(result, QueryOrder.class);
                     initUI();
-                } catch (DocumentException e) {
+                } catch (DocumentException e)
+                {
                     e.printStackTrace();
                 }
             }
         });
     }
-    private void queryTime() {
+
+    private void queryTime()
+    {
         String url_web = Constant.URL.HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
                 "&bookLogID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
-            public void onErrorResponse(VolleyError volleyError) {
+        HTTPUtils.get(PayActivity.this, url_web, new VolleyListener()
+        {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
                 Document doc = null;
-                try {
+                try
+                {
                     doc = DocumentHelper.parseText(s);
                     Element testElement = doc.getRootElement();
                     String testxml = testElement.asXML();
@@ -295,7 +356,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     lastTime = Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
                     //设置票订单倒计时
                     setTime();
-                } catch (DocumentException e) {
+                } catch (DocumentException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -305,13 +367,17 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 票订单支付倒计时
      */
-    private void setTime() {
+    private void setTime()
+    {
 
-        mR = new Runnable() {
+        mR = new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 mSurplusTime.setText(TimeFormat(lastTime));
-                if (lastTime == 0) {
+                if (lastTime == 0)
+                {
                     return;
                 }
                 lastTime--;
@@ -322,7 +388,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //将秒数转换成时间格式
-    private String TimeFormat(int progress) {
+    private String TimeFormat(int progress)
+    {
         int min = progress / 60;
         int sec = progress % 60;
         //设置整数的输出格式：  %02d  d代表int  2代码位数    0代表位数不够时前面补0
@@ -330,13 +397,15 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         return time;
     }
 
-    private void initIntent() {
+    private void initIntent()
+    {
         Intent intent = getIntent();
         mBookLogAID = intent.getStringExtra("BookLogAID");
         mOrderId = intent.getStringExtra("OrderId");
     }
 
-    private void setListener() {
+    private void setListener()
+    {
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.pay).setOnClickListener(this);
         mPay_mode.setOnCheckedChangeListener(new MyOnCheckChangeListener());
@@ -344,26 +413,31 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.textView_order_cancle).setOnClickListener(this);
     }
 
-    class MyOnCheckChangeListener implements RadioGroup.OnCheckedChangeListener{
+    class MyOnCheckChangeListener implements RadioGroup.OnCheckedChangeListener
+    {
 
         @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (mRadioButton_zhifubao.isChecked()){
-                payMode="支付宝";
-            }else if (mRadioButton_weixin.isChecked()){
-//                payMode="微信";
-                setDialog("微信支付暂未开通","确认");
+        public void onCheckedChanged(RadioGroup group, int checkedId)
+        {
+            if (mRadioButton_zhifubao.isChecked())
+            {
+                payMode = "支付宝";
+            } else if (mRadioButton_weixin.isChecked())
+            {
+                payMode = "微信";
+//                setDialog("微信支付暂未开通", "确认");
             }
         }
     }
 
-    private void initUI() {
+    private void initUI()
+    {
         mTicket_count.setText(mQueryOrder.getFullTicket() + "");
         mPrice = mQueryOrder.getPrice();
-        realPayPrice=mPrice;
+        realPayPrice = mPrice;
         mTicket_price.setText("¥" + realPayPrice);
         TextView textView_detialOrderDate = (TextView) findViewById(R.id.textView_detialOrderDate);
-        textView_detialOrderDate.setText("出发日期"+ TimeAndDateFormate.dateFormate(mQueryOrder.getSetoutTime()));
+        textView_detialOrderDate.setText("出发日期" + TimeAndDateFormate.dateFormate(mQueryOrder.getSetoutTime()));
         TextView textView_detialOrderStartPlace = (TextView) findViewById(R.id.textView_detialOrderStartPlace);
         textView_detialOrderStartPlace.setText(mQueryOrder.getStartSiteName());
         TextView textView_detialOrderEndPlace = (TextView) findViewById(R.id.textView_detialOrderEndPlace);
@@ -376,24 +450,30 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * call alipay sdk pay. 调用SDK支付
      */
-    public void pay() {
-        if (lastTime>0){
-            if (realPayPrice==0){
+    public void pay()
+    {
+        if (lastTime > 0)
+        {
+            if (realPayPrice == 0)
+            {
                 //用了优惠券减到0的情况
                 confrimOrder();
-            }else{
-                String orderInfo = getOrderInfo("车票", "车票信息", realPayPrice+"");
+            } else
+            {
+                String orderInfo = getOrderInfo("车票", "车票信息", realPayPrice + "");
 
                 /**
                  * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                  */
                 String sign = sign(orderInfo);
-                try {
+                try
+                {
                     /**
                      * 仅需对sign 做URL编码
                      */
                     sign = URLEncoder.encode(sign, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
+                } catch (UnsupportedEncodingException e)
+                {
                     e.printStackTrace();
                 }
 
@@ -402,10 +482,12 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                  */
                 final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
 
-                Runnable payRunnable = new Runnable() {
+                Runnable payRunnable = new Runnable()
+                {
 
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         // 构造PayTask 对象
                         PayTask alipay = new PayTask(PayActivity.this);
                         // 调用支付接口，获取支付结果
@@ -423,7 +505,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 payThread.start();
             }
 
-        }else{
+        } else
+        {
             setFailDialog01("支付超时，失败", "确认");
         }
 
@@ -432,7 +515,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * create the order info. 创建订单信息
      */
-    private String getOrderInfo(String subject, String body, String price) {
+    private String getOrderInfo(String subject, String body, String price)
+    {
 
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
@@ -486,7 +570,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
      */
-    private String getOutTradeNo() {
+    private String getOutTradeNo()
+    {
         SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
         Date date = new Date();
         String key = format.format(date);
@@ -502,78 +587,88 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
      *
      * @param content 待签名订单信息
      */
-    private String sign(String content) {
+    private String sign(String content)
+    {
         return SignUtils.sign(content, RSA_PRIVATE);
     }
 
     /**
      * get the sign type we use. 获取签名方式
      */
-    private String getSignType() {
+    private String getSignType()
+    {
         return "sign_type=\"RSA\"";
     }
 
     //支付宝------end
     //支付成功dialog提示
-    private void setSuccessDialog(String messageTxt, String iSeeTxt) {
+    private void setSuccessDialog(String messageTxt, String iSeeTxt)
+    {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
         message.setText(messageTxt);
         ISee.setText(iSeeTxt);
         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-        final AlertDialog dialog = builder.setView(commit_dialog)
-                .create();
+        final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
                 Intent intent = new Intent();
-                intent.putExtra("BookLogAID",mBookLogAID);
+                intent.putExtra("BookLogAID", mBookLogAID);
                 intent.setClass(PayActivity.this, OrderDeatilActivity.class);
                 startActivity(intent);
                 animFromBigToSmallOUT();
             }
         });
     }
+
     //支付失败dialog提示
-    private void setFailDialog01(String messageTxt, String iSeeTxt) {
+    private void setFailDialog01(String messageTxt, String iSeeTxt)
+    {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
         message.setText(messageTxt);
         ISee.setText(iSeeTxt);
         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-        final AlertDialog dialog = builder.setView(commit_dialog)
-                .create();
+        final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
                 startToMainActivity();
                 animFromBigToSmallOUT();
             }
         });
     }
+
     //支付失败dialog提示
-    private void setFailDialog(String messageTxt, String iSeeTxt) {
+    private void setFailDialog(String messageTxt, String iSeeTxt)
+    {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
         message.setText(messageTxt);
         ISee.setText(iSeeTxt);
         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-        final AlertDialog dialog = builder.setView(commit_dialog)
-                .create();
+        final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
 //                Intent intent = new Intent();
 //                intent.putExtra("OrderDeatilActivity","OrderDeatilActivity");
@@ -583,21 +678,24 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
+
     //dialog提示
-    private void setDialog(String messageTxt, String iSeeTxt) {
+    private void setDialog(String messageTxt, String iSeeTxt)
+    {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
         message.setText(messageTxt);
         ISee.setText(iSeeTxt);
         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-        final AlertDialog dialog = builder.setView(commit_dialog)
-                .create();
+        final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
                 mRadioButton_zhifubao.setChecked(true);
             }
@@ -605,21 +703,27 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         Intent intent = new Intent();
-        switch (v.getId()) {
+        switch (v.getId())
+        {
             case R.id.textView_order_cancle:
                 setDialog("确认取消订单吗？");
                 break;
             case R.id.rela_useTheRedBag:
                 intent.setClass(PayActivity.this, CouponInfoActivity.class);
-                intent.putExtra("UseRedBag","UseRedBag");
+                intent.putExtra("UseRedBag", "UseRedBag");
                 startActivity(intent);
                 animFromLeftToRightIN();
                 break;
             case R.id.pay:
-                if ("支付宝".equals(payMode)){
+                if ("支付宝".equals(payMode))
+                {
                     pay();
+                } else
+                {
+                    weiXinPay();
                 }
                 break;
             case R.id.iv_back:
@@ -628,71 +732,138 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+    /**
+     * 微信支付
+     */
+    private void weiXinPay()
+    {
+        sendInfoToServer();
+    }
+
+    /**
+     * 向服务端发送相关订单信息
+     */
+    private void sendInfoToServer()
+    {
+        String url = "http://192.168.1.122:8080/bmpw/weixin/test";
+        String lineName = mQueryOrder.getLineName();
+        String setoutTime = mQueryOrder.getSetoutTime();
+        Map<String, String> params = new HashMap<>();
+        params.put("appid", APP_ID);//应用ID
+        params.put("body", "车票信息:" + setoutTime + ";" + lineName);//商品描述
+        params.put("out_trade_no", getOutTradeNo());//商户订单号
+        params.put("total_fee", TransformYuanToFen(mPrice)+ "");//总金额
+        params.put("spbill_create_ip", GetIpAddressUtil.getPhoneIp());//终端IP
+//        params.put("notify_url",APP_ID);//通知地址
+        params.put("trade_type", "APP");//交易类型
+
+        HTTPUtils.post(PayActivity.this, url, params, new VolleyListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError)
+            {
+
+            }
+
+            @Override
+            public void onResponse(String s)
+            {
+                Log.e("onResponseWEIXIN ", "" + s);
+            }
+        });
+    }
+
+    /**
+     * 人民币单位转换 元--->>分
+     */
+    private int TransformYuanToFen(double primevalPrice)
+    {
+        int v = (int) (primevalPrice * 100);
+        return v;
+    }
+
     /**
      * 两个按钮的dialog
+     *
      * @param messageTxt
      */
-    private void setDialog(String messageTxt) {
+    private void setDialog(String messageTxt)
+    {
         View doublebuttondialog = getLayoutInflater().inflate(R.layout.doublebuttondialog, null);
         TextView message = (TextView) doublebuttondialog.findViewById(R.id.message);
         message.setText(messageTxt);
         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-        final AlertDialog dialog = builder.setView(doublebuttondialog)
-                .create();
+        final AlertDialog dialog = builder.setView(doublebuttondialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        doublebuttondialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+        doublebuttondialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
                 cancleOrder();
             }
         });
-        doublebuttondialog.findViewById(R.id.button_cancle).setOnClickListener(new View.OnClickListener() {
+        doublebuttondialog.findViewById(R.id.button_cancle).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.dismiss();
             }
         });
     }
+
     /**
      * 支付失败，取消订单
      */
-    private void cancleOrder() {
+    private void cancleOrder()
+    {
         String url = Constant.URL.HOST +
-                "SellTicket_NoBill_Cancel?scheduleCompanyCode="+"YongAn"+
-                "&bookLogAID="+mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
+                "SellTicket_NoBill_Cancel?scheduleCompanyCode=" + "YongAn" +
+                "&bookLogAID=" + mBookLogAID;
+        HTTPUtils.get(PayActivity.this, url, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
+            public void onResponse(String s)
+            {
                 startToMainActivity();
                 animFromBigToSmallOUT();
             }
         });
     }
+
     /**
      * 从大到小结束动画
      */
-    private void animFromBigToSmallOUT() {
+    private void animFromBigToSmallOUT()
+    {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
         Intent intent = new Intent();
         intent.setAction("OrderDeatilActivity");
         intent.putExtra("OrderDeatilActivity", "OrderDeatilActivity");
         sendBroadcast(intent);
     }
+
     //重写back方法
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
             startToMainActivity();
             animFromBigToSmallOUT();
             return true;
@@ -703,7 +874,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 跳转主页面
      */
-    private void startToMainActivity() {
+    private void startToMainActivity()
+    {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setClass(PayActivity.this, MainActivity.class);
@@ -714,11 +886,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 从左往右打开动画
      */
-    private void animFromLeftToRightIN() {
+    private void animFromLeftToRightIN()
+    {
         overridePendingTransition(R.anim.push_right_in, R.anim.fade_out);
     }
+
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 
         IntentFilter filter = new IntentFilter();
@@ -726,11 +901,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         registerReceiver(receiver, filter);
     }
 
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         MobclickAgent.onResume(this);
     }
-    public void onPause() {
+
+    public void onPause()
+    {
         super.onPause();
         MobclickAgent.onPause(this);
     }

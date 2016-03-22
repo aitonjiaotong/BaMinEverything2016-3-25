@@ -219,6 +219,13 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="带司机"/>
+                <TextView
+                    android:id="@+id/tv_dache_jg_driver_name"
+                    style="@style/dachezuche_gray_small_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="wrap_content"

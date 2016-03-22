@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
+import com.example.zjb.bamin.Cdachezuche.models.ChooseFristInfo;
 import com.example.zjb.bamin.R;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
@@ -42,11 +44,10 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private Button mBtn_dache_jg_next;
     private TextView mTv_dache_jg_get_time;
     private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd EE HH:mm");
-    private long mCurrentTimeMillis;
+    private long mGetCarTimeMillis;
+    private long mReturnCarTimeMillis;
     private TextView mTv_dache_jg_return_time;
     private TextView mTv_dache_jg_city_name;
-    //车辆数量
-    private int carCount = 0;
     private SlideDateTimeListener GetslideDateTimePickerListener = new SlideDateTimeListener()
     {
         @Override
@@ -55,6 +56,8 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             boolean before = date.before(mGetDate);
             if (!before)
             {
+                mGetCarTimeMillis = date.getTime();
+                Log.e("onDateTimeSet ", "onDateTimeSetget " + mGetCarTimeMillis);
                 mTv_dache_jg_get_time.setText(mSimpleDateFormat.format(date));
             } else
             {
@@ -72,6 +75,8 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             boolean before = date.before(date1);
             if (!before)
             {
+                mReturnCarTimeMillis = date.getTime();
+                Log.e("onDateTimeSet ", "onDateTimeSetreturn " + mReturnCarTimeMillis);
                 mRg_dache_jg_months.clearCheck();
                 mTv_dache_jg_return_time.setText(mSimpleDateFormat.format(date) + "");
             } else
@@ -98,6 +103,10 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private RadioButton mRb_dache_gongwuyi;
     private RadioButton mRb_dache_gongwuer;
     private RadioButton mRb_dache_shangwu;
+    private int mCarType = 0;
+    private int mHasDriver = 0;
+    private int mDriverID;
+    private TextView mTv_dache_jg_driver_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -195,6 +204,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mRb_dache_gongwuyi = (RadioButton) findViewById(R.id.rb_dache_gongwuyi);
         mRb_dache_gongwuer = (RadioButton) findViewById(R.id.rb_dache_gongwuer);
         mRb_dache_shangwu = (RadioButton) findViewById(R.id.rb_dache_shangwu);
+        mTv_dache_jg_driver_name = (TextView) findViewById(R.id.tv_dache_jg_driver_name);
     }
 
     private void initUI()
@@ -246,9 +256,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     public String getCurrentTimeMillisToString()
     {
         //默认推迟2小时
-        mCurrentTimeMillis = System.currentTimeMillis() + 2 * 3600 * 1000;
-        mGetDate = new Date(mCurrentTimeMillis);
-        String format = mSimpleDateFormat.format(mCurrentTimeMillis);
+        mGetCarTimeMillis = System.currentTimeMillis() + 2 * 3600 * 1000;
+        mGetDate = new Date(mGetCarTimeMillis);
+        String format = mSimpleDateFormat.format(mGetCarTimeMillis);
         return format;
     }
 
@@ -261,7 +271,8 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
      */
     public String addCurrentTimeMillisToString(Long months, Long daysofmonth)
     {
-        long resultsOfAdd = mCurrentTimeMillis + (24L * 3600L * 1000L) * daysofmonth * months;
+        long resultsOfAdd = mGetCarTimeMillis + (24L * 3600L * 1000L) * daysofmonth * months;
+        mReturnCarTimeMillis = resultsOfAdd;
         String format = mSimpleDateFormat.format(resultsOfAdd);
         return format;
     }
@@ -304,10 +315,17 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.btn_dache_jg_next:
                 // 跳转到订单详情界面
-                //TODO 获取用户在界面上选择的相关信息  城市名称，取车时间，还车时间，是否携带司机(若携带+司机的相关信息，ID)，车型
-
-                intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheOrderDetailActivity.class);
-                startActivity(intent);
+                if(!"".equals(mTv_dache_jg_return_time.getText().toString()))
+                {
+                    String city_name = mTv_dache_jg_city_name.getText().toString();
+                    intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheOrderDetailActivity.class);
+                    ChooseFristInfo chooseFristInfo = new ChooseFristInfo(city_name, mGetCarTimeMillis, mReturnCarTimeMillis, mHasDriver, mDriverID, mCarType);
+                    intent.putExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_FRIST_INFO, chooseFristInfo);
+                    startActivity(intent);
+                }else
+                {
+                    Toast.makeText(ZuChenJiGouYongCheActivity.this,"请选择还车时间",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_dachezuche_dialog_comfire:
                 //企业认证确认按钮
@@ -330,16 +348,19 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_REQUEST_CODE);
                 break;
             case R.id.ll_dache_jg_choose_type_gongwuyi:
+                mCarType = 0;
                 mRb_dache_gongwuyi.setChecked(true);
                 mRb_dache_gongwuer.setChecked(false);
                 mRb_dache_shangwu.setChecked(false);
                 break;
             case R.id.ll_dache_jg_choose_type_gongwuer:
+                mCarType = 1;
                 mRb_dache_gongwuyi.setChecked(false);
                 mRb_dache_gongwuer.setChecked(true);
                 mRb_dache_shangwu.setChecked(false);
                 break;
             case R.id.ll_dache_jg_choose_type_shangwu:
+                mCarType = 2;
                 mRb_dache_gongwuyi.setChecked(false);
                 mRb_dache_gongwuer.setChecked(false);
                 mRb_dache_shangwu.setChecked(true);
@@ -359,6 +380,12 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
             {
                 mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
+            }
+            if(requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_RESULT_CODE)
+            {
+                mHasDriver = 1;
+                mDriverID = data.getIntExtra(ConstantDaCheZuChe.IntentKey.DRIVER_ID,-1);
+                mTv_dache_jg_driver_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.DRIVER_NAME));
             }
         }
     }

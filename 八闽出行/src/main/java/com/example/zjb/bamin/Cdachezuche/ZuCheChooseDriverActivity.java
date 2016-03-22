@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -89,6 +90,20 @@ public class ZuCheChooseDriverActivity extends AppCompatActivity implements View
     {
         mDriverListAdapter = new DriverListAdapter();
         mLv_dachezuche_choose_driver.setAdapter(mDriverListAdapter);
+        mLv_dachezuche_choose_driver.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                String driver_name = mDriverInfoData.get(position).getName();
+                int driver_id = mDriverInfoData.get(position).getId();
+                Intent data = new Intent();
+                data.putExtra(ConstantDaCheZuChe.IntentKey.DRIVER_NAME,driver_name);
+                data.putExtra(ConstantDaCheZuChe.IntentKey.DRIVER_ID,driver_id);
+                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_RESULT_CODE,data);
+                finish();
+            }
+        });
 
     }
 

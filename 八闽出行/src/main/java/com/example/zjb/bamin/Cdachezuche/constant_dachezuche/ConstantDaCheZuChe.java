@@ -20,13 +20,15 @@ public class ConstantDaCheZuChe
         //司机列表接口地址 传入的参数:page 默认值0
         public static final String DRIVER_LIST = HOST + "zc/driver/loadfreedriver";
 
+        //获取车辆信息传入参数Integer lei
+        public static final String GET_CAR_INFO = HOST +"zc/order/loadcarbylei";
+
     }
 
     public class RequestAndResultCode
     {
         //选择城市地区的请求码
         public static final int CHOOSE_CITY_REQUEST_CODE = 0;
-
         //选择城市地区的返回码
         public static final int CHOOSE_CITY_RESULT_CODE = 1;
 
@@ -43,7 +45,9 @@ public class ConstantDaCheZuChe
         public static final int CHOOSE_CAR_TYPE_RETRUN_CODE = 6;
 
         //选择司机的请求码
-        public static final int CHOOSE_DRIVER_REQUEST_CODE = 6;
+        public static final int CHOOSE_DRIVER_REQUEST_CODE = 7;
+        //选择司机的返回码
+        public static final int CHOOSE_DRIVER_RESULT_CODE = 8;
     }
 
     public class IntentKey
@@ -59,5 +63,13 @@ public class ConstantDaCheZuChe
 
         //取车门店返回值的KEY
         public static final String STORES_MAP_KEY = "stores_map_marker_title";
+
+        //选择司机的返回值的KEY
+        public static final String DRIVER_NAME = "driverName";
+        public static final String DRIVER_ID = "driverID";
+
+        //第一次选择时要传递的对象值的KEY
+        public static final String CHOOSE_FRIST_INFO = "choose_frist_info";
+
     }
 }
