@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,6 +92,12 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
     private AlertDialog mAlertDialog;
     private TextView mTv_check_failure_reminder;
     private LinearLayout mLl_dache_choos_driver;
+    private LinearLayout mLl_dache_jg_choose_type_gongwuyi;
+    private LinearLayout mLl_dache_jg_choose_type_gongwuer;
+    private LinearLayout mLl_dache_jg_choose_type_shangwu;
+    private RadioButton mRb_dache_gongwuyi;
+    private RadioButton mRb_dache_gongwuer;
+    private RadioButton mRb_dache_shangwu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -108,7 +115,6 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
 
     public void showConfirmOrderDialog()
     {
-        //TODO 弹出订单确认企业账号信息的对话框
         mConfirm_order_dialog = getLayoutInflater().inflate(R.layout.dachezuche_order_detail_dailog_layout, null);
         mDialog = new AlertDialog.Builder(ZuChenJiGouYongCheActivity.this);
         mDialog.setView(mConfirm_order_dialog);
@@ -123,7 +129,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
 
         mAlertDialog.setOnKeyListener(new DialogInterface.OnKeyListener()
         {
-            public boolean onKey(DialogInterface dialog,int keyCode, KeyEvent event)
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
             {
                 if (keyCode == KeyEvent.KEYCODE_BACK)
                 {
@@ -131,8 +137,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                     //此处把dialog dismiss掉，然后把本身的activity finish掉
                     finish();
                     return true;
-                }
-                else
+                } else
                 {
                     return false;
                 }
@@ -184,6 +189,12 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mTv_dache_jg_get_time = (TextView) findViewById(R.id.tv_dache_jg_get_time);
         mTv_dache_jg_return_time = (TextView) findViewById(R.id.tv_dache_jg_return_time);
         mTv_dache_jg_city_name = (TextView) findViewById(R.id.tv_dache_jg_city_name);
+        mLl_dache_jg_choose_type_gongwuyi = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_type_gongwuyi);
+        mLl_dache_jg_choose_type_gongwuer = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_type_gongwuer);
+        mLl_dache_jg_choose_type_shangwu = (LinearLayout) findViewById(R.id.ll_dache_jg_choose_type_shangwu);
+        mRb_dache_gongwuyi = (RadioButton) findViewById(R.id.rb_dache_gongwuyi);
+        mRb_dache_gongwuer = (RadioButton) findViewById(R.id.rb_dache_gongwuer);
+        mRb_dache_shangwu = (RadioButton) findViewById(R.id.rb_dache_shangwu);
     }
 
     private void initUI()
@@ -221,6 +232,9 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         mBtn_dache_jg_next.setOnClickListener(this);
         mBtn_dachezuche_dialog_comfire.setOnClickListener(this);
         mLl_dache_choos_driver.setOnClickListener(this);
+        mLl_dache_jg_choose_type_gongwuyi.setOnClickListener(this);
+        mLl_dache_jg_choose_type_gongwuer.setOnClickListener(this);
+        mLl_dache_jg_choose_type_shangwu.setOnClickListener(this);
     }
 
 
@@ -290,6 +304,8 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.btn_dache_jg_next:
                 // 跳转到订单详情界面
+                //TODO 获取用户在界面上选择的相关信息  城市名称，取车时间，还车时间，是否携带司机(若携带+司机的相关信息，ID)，车型
+
                 intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheOrderDetailActivity.class);
                 startActivity(intent);
                 break;
@@ -313,16 +329,38 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
                 intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseDriverActivity.class);
                 startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_REQUEST_CODE);
                 break;
+            case R.id.ll_dache_jg_choose_type_gongwuyi:
+                mRb_dache_gongwuyi.setChecked(true);
+                mRb_dache_gongwuer.setChecked(false);
+                mRb_dache_shangwu.setChecked(false);
+                break;
+            case R.id.ll_dache_jg_choose_type_gongwuer:
+                mRb_dache_gongwuyi.setChecked(false);
+                mRb_dache_gongwuer.setChecked(true);
+                mRb_dache_shangwu.setChecked(false);
+                break;
+            case R.id.ll_dache_jg_choose_type_shangwu:
+                mRb_dache_gongwuyi.setChecked(false);
+                mRb_dache_gongwuer.setChecked(false);
+                mRb_dache_shangwu.setChecked(true);
+                break;
             default:
                 break;
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (data != null)
+        {
+            if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
+            {
+                mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
+            }
+        }
     }
 
 }
