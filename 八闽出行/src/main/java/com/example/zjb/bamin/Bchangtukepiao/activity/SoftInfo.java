@@ -94,4 +94,11 @@ public class SoftInfo extends AppCompatActivity implements View.OnClickListener 
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        mWebViewTicketNotice.destroy();
+    }
 }

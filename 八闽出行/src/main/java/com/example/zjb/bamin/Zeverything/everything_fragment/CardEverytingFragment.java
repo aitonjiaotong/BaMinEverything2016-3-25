@@ -88,5 +88,7 @@ public class CardEverytingFragment extends Fragment {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(getActivity());
+        mWebViewTicketNotice.reload();
     }
+
 }
