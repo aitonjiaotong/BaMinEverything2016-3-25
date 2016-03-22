@@ -236,11 +236,11 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.child_add:
                 if (ticketNumBuy > 0) {
-                    if (ticketChildNum < mTicketInfo.getCoachSeatNumber() / 10) {
+                    if (ticketChildNum < mTicketInfo.getCoachSeatNumber() / 10&&ticketChildNum<=ticketNumBuy) {
                         ticketChildNum = ticketChildNum + 1;
                         mChild_num.setText(ticketChildNum + "");
                     } else {
-                        DialogShow.setDialog(FillinOrderActivity.this, "班次携免票儿童童数已超规定比例", "确认");
+                        DialogShow.setDialog(FillinOrderActivity.this, "携免票儿童童数已超规定比例", "确认");
                     }
                 } else {
                     DialogShow.setDialog(FillinOrderActivity.this, "请添加乘客", "确认");
