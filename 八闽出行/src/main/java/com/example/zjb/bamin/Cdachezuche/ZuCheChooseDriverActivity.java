@@ -139,29 +139,33 @@ public class ZuCheChooseDriverActivity extends AppCompatActivity implements View
         public View getView(final int position, View convertView, ViewGroup parent)
         {
             View layout = getLayoutInflater().inflate(R.layout.layout_dachezuche_driver_list_item, null);
+            ImageView iv_Ratingbar1 = (ImageView) layout.findViewById(R.id.iv_Ratingbar1);
+            ImageView iv_Ratingbar2 = (ImageView) layout.findViewById(R.id.iv_Ratingbar2);
+            ImageView iv_Ratingbar3 = (ImageView) layout.findViewById(R.id.iv_Ratingbar3);
+            ImageView iv_Ratingbar4 = (ImageView) layout.findViewById(R.id.iv_Ratingbar4);
+            ImageView iv_Ratingbar5 = (ImageView) layout.findViewById(R.id.iv_Ratingbar5);
             ImageView iv_driver_img = (ImageView) layout.findViewById(R.id.iv_driver_img);
+            ImageView iv_driver_sex_img = (ImageView) layout.findViewById(R.id.iv_driver_sex_img);
             TextView tv_driver_name = (TextView) layout.findViewById(R.id.tv_driver_name);
             TextView tv_driver_driving_years = (TextView) layout.findViewById(R.id.tv_driver_driving_years);
             ImageView iv_driver_send_msg = (ImageView) layout.findViewById(R.id.iv_driver_send_msg);
             ImageView iv_driver_call_phone = (ImageView) layout.findViewById(R.id.iv_driver_call_phone);
             //TODO 跳转到给司机留言的界面
 //            iv_driver_send_msg.setOnClickListener();
-            //TODO 跳转到给司机打电话
-            iv_driver_send_msg.setOnClickListener(new View.OnClickListener()
+            //给司机打电话
+            iv_driver_call_phone.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
                     if (mDriverInfoData.get(position).getPhone() != null && !"".equals(mDriverInfoData.get(position).getPhone()))
                     {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(mDriverInfoData.get(position).getPhone()));
                         if (ActivityCompat.checkSelfPermission(ZuCheChooseDriverActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
                         {
                             ActivityCompat.requestPermissions(ZuCheChooseDriverActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 0);
-                            return;
                         }
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mDriverInfoData.get(position).getPhone()));
                         startActivity(intent);
-
                     }
                 }
             });
@@ -173,11 +177,49 @@ public class ZuCheChooseDriverActivity extends AppCompatActivity implements View
                     UILUtils.displayImageNoAnim(mDriverInfoData.get(position).getImage(), iv_driver_img);
                 }
                 tv_driver_name.setText(mDriverInfoData.get(position).getName());
-                tv_driver_driving_years.setText(mDriverInfoData.get(position).getDrivingYear()+"");
+                tv_driver_driving_years.setText(mDriverInfoData.get(position).getDrivingYear() + "");
+                setRatingBarNum((int) mDriverInfoData.get(position).getStar(), iv_Ratingbar1, iv_Ratingbar2, iv_Ratingbar3, iv_Ratingbar4, iv_Ratingbar5);
+                if ("男".equals(mDriverInfoData.get(position).getSex()))
+                {
+                    iv_driver_sex_img.setImageResource(R.mipmap.xingbienan_2x);
+                } else
+                {
+                    iv_driver_sex_img.setImageResource(R.mipmap.xingbienv_2x);
+                }
             }
-
-
             return layout;
+        }
+    }
+
+    private void setRatingBarNum(int i, ImageView ratingbar1, ImageView ratingbar2, ImageView ratingbar3, ImageView ratingbar4, ImageView ratingbar5)
+    {
+        switch (i)
+        {
+            case 1:
+                ratingbar1.setImageResource(R.mipmap.xinxinghuang_2x);
+                break;
+            case 2:
+                ratingbar1.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar2.setImageResource(R.mipmap.xinxinghuang_2x);
+                break;
+            case 3:
+                ratingbar1.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar2.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar3.setImageResource(R.mipmap.xinxinghuang_2x);
+                break;
+            case 4:
+                ratingbar1.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar2.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar3.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar4.setImageResource(R.mipmap.xinxinghuang_2x);
+                break;
+            case 5:
+                ratingbar1.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar2.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar3.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar4.setImageResource(R.mipmap.xinxinghuang_2x);
+                ratingbar5.setImageResource(R.mipmap.xinxinghuang_2x);
+                break;
         }
     }
 }
