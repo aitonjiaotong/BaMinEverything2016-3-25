@@ -20,7 +20,7 @@ import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment01;
-import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment02;
+import com.example.zjb.bamin.Bchangtukepiao.fragment.Fragment0201;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.MoreFragment;
 import com.example.zjb.bamin.R;
 import com.umeng.analytics.MobclickAgent;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private Class[] fragment = new Class[]{
             Fragment01.class,
-            Fragment02.class,
+            Fragment0201.class,
             MoreFragment.class
     };
     private int[] imgRes = new int[]{
