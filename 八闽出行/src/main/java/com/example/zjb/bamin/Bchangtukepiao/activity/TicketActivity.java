@@ -100,6 +100,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     private MyCkeckListAdapter mCheckAdapter;
     private RelativeLayout mRela_dismiss;
     private RelativeLayout mRela_check;
+    private boolean isClick = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initData() {
         mTicketInfoList.clear();
+        mCheckEndTicketInfoList.clear();
         mRefrash.setVisibility(View.VISIBLE);
         mLv_ticket.setVisibility(View.GONE);
         mTv_order_logout.setVisibility(View.GONE);
@@ -159,6 +161,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     }else{
                         mTv_order_logout.setVisibility(View.GONE);
                     }
+                    isClick=true;
                     mAdapter.notifyDataSetChanged();
                     mRefrash.setVisibility(View.GONE);
                     mLv_ticket.setVisibility(View.VISIBLE);
@@ -447,37 +450,46 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                 initPosition();
                 break;
             case R.id.tv_yesterday:
-
-                //得到指定模范的时间
-                try {
-                    Date d = sdf.parse(mCheckedTime);
-                    long d1 = d.getTime() - 24 * 3600 * 1000;
-                    mCheckedTime = sdf.format(d1);
-                    mTv_today.setText(mCheckedTime);
-                    checkTimeBtn();
-                    updateDate();
-                    initData();
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (isClick){
+                    isClick=false;
+                    //得到指定模范的时间
+                    try {
+                        Date d = sdf.parse(mCheckedTime);
+                        long d1 = d.getTime() - 24 * 3600 * 1000;
+                        mCheckedTime = sdf.format(d1);
+                        mTv_today.setText(mCheckedTime);
+                        checkTimeBtn();
+                        updateDate();
+                        initData();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    initPosition();
+                }else {
                 }
-                initPosition();
+
                 break;
             case R.id.tv_tomorrow:
-                //得到指定模范的时间
-                SimpleDateFormat sdf01 = new SimpleDateFormat("yyyy-MM-dd");
+                if (isClick){
+                    isClick=false;
+                    //得到指定模范的时间
+                    SimpleDateFormat sdf01 = new SimpleDateFormat("yyyy-MM-dd");
 
-                try {
-                    Date d = sdf01.parse(mCheckedTime);
-                    long d1 = d.getTime() + 24 * 3600 * 1000;
-                    mCheckedTime = sdf01.format(d1);
-                    mTv_today.setText(mCheckedTime);
-                    checkTimeBtn();
-                    updateDate();
-                    initData();
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    try {
+                        Date d = sdf01.parse(mCheckedTime);
+                        long d1 = d.getTime() + 24 * 3600 * 1000;
+                        mCheckedTime = sdf01.format(d1);
+                        mTv_today.setText(mCheckedTime);
+                        checkTimeBtn();
+                        updateDate();
+                        initData();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    initPosition();
+                }else {
                 }
-                initPosition();
+
                 break;
             case R.id.iv_back:
                 finish();

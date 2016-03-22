@@ -52,7 +52,6 @@
             <include layout="@layout/zizuzuche_order_view01"></include>
             <include layout="@layout/zizuzuche_order_view02"></include>
 
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
