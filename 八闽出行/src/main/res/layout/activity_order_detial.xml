@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zjb.bamin.Cdachezuche.ZiJiaZuChe.OrderDetialActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout22"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/imageView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@mipmap/icon_back_dache"/>
+
+        <TextView
+            style="@style/dachezuche_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="订单详情"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView7"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout22">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textColor="@color/title_bar"
+                    android:textSize="@dimen/normalTextSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="订单状态：订单已提交"
+                    android:id="@+id/textView122"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView125"/>
+
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="订单预交总金额"
+                    android:id="@+id/textView123"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="23dp"/>
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:textColor="@color/title_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥423"
+                    android:id="@+id/textView124"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="22dp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView128"/>
+
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="订单预交总金额"
+                    android:id="@+id/textView126"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="23dp"/>
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:textColor="@color/title_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥423"
+                    android:id="@+id/textView127"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="22dp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView136"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="取车证件"
+                    android:id="@+id/textView130"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/line_background"
+                    android:layout_width="@dimen/line_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView131"/>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="身份证+驾驶证+信用卡"
+                        android:id="@+id/textView132"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="23dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView137"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="预授权"
+                    android:id="@+id/textView133"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/line_background"
+                    android:layout_width="@dimen/line_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView134"/>
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="需要刷信用卡预授权¥3000"
+                        android:id="@+id/textView135"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="23dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <include layout="@layout/dachezuche_order_detail_head"></include>
+            <include layout="@layout/dachezuche_order_detail_time"></include>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_gray"/>
+            <include layout="@layout/dachezuche_order_detail_get_and_retrun_loc_choose"></include>
+            <include layout="@layout/zijiazuche_order_detial_view01"></include>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

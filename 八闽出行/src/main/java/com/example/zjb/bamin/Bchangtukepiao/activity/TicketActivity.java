@@ -156,6 +156,8 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                      */
                     if (mTicketInfoList.size() == 0) {
                         mTv_order_logout.setVisibility(View.VISIBLE);
+                    }else{
+                        mTv_order_logout.setVisibility(View.GONE);
                     }
                     mAdapter.notifyDataSetChanged();
                     mRefrash.setVisibility(View.GONE);
@@ -488,6 +490,9 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         checkTimePosition = 0;
         checkStartStationPosition = 0;
         checkEndStationPosition = 0;
+        checkText02[0].setText("全天");
+        checkText02[1].setText("全部车站");
+        checkText02[2].setText("全部车站");
     }
 
     private void isNoneCheck() {

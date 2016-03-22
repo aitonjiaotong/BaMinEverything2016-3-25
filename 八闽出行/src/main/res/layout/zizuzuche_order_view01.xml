@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:textSize="@dimen/normalTextSize"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="必选服务"
+        android:id="@+id/textView98"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="手续费"
+            android:id="@+id/textView108"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView111"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥20x1"
+                android:id="@+id/textView109"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="19dp"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:textColor="@color/title_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥20"
+                android:id="@+id/textView110"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="22dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"
+        android:id="@+id/textView99"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="基本保险费"
+            android:id="@+id/textView112"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView113"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥40x1"
+                android:id="@+id/textView114"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="19dp"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥40"
+                android:id="@+id/textView115"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="22dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/white"
+        android:textSize="@dimen/normalTextSize"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="必选部分，客户只需承担1500以内的车辆损失费"
+        android:id="@+id/textView100"/>
+</LinearLayout>

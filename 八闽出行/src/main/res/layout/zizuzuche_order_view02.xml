@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView98"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="可选服务"
+        android:textSize="@dimen/normalTextSize"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="不计免赔服务"
+            android:id="@+id/textView116"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView117"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView102"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="20dp"
+                android:text="¥50*2="
+                android:textSize="@dimen/normalTextSize"/>
+
+            <TextView
+                android:id="@+id/textView103"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="28dp"
+                android:layout_toEndOf="@+id/textView102"
+                android:layout_toRightOf="@+id/textView102"
+                android:text="¥100"
+                android:textColor="@color/title_bar"
+                android:textSize="@dimen/normalTextSize"/>
+
+            <com.github.lguipeng.library.animcheckbox.AnimCheckBox
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="20dp"
+                app:circle_color="@color/bule_light"
+                app:stroke_color="@color/deep_gray"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/white"
+        android:id="@+id/textView100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="客户不须赔偿保险单内的任何赔偿"
+        android:textSize="@dimen/normalTextSize"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="开具发票"
+            android:id="@+id/textView101"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView118"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/dache_arrow_right"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/white"
+        android:id="@+id/textView105"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="自2015年7月1日起，您的金额将开具两份发票，一份租车费用发票（含车辆租赁费、基本保险费），一份用车服务费（其他费用）发票。"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"
+        android:id="@+id/textView121"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="发票抬头"
+            android:id="@+id/textView104"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView106"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"
+        android:id="@+id/textView120"/>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/normalTextSize"
+            android:gravity="center_vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="配送地址"
+            android:id="@+id/textView107"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:background="@color/line_gray"
+            android:id="@+id/textView119"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:id="@+id/button_commit_order"
+        style="@style/dachezuche_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="提交订单"/>
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zjb.bamin.Cdachezuche.ZiJiaZuChe.ZiJiaZuCheCommitOrderActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout21"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/imageView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@mipmap/icon_back_dache"/>
+
+        <TextView
+            style="@style/dachezuche_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="提交订单"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView6"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout21">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/dachezuche_order_detail_head"></include>
+            <include layout="@layout/dachezuche_order_detail_time"></include>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line_gray"/>
+            <include layout="@layout/dachezuche_order_detail_get_and_retrun_loc_choose"></include>
+            <include layout="@layout/zizuzuche_order_view01"></include>
+            <include layout="@layout/zizuzuche_order_view02"></include>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
