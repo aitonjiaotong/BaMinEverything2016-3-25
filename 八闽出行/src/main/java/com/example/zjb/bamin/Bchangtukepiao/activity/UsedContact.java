@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -122,11 +121,11 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
             if ("FillinOrderActivity".equals(mAddContact)) {
                 AnimCheckBox animcheck_contact = (AnimCheckBox) view.findViewById(R.id.animcheck_contact);
                 if (animcheck_contact.isChecked()) {
-                    animcheck_contact.setChecked(false);
+                    animcheck_contact.setChecked(false,true);
                     theAddContact.remove(position);
                     theAddContact.add(position, null);
                 } else {
-                    animcheck_contact.setChecked(true);
+                    animcheck_contact.setChecked(true,true);
                     theAddContact.remove(position);
                     theAddContact.add(position, mUsedContactInfoList.get(position));
                 }
@@ -209,26 +208,12 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 }
             });
             RelativeLayout rela_animCheckBox = (RelativeLayout) inflate.findViewById(R.id.rela_animCheckBox);
-            LinearLayout linear_animCheckBox = (LinearLayout) inflate.findViewById(R.id.linear_animCheckBox);
             if ("FillinOrderActivity".equals(mAddContact)) {
                 rela_animCheckBox.setVisibility(View.VISIBLE);
             }
-            final AnimCheckBox animcheck_contact = (AnimCheckBox) inflate.findViewById(R.id.animcheck_contact);
-            animcheck_contact.setChecked(false, false);
-//            linear_animCheckBox.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (animcheck_contact.isChecked()) {
-//                        animcheck_contact.setChecked(false);
-//                        theAddContact.remove(position);
-//                        theAddContact.add(position, null);
-//                    } else {
-//                        animcheck_contact.setChecked(true);
-//                        theAddContact.remove(position);
-//                        theAddContact.add(position,mUsedContactInfoList.get(position));
-//                    }
-//                }
-//            });
+            AnimCheckBox animcheck_contact = (AnimCheckBox) inflate.findViewById(R.id.animcheck_contact);
+            animcheck_contact.setChecked(true, true);
+            animcheck_contact.setChecked(false, true);
             return inflate;
         }
     }

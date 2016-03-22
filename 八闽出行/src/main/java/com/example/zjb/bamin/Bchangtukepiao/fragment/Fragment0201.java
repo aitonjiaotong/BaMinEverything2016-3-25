@@ -3,20 +3,20 @@ package com.example.zjb.bamin.Bchangtukepiao.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.andview.refreshview.XRefreshView;
 import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
@@ -26,6 +26,7 @@ import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.AccountOrder;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_order.QueryOrder;
 import com.example.zjb.bamin.R;
+import com.example.zjb.bamin.ZcustomView.CustomerFooter;
 import com.example.zjb.bamin.Zutils.DialogShow;
 import com.example.zjb.bamin.Zutils.TimeAndDateFormate;
 import com.umeng.analytics.MobclickAgent;
@@ -40,14 +41,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
-
-public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRefreshListener {
+public class Fragment0201 extends Fragment {
 
     private View mInflate;
-    private TextView mNoneOrder;
-    private WaveSwipeRefreshLayout mSwipe;
     private ListView mOrderListview;
     private String mId;
     private MyAdapter mMyAdapter;
@@ -60,11 +57,10 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     private AccountOrder mAccountOrder;
     //订单总页数
     private int mPages;
-    private TextView mTextView_moreOrder;
-    private View mOrder_list_foot;
     private boolean isTouch = false;
+    private XRefreshView mCustom_view;
 
-    public Fragment02() {
+    public Fragment0201() {
         // Required empty public constructor
     }
 
@@ -73,18 +69,15 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (mInflate == null) {
-            mInflate = inflater.inflate(R.layout.fragment_fragment02, null);
+            mInflate = inflater.inflate(R.layout.fragment_fragment0201, null);
             /**
              * 获取用户id
              */
             SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
             mId = sp.getString("id", "");
             initUI();
-            /**
-             * 根据用户id查询所有订单号
-             */
-            clearData();
-            queryAccountIdToOrder();
+//            clearData();
+//            queryAccountIdToOrder();
         }
 //缓存的rootView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
         ViewGroup parent = (ViewGroup) mInflate.getParent();
@@ -104,16 +97,14 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     @Override
     public void onStop() {
         super.onStop();
-        isTouch=false;
-        mSwipe.setRefreshing(false);
+        isTouch = false;
     }
-
+    /**
+     * 根据用户id查询所有订单号
+     */
     //查询所有有订单号
     private void queryAccountIdToOrder() {
         isTouch = true;
-        mNoneOrder.setVisibility(View.GONE);
-        mSwipe.setRefreshing(true);
-        mOrderListview.setVisibility(View.INVISIBLE);
         String url = Constant.URLFromAiTon.HOST + "front/ladorderbyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
@@ -121,6 +112,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         HTTPUtils.post(getActivity(), url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                mCustom_view.stopRefresh();
+                mCustom_view.stopLoadMore();
             }
 
             @Override
@@ -147,8 +140,6 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                  * 暂无订单显示与否
                  */
                 if (mAccountOrderEntityList.size() > 0) {
-                    mNoneOrder.setVisibility(View.GONE);
-                    mOrder_list_foot.setVisibility(View.VISIBLE);
                     /**
                      * 将所有订单对象和状态都实例化
                      */
@@ -165,9 +156,6 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                         queryAllOrderState((orderPageCount - 1) * 8 + i);
                     }
                 } else {
-                    mNoneOrder.setVisibility(View.VISIBLE);
-                    mSwipe.setRefreshing(false);
-                    mOrder_list_foot.setVisibility(View.GONE);
                 }
             }
         });
@@ -184,6 +172,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                 "&bookLogID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1) * 8).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
+                mCustom_view.stopRefresh();
+                mCustom_view.stopLoadMore();
             }
 
             public void onResponse(String s) {
@@ -202,9 +192,9 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     if (!("正在生成".equals(orderStateList.get(mQueryOrderList.size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
                         isTouch = false;
+                        mCustom_view.stopRefresh();
+                        mCustom_view.stopLoadMore();
                         mMyAdapter.notifyDataSetChanged();
-                        mSwipe.setRefreshing(false);
-                        mOrderListview.setVisibility(View.VISIBLE);
                     }
                 } catch (DocumentException e) {
                     e.printStackTrace();
@@ -273,6 +263,8 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         HTTPUtils.get(getActivity(), url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                mCustom_view.stopRefresh();
+                mCustom_view.stopLoadMore();
             }
 
             @Override
@@ -292,9 +284,9 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
                     if (!("正在生成".equals(orderStateList.get(mAccountOrder.getOrders().size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
                         isTouch = false;
+                        mCustom_view.stopRefresh();
+                        mCustom_view.stopLoadMore();
                         mMyAdapter.notifyDataSetChanged();
-                        mSwipe.setRefreshing(false);
-                        mOrderListview.setVisibility(View.VISIBLE);
                     }
 
                 } catch (DocumentException e) {
@@ -307,43 +299,50 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
     }
 
     private void initUI() {
-
-        mNoneOrder = (TextView) mInflate.findViewById(R.id.noneOrder);
-        mSwipe = (WaveSwipeRefreshLayout) mInflate.findViewById(R.id.main_swipe);
-        initWaveSwipeRefreshLayout();
-        mOrder_list_foot = getActivity().getLayoutInflater().inflate(R.layout.order_list_foot, null);
+        mCustom_view = (XRefreshView) mInflate.findViewById(R.id.custom_view);
         mOrderListview = (ListView) mInflate.findViewById(R.id.order_listView);
-        mOrderListview.addFooterView(mOrder_list_foot);
-//        mOrder_list_foot.findViewById(R.id.getMoreOrder).setOnClickListener(this);
-        mTextView_moreOrder = (TextView) mOrder_list_foot.findViewById(R.id.textView_MoreOrder);
         mMyAdapter = new MyAdapter();
         mOrderListview.setAdapter(mMyAdapter);
         mOrderListview.setOnItemClickListener(new MyItemClickListener());
-        mInflate.findViewById(R.id.rela_unclick).setOnTouchListener(new View.OnTouchListener() {
+        initXRefreshView();
+    }
+
+    private void initXRefreshView() {
+        mCustom_view.setPullLoadEnable(true);
+        mCustom_view.setPinnedTime(1000);
+        mCustom_view.setAutoLoadMore(true);
+        mCustom_view.setMoveForHorizontal(true);
+        mCustom_view.setCustomFooterView(new CustomerFooter(getActivity()));
+        mCustom_view.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return isTouch;
+            public void onRefresh() {
+                clearData();
+                queryAccountIdToOrder();
+            }
+
+            @Override
+            public void onLoadMore(boolean isSlience) {
+                if (orderPageCount < mPages) {
+                    queryAccountIdToOrder();
+                } else {
+                    Toast.makeText(getActivity(), "没有更多订单了", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        /**
+         * 根据用户id查询所有订单号
+         */
+        mCustom_view.startRefresh();
     }
 
     class MyItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position == mAccountOrderEntityList.size()) {
-                if (orderPageCount < mPages) {
-                    queryAccountIdToOrder();
-                    mTextView_moreOrder.setText("更多订单");
-                } else {
-                    mTextView_moreOrder.setText("没有更多订单了");
-                }
+            if (mAccountOrderEntityList.get(position).getFlag() == 1) {
+                DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
             } else {
-                if (mAccountOrderEntityList.get(position).getFlag()==1){
-                    DialogShow.setDialog(getActivity(),"订单出现异常，请联系客服","确认");
-                }else{
-                    queryOrderState(position);
-                }
+                queryOrderState(position);
             }
         }
     }
@@ -402,23 +401,6 @@ public class Fragment02 extends Fragment implements WaveSwipeRefreshLayout.OnRef
         }
     }
 
-    private void initWaveSwipeRefreshLayout() {
-        mSwipe.setColorSchemeColors(Color.WHITE, Color.WHITE);
-        mSwipe.setOnRefreshListener(this);
-        mSwipe.setWaveColor(getResources().getColor(R.color.title_bar));
-        mSwipe.setMaxDropHeight(mSwipe.getHeight() / 3);
-    }
-
-    @Override
-    public void onRefresh() {
-        refresh();
-    }
-
-    private void refresh() {
-        clearData();
-        queryAccountIdToOrder();
-        // 更新が終了したらインジケータ非表示
-    }
 
     //清除订单页面数据
     private void clearData() {
