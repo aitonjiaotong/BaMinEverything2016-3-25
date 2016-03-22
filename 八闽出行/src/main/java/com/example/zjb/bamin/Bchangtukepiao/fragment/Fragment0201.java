@@ -59,6 +59,7 @@ public class Fragment0201 extends Fragment {
     private int mPages;
     private boolean isTouch = false;
     private XRefreshView mCustom_view;
+    private TextView mNoneOrder;
 
     public Fragment0201() {
         // Required empty public constructor
@@ -156,6 +157,9 @@ public class Fragment0201 extends Fragment {
                         queryAllOrderState((orderPageCount - 1) * 8 + i);
                     }
                 } else {
+                    mCustom_view.stopRefresh();
+                    mCustom_view.stopLoadMore();
+                    mNoneOrder.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -299,6 +303,7 @@ public class Fragment0201 extends Fragment {
     }
 
     private void initUI() {
+        mNoneOrder = (TextView) mInflate.findViewById(R.id.noneOrder);
         mCustom_view = (XRefreshView) mInflate.findViewById(R.id.custom_view);
         mOrderListview = (ListView) mInflate.findViewById(R.id.order_listView);
         mMyAdapter = new MyAdapter();
@@ -316,6 +321,7 @@ public class Fragment0201 extends Fragment {
         mCustom_view.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
             public void onRefresh() {
+                mNoneOrder.setVisibility(View.GONE);
                 clearData();
                 queryAccountIdToOrder();
             }
@@ -325,6 +331,7 @@ public class Fragment0201 extends Fragment {
                 if (orderPageCount < mPages) {
                     queryAccountIdToOrder();
                 } else {
+                    mCustom_view.stopLoadMore();
                     Toast.makeText(getActivity(), "没有更多订单了", Toast.LENGTH_SHORT).show();
                 }
             }

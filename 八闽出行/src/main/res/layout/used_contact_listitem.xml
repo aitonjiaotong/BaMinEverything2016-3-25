@@ -20,7 +20,7 @@
 
             <com.github.lguipeng.library.animcheckbox.AnimCheckBox
                 app:circle_color="@color/bule_light"
-                app:stroke_color="@color/title_bar_deep"
+                app:stroke_color="@color/deep_gray"
                 android:id="@+id/animcheck_contact"
                 android:layout_gravity="center_vertical"
                 android:layout_width="30dp"

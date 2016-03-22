@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Cdachezuche;
+package com.example.zjb.bamin.Cdachezuche.ZiJiaZuChe;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.UILUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
-import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.CarInfoList;
 import com.example.zjb.bamin.R;
 
@@ -48,7 +47,7 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
     }
 
     private void queryCarInfoList() {
-        String url = Constant.URLFromAiTon.HOST_TEST + "zc/car/loadcanusecar";
+        String url = Constant.URLFromAiTon.HOST_TEST + "/zc/front/loadcanusecar";
         Map<String, String> map = new HashMap<>();
         map.put("page", mPages + "");
         HTTPUtils.post(ZuCheChooseCarTypeActivity.this, url, map, new VolleyListener() {
@@ -104,10 +103,13 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
                     mTextView_noneCarInfo.setText("没有更多车辆信息了");
                 }
             } else {
-                CarInfoList.ContainsEntity carContainsEntity = mCarInfoListContains.get(position);
+//                CarInfoList.ContainsEntity carContainsEntity = mCarInfoListContains.get(position);
+//                Intent intent = new Intent();
+//                intent.putExtra("carContainsEntity ",carContainsEntity );
+//                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_RETRUN_CODE, intent);
                 Intent intent = new Intent();
-                intent.putExtra("carContainsEntity ",carContainsEntity );
-                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_RETRUN_CODE, intent);
+                intent.setClass(ZuCheChooseCarTypeActivity.this,ZiJiaZuCheCommitOrderActivity.class);
+                startActivity(intent);
             }
         }
     }

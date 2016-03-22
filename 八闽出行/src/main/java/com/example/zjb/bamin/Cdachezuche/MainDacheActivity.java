@@ -1,16 +1,12 @@
 package com.example.zjb.bamin.Cdachezuche;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.example.zjb.bamin.Cdachezuche.ZiJiaZuChe.ZiJiaZuCheActivity;
 import com.example.zjb.bamin.R;
 
 public class MainDacheActivity extends AppCompatActivity {
@@ -31,14 +27,8 @@ public class MainDacheActivity extends AppCompatActivity {
     }
 
     public void zijiazuche(View view) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_SETTINGS)
-                != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_SETTINGS},
-                    0);
-            Toast.makeText(MainDacheActivity.this, "没授权", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainDacheActivity.this, "授权了？", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent();
+        intent.setClass(MainDacheActivity.this, ZiJiaZuCheActivity.class);
+        startActivity(intent);
     }
 }

@@ -205,7 +205,7 @@
             android:label="@string/title_activity_ji_gou_yong_che">
         </activity>
         <activity
-            android:name=".Cdachezuche.ZuCheChooseCarTypeActivity"
+            android:name=".Cdachezuche.ZiJiaZuChe.ZuCheChooseCarTypeActivity"
             android:label="@string/title_activity_ji_gou_yong_che02">
         </activity>
         <!-- 打车类Activity -->
@@ -492,6 +492,12 @@
         <activity android:name=".Zeverything.EveryThingSoftInfoActivity">
         </activity>
         <activity android:name=".Cdachezuche.ZuCheChooseDriverActivity">
+        </activity>
+        <activity android:name=".Cdachezuche.ZiJiaZuChe.ZiJiaZuCheActivity">
+        </activity>
+        <activity android:name=".Cdachezuche.ZiJiaZuChe.ZiJiaZuCheCommitOrderActivity">
+        </activity>
+        <activity android:name=".Cdachezuche.ZiJiaZuChe.OrderDetialActivity">
         </activity>
     </application>
 

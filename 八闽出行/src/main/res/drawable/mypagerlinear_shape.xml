@@ -6,4 +6,5 @@
             android:dashGap="0dp"
             android:dashWidth="0dp"
             android:width="@dimen/line_width"></stroke>
+    <solid android:color="@color/white"></solid>
 </shape>
