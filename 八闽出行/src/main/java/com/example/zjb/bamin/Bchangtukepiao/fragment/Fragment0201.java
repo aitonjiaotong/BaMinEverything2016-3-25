@@ -57,9 +57,9 @@ public class Fragment0201 extends Fragment {
     private AccountOrder mAccountOrder;
     //订单总页数
     private int mPages;
-    private boolean isTouch = false;
     private XRefreshView mCustom_view;
     private TextView mNoneOrder;
+    private boolean isItemClickED = false;
 
     public Fragment0201() {
         // Required empty public constructor
@@ -98,14 +98,13 @@ public class Fragment0201 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        isTouch = false;
     }
+
     /**
      * 根据用户id查询所有订单号
      */
     //查询所有有订单号
     private void queryAccountIdToOrder() {
-        isTouch = true;
         String url = Constant.URLFromAiTon.HOST + "front/ladorderbyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
@@ -195,7 +194,6 @@ public class Fragment0201 extends Fragment {
                      */
                     if (!("正在生成".equals(orderStateList.get(mQueryOrderList.size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
-                        isTouch = false;
                         mCustom_view.stopRefresh();
                         mCustom_view.stopLoadMore();
                         mMyAdapter.notifyDataSetChanged();
@@ -234,12 +232,14 @@ public class Fragment0201 extends Fragment {
                         Intent intent = new Intent();
                         intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                         intent.putExtra("isSure", "isSure");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.setClass(getActivity(), OrderDeatilActivity.class);
                         startActivity(intent);
                         animFromSmallToBigIN();
                     } else if ("未确认".equals(state)) {
                         Intent intent = new Intent();
                         intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.setClass(getActivity(), PayActivity.class);
                         startActivity(intent);
                         animFromSmallToBigIN();
@@ -248,7 +248,7 @@ public class Fragment0201 extends Fragment {
                     } else if ("已取票".equals(state)) {
                         DialogShow.setDialog(getActivity(), "已取票", "确认");
                     }
-
+                    isItemClickED = false;
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 } catch (IndexOutOfBoundsException e) {
@@ -287,7 +287,6 @@ public class Fragment0201 extends Fragment {
                      */
                     if (!("正在生成".equals(orderStateList.get(mAccountOrder.getOrders().size() - 1))) && !("正在生成".equals(mQueryOrderList.get(mAccountOrder.getOrders().size() - 1).getMyStateDesc()))) {
                         mIsupdata = true;
-                        isTouch = false;
                         mCustom_view.stopRefresh();
                         mCustom_view.stopLoadMore();
                         mMyAdapter.notifyDataSetChanged();
@@ -346,10 +345,15 @@ public class Fragment0201 extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (mAccountOrderEntityList.get(position).getFlag() == 1) {
-                DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
-            } else {
-                queryOrderState(position);
+            isItemClickED = !isItemClickED;
+            Log.e("onItemClick ", "isItemClickED " + isItemClickED);
+            if (isItemClickED) {
+                if (mAccountOrderEntityList.get(position).getFlag() == 1) {
+                    DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
+                } else {
+
+                    queryOrderState(position);
+                }
             }
         }
     }

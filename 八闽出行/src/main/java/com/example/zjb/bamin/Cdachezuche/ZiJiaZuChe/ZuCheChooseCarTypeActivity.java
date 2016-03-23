@@ -103,10 +103,6 @@ public class ZuCheChooseCarTypeActivity extends AppCompatActivity implements Vie
                     mTextView_noneCarInfo.setText("没有更多车辆信息了");
                 }
             } else {
-//                CarInfoList.ContainsEntity carContainsEntity = mCarInfoListContains.get(position);
-//                Intent intent = new Intent();
-//                intent.putExtra("carContainsEntity ",carContainsEntity );
-//                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CAR_TYPE_RETRUN_CODE, intent);
                 Intent intent = new Intent();
                 intent.setClass(ZuCheChooseCarTypeActivity.this,ZiJiaZuCheCommitOrderActivity.class);
                 startActivity(intent);

@@ -228,7 +228,6 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 AnimFromRightToLeftIN();
                 break;
             case R.id.add_passager:
-                intent.setAction("ticketPassager");
                 List<UsedContactInfo> theAddContactList = new ArrayList<>();
                 for (int i = 0; i < theAddContact.size(); i++) {
                     UsedContactInfo usedContactInfo = theAddContact.get(i);
@@ -238,7 +237,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 }
                 AddContant addContant = new AddContant(theAddContactList);
                 intent.putExtra("theAddContactList", addContant);
-                sendBroadcast(intent);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_COMMIT_ORDER,intent);
                 finish();
                 animFromBigToSmallOUT();
                 break;

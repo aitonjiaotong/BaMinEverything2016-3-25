@@ -243,12 +243,14 @@
             android:id="@+id/button9"/>
 
         <Button
+            android:textSize="@dimen/normalTextSize"
+            android:textColor="@color/hint_gray"
+            android:background="@drawable/dachezuche_button_selector_cancle"
             android:layout_margin="10dp"
-            style="@style/dachezuche_btn"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消订单"
-            android:id="@+id/button10"/>
+            android:id="@+id/button_cancle_order"/>
     </LinearLayout>
 </LinearLayout>

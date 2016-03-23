@@ -9,13 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.zjb.bamin.Bchangtukepiao.activity.BackTicketActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.CouponInfoActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.FeedBackActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.Ours;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SmsLoginActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SoftInfo;
-import com.example.zjb.bamin.Bchangtukepiao.activity.TakeTickets;
 import com.example.zjb.bamin.Bchangtukepiao.activity.TicketNotice;
 import com.example.zjb.bamin.Bchangtukepiao.activity.UsedContact;
 import com.example.zjb.bamin.R;
@@ -51,8 +49,6 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         mInflate.findViewById(R.id.used_contact).setOnClickListener(this);
         mInflate.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
         mInflate.findViewById(R.id.Discount).setOnClickListener(this);
-        mInflate.findViewById(R.id.rl_back_ticket).setOnClickListener(this);
-        mInflate.findViewById(R.id.wallet).setOnClickListener(this);
         mInflate.findViewById(R.id.softInfo).setOnClickListener(this);
         mInflate.findViewById(R.id.ours).setOnClickListener(this);
         mInflate.findViewById(R.id.rl_feedback).setOnClickListener(this);
@@ -137,16 +133,6 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.Discount:
                 intent.setClass(getActivity(), TicketNotice.class);
-                startActivity(intent);
-                animFromLeftToRight();
-                break;
-            case R.id.wallet:
-                intent.setClass(getActivity(), TakeTickets.class);
-                startActivity(intent);
-                animFromLeftToRight();
-                break;
-            case R.id.rl_back_ticket:
-                intent.setClass(getActivity(), BackTicketActivity.class);
                 startActivity(intent);
                 animFromLeftToRight();
                 break;

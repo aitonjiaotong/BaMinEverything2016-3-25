@@ -14,6 +14,7 @@ public class Constant
         //选择出发地及止目的地页面的相关请求码
         public static final int REQUEST_CODE_CHOOSE_SET_OUT = 1;
         public static final int REQUEST_CODE_CHOOSE_ARRIVE = 2;
+        public static final int REQUEST_CODE_COMMIT_ORDER = 3;
 
         /**
          * --***********返回码**********--
@@ -26,6 +27,7 @@ public class Constant
         public static final int RESULT_CODE_ARRIVE_ADDR = 4;
         public static final int RESULT_CODE_ARRIVE_SEARCH_ADDR = 5;
         public static final int RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR = 6;
+        public static final int RESULT_CODE_COMMIT_ORDER = 7;
 
     }
 
@@ -91,8 +93,6 @@ public class Constant
         public static final String TICKET_NOTICE = "http://120.24.46.15:8080/bmpw/front/goupiaoxuzhi";
         //取票须知
         public static final String TAKE_TICKETS = "http://120.24.46.15:8080/bmpw/front/qupiaoxuzhi";
-        //常见问题
-        public static final String NORMAL_PROBLEM = "http://192.168.1.10:8080/bmpw/ooo";
         //票务的软件介绍
         public static final String SOFTWARE_INFO = "http://q.eqxiu.com/s/16f5zj5p";
         //八闽出行_三明绿者卡

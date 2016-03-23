@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -63,24 +63,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             String action = intent.getAction();
             switch (action) {
                 case "ticketPassager":
-                    boolean isExit = false;
-                    AddContant theAddContact = (AddContant) intent.getSerializableExtra("theAddContactList");
-                    List<UsedContactInfo> theAddContactList = theAddContact.getTheAddContact();
-                    for (int i = 0; i < theAddContactList.size(); i++) {
-                        String idcard = theAddContactList.get(i).getIdcard();
-                        for (int j = 0; j < mTicketPassagerList.size(); j++) {
-                            if (idcard.equals(mTicketPassagerList.get(j).getIdcard())) {
-                                DialogShow.setDialog(FillinOrderActivity.this, mTicketPassagerList.get(j).getName() + "已添加", "确定");
-                                isExit = true;
-                            }
-                        }
-                    }
-                    if (!isExit) {
-                        ticketNumBuy = ticketNumBuy + theAddContactList.size();
-                        mTicketPassagerList.addAll(theAddContactList);
-                        mAdapter.notifyDataSetChanged();
-                        refrashTicketNumAndPrice();
-                    }
+
                     break;
             }
         }
@@ -236,7 +219,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.child_add:
                 if (ticketNumBuy > 0) {
-                    if (ticketChildNum < mTicketInfo.getCoachSeatNumber() / 10&&ticketChildNum<=ticketNumBuy) {
+                    if (ticketChildNum < mTicketInfo.getCoachSeatNumber() / 10&&ticketChildNum<ticketNumBuy) {
                         ticketChildNum = ticketChildNum + 1;
                         mChild_num.setText(ticketChildNum + "");
                     } else {
@@ -249,7 +232,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             case R.id.add_passager:
                 intent.putExtra("addContact", "FillinOrderActivity");
                 intent.setClass(FillinOrderActivity.this, UsedContact.class);
-                startActivity(intent);
+                startActivityForResult(intent, Constant.RequestAndResultCode.REQUEST_CODE_COMMIT_ORDER);
                 animFromSmallToBigIN();
                 break;
             case R.id.iv_back:
@@ -327,7 +310,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     String mResult;
                     mResult = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     mOrderInfo = GsonUtils.parseJSON(mResult, OrderInfo.class);
-                    if (mOrderInfo!=null){
+                    if (mOrderInfo != null) {
                         if (mOrderInfo.getBookLogAID() == null) {
                             if ("班次有关参数值错误，未能查询到对应班次".equals(mOrderInfo.getMessage())) {
                                 Toast.makeText(FillinOrderActivity.this, "暂不支持三明地区以外的出发地", Toast.LENGTH_SHORT).show();
@@ -341,7 +324,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                              */
                             commitOrderToAiTon();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(FillinOrderActivity.this, "提交订单失败", Toast.LENGTH_SHORT).show();
                         mPopupWindow.dismiss();
                     }
@@ -380,17 +363,45 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==Constant.RequestAndResultCode.REQUEST_CODE_COMMIT_ORDER){
+            if (resultCode==Constant.RequestAndResultCode.RESULT_CODE_COMMIT_ORDER){
+                Log.e("onActivityResult ", "onActivityResult ");
+                boolean isExit = false;
+                AddContant theAddContact = (AddContant) data.getSerializableExtra("theAddContactList");
+                List<UsedContactInfo> theAddContactList = theAddContact.getTheAddContact();
+                for (int i = 0; i < theAddContactList.size(); i++) {
+                    String idcard = theAddContactList.get(i).getIdcard();
+                    for (int j = 0; j < mTicketPassagerList.size(); j++) {
+                        if (idcard.equals(mTicketPassagerList.get(j).getIdcard())) {
+                            DialogShow.setDialog(FillinOrderActivity.this, mTicketPassagerList.get(j).getName() + "已添加", "确定");
+                            isExit = true;
+                        }
+                    }
+                }
+                if (!isExit) {
+                    ticketNumBuy = ticketNumBuy + theAddContactList.size();
+                    mTicketPassagerList.addAll(theAddContactList);
+                    mAdapter.notifyDataSetChanged();
+                    refrashTicketNumAndPrice();
+                }
+            }
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("ticketPassager");
-        registerReceiver(receiver, filter);
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("ticketPassager");
+//        registerReceiver(receiver, filter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+//        unregisterReceiver(receiver);
     }
 
 

@@ -18,6 +18,7 @@ public class ZiJiaZuCheActivity extends AppCompatActivity implements View.OnClic
 
     private void setListener() {
         findViewById(R.id.button_lijixuanche).setOnClickListener(this);
+        findViewById(R.id.imageView_back).setOnClickListener(this);
     }
 
     @Override
@@ -27,6 +28,9 @@ public class ZiJiaZuCheActivity extends AppCompatActivity implements View.OnClic
             case R.id.button_lijixuanche:
                 intent.setClass(this, ZuCheChooseCarTypeActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.imageView_back:
+                finish();
                 break;
         }
     }

@@ -18,15 +18,19 @@ public class ZiJiaZuCheCommitOrderActivity extends AppCompatActivity implements 
 
     private void setListener() {
         findViewById(R.id.button_commit_order).setOnClickListener(this);
+        findViewById(R.id.imageView_back).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.button_commit_order:
-                intent.setClass(this,ZiJiaZuCheCommitOrderActivity.class);
+                intent.setClass(this, OrderDetialActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.imageView_back:
+                finish();
                 break;
         }
     }

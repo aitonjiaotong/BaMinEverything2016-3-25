@@ -16,7 +16,7 @@
         android:id="@+id/relativeLayout20">
 
         <ImageView
-            android:id="@+id/imageView20"
+            android:id="@+id/imageView_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
