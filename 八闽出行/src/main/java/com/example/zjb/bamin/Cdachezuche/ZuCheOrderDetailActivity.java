@@ -101,8 +101,6 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                         UILUtils.displayImageNoAnim(mSingleCarInfo.getCar().getImage(), mIv_car_img);
                     }
                 }
-
-
             }
         });
 
@@ -203,6 +201,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                 {
                     intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
                     intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
+                    intent.putExtra(ConstantDaCheZuChe.IntentKey.CITY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
                     startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_GET_REQUEST_CODE);
                 }
 
@@ -218,7 +217,6 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                     intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_RETURN);
                     startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RETRUN_REQUEST_CODE);
                 }
-
                 break;
         }
     }

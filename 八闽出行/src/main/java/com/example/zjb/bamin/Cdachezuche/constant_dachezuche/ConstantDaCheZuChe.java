@@ -52,6 +52,9 @@ public class ConstantDaCheZuChe
 
     public class IntentKey
     {
+        //跳转到门店地图_取车城市的KEY
+        public static final String CITY = "city_name";
+
         public static final String GET_MAP_LOC_KEY = "get_map_loc";
         //跳转到门店地图_取车的KEY
         public static final int GET_MAP_LOC_GET = 1;

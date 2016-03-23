@@ -109,4 +109,12 @@ public class EveryThingSoftInfoActivity extends AppCompatActivity implements Vie
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        mWebViewTicketNotice.destroy();
+    }
 }
