@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.example.zjb.bamin.Bchangtukepiao.activity.BackTicketActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.CouponInfoActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.FeedBackActivity;
-import com.example.zjb.bamin.Bchangtukepiao.activity.NormalProblem;
 import com.example.zjb.bamin.Bchangtukepiao.activity.Ours;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SmsLoginActivity;
 import com.example.zjb.bamin.Bchangtukepiao.activity.SoftInfo;
@@ -54,11 +53,9 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         mInflate.findViewById(R.id.Discount).setOnClickListener(this);
         mInflate.findViewById(R.id.rl_back_ticket).setOnClickListener(this);
         mInflate.findViewById(R.id.wallet).setOnClickListener(this);
-
-     mInflate.findViewById(R.id.normalProblem).setOnClickListener(this);
-     mInflate.findViewById(R.id.softInfo).setOnClickListener(this);
-     mInflate.findViewById(R.id.ours).setOnClickListener(this);
-     mInflate.findViewById(R.id.rl_feedback).setOnClickListener(this);
+        mInflate.findViewById(R.id.softInfo).setOnClickListener(this);
+        mInflate.findViewById(R.id.ours).setOnClickListener(this);
+        mInflate.findViewById(R.id.rl_feedback).setOnClickListener(this);
     }
 
     private void initUI() {
@@ -77,6 +74,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
             isLogined = true;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent intent = new Intent();
@@ -102,12 +100,14 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
     /**
      * 界面跳转动画
      */
     private void animFromLeftToRight() {
         getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.fade_out);
     }
+
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
@@ -161,18 +161,13 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
                     animFromLeftToRight();
                 }
                 break;
-            case R.id.normalProblem:
-                intent.setClass(getActivity(),NormalProblem.class);
-                startActivity(intent);
-                animFromLeftToRight();
-                break;
             case R.id.softInfo:
-                intent.setClass(getActivity(),SoftInfo.class);
+                intent.setClass(getActivity(), SoftInfo.class);
                 startActivity(intent);
                 animFromLeftToRight();
                 break;
             case R.id.ours:
-                intent.setClass(getActivity(),Ours.class);
+                intent.setClass(getActivity(), Ours.class);
                 startActivity(intent);
                 animFromLeftToRight();
                 break;

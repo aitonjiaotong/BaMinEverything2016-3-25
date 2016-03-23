@@ -19,53 +19,6 @@
             android:orientation="vertical"/>
 
         <RelativeLayout
-            android:id="@+id/normalProblem"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="22dp"
-                android:src="@mipmap/changjianwenti"/>
-
-            <TextView
-                android:textSize="@dimen/normalTextSize"
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="25dp"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
-                android:text="常见问题"/>
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="27dp"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/ic_me_arrow_right_gray"/>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_width"
-            android:layout_marginLeft="60dp"
-            android:background="@color/line_gray"
-            android:orientation="vertical">
-        </LinearLayout>
-
-        <RelativeLayout
             android:id="@+id/rl_feedback"
             android:layout_width="match_parent"
             android:layout_height="50dp">

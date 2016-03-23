@@ -145,10 +145,6 @@
             android:label="@string/title_activity_take_tickets">
         </activity>
         <activity
-            android:name=".Bchangtukepiao.activity.NormalProblem"
-            android:label="@string/title_activity_normal_problem">
-        </activity>
-        <activity
             android:name=".Bchangtukepiao.activity.SoftInfo"
             android:label="@string/title_activity_soft_info">
         </activity>
