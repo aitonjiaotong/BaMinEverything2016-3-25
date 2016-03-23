@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Cdachezuche;
+package com.example.zjb.bamin.Cdachezuche.QiYeZuChe;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.UILUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
+import com.example.zjb.bamin.Cdachezuche.StoresMapActivity;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.ChooseFristInfo;
 import com.example.zjb.bamin.Cdachezuche.models.SingleCarInfo;
@@ -202,7 +203,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                     intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
                     intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
                     intent.putExtra(ConstantDaCheZuChe.IntentKey.CITY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_GET);
-                    startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_GET_REQUEST_CODE);
+                    startActivityForResult(intent, ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_TAKE_CAR_MAP);
                 }
 
                 break;
@@ -215,7 +216,7 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
                 {
                     intent.setClass(ZuCheOrderDetailActivity.this, StoresMapActivity.class);
                     intent.putExtra(ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_KEY, ConstantDaCheZuChe.IntentKey.GET_MAP_LOC_RETURN);
-                    startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RETRUN_REQUEST_CODE);
+                    startActivityForResult(intent, ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_RETURN_CAR_MAP);
                 }
                 break;
         }
@@ -230,12 +231,12 @@ public class ZuCheOrderDetailActivity extends AppCompatActivity implements View.
             switch (requestCode)
             {
                 //取车门店
-                case ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_GET_REQUEST_CODE:
+                case ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_TAKE_CAR_MAP:
                     String stringExtra_get = data.getStringExtra(ConstantDaCheZuChe.IntentKey.STORES_MAP_KEY);
                     mTv_dache_jg_store_name_get.setText(stringExtra_get);
                     break;
                 //还车门店
-                case ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RETRUN_REQUEST_CODE:
+                case ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_RETURN_CAR_MAP:
                     String stringExtra_return = data.getStringExtra(ConstantDaCheZuChe.IntentKey.STORES_MAP_KEY);
                     mTv_dache_jg_store_name_return.setText(stringExtra_return);
                     break;

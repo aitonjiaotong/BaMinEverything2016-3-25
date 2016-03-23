@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Eqicheguanjia.fragenmt_qicheguanjia;
+package com.example.zjb.bamin.Cdachezuche;
 
 
 import android.annotation.SuppressLint;
@@ -27,8 +27,10 @@ import com.example.administrator.shane_library.shane.utils.VolleyListener;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_redpacket.RedPacket;
 import com.example.zjb.bamin.R;
 
-public class BannerQiCheGuanJiaFragment extends Fragment
-{
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class BannerDaCheZuCheFragment extends Fragment {
 
 
     //红包相关-----start
@@ -40,14 +42,14 @@ public class BannerQiCheGuanJiaFragment extends Fragment
     private int mImageId;
     private ImageView mBanner_image;
     private String mRedPacketUrl;
+    private View mInflate;
 
-    public BannerQiCheGuanJiaFragment()
-    {
+    public BannerDaCheZuCheFragment() {
         // Required empty public constructor
     }
 
     @SuppressLint("ValidFragment")
-    public BannerQiCheGuanJiaFragment(int pager_index, String imageUrl, String redpacketUrl)
+    public BannerDaCheZuCheFragment(int pager_index, String imageUrl, String redpacketUrl)
     {
         this.mPosition = pager_index;
         this.mImageUrl = imageUrl;
@@ -55,20 +57,21 @@ public class BannerQiCheGuanJiaFragment extends Fragment
     }
 
     @SuppressLint("ValidFragment")
-    public BannerQiCheGuanJiaFragment(int pager_index, int imageId)
+    public BannerDaCheZuCheFragment(int pager_index, int imageId)
     {
         this.mPosition = pager_index;
         this.mImageId = imageId;
     }
-
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        mLayout = inflater.inflate(R.layout.fragment_banner, container, false);
-        initUI();
-        return mLayout;
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        if (mInflate==null){
+            mInflate = inflater.inflate(R.layout.fragment_banner_da_che_zu_che, null);
+            initUI();
+        }
+        return mInflate;
     }
-
     private void initUI()
     {
         mBanner_image = (ImageView) mLayout.findViewById(R.id.iv_banner_image);
@@ -92,22 +95,17 @@ public class BannerQiCheGuanJiaFragment extends Fragment
                     //弹出抢红包对话框
                     if (!"".equals(isLogin))
                     {
-                        HTTPUtils.get(getActivity(), mRedPacketUrl + "&account_id=" + account_id, new VolleyListener()
-                        {
+                        HTTPUtils.get(getActivity(), mRedPacketUrl + "&account_id=" + account_id, new VolleyListener() {
                             @Override
-                            public void onErrorResponse(VolleyError volleyError)
-                            {
+                            public void onErrorResponse(VolleyError volleyError) {
 
                             }
 
                             @Override
-                            public void onResponse(String s)
-                            {
-                                if ("".equals(s))
-                                {
+                            public void onResponse(String s) {
+                                if ("".equals(s)) {
                                     Toast.makeText(getActivity(), "您已领取过红包，每个用户限领一份", Toast.LENGTH_SHORT).show();
-                                } else
-                                {
+                                } else {
                                     RedPacket redPacket = GsonUtils.parseJSON(s, RedPacket.class);
                                     showPopWindows("￥" + redPacket.getAmount());
                                 }

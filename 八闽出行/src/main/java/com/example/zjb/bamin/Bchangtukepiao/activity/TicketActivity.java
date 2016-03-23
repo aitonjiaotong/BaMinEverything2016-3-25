@@ -602,7 +602,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
             if ((longtime - currentTimeMillis) < 3600L * 1000L) {
-                DialogShow.setDialog(TicketActivity.this, "据发车时间一小时内，停止售票", "确认");
+                DialogShow.setDialog(TicketActivity.this, "距发车时间一小时内，停止售票", "确认");
             } else {
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }

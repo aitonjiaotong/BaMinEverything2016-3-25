@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Cdachezuche;
+package com.example.zjb.bamin.Cdachezuche.QiYeZuChe;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
+import com.example.zjb.bamin.Cdachezuche.ZuCheChooseCityActivity;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.ChooseFristInfo;
 import com.example.zjb.bamin.R;
@@ -289,7 +290,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             case R.id.ll_dache_jg_choose_city:
                 //跳转到城市选择列表界面
                 intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseCityActivity.class);
-                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE);
+                startActivityForResult(intent, ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_TAKE_CAR_CITY);
                 break;
             case R.id.ll_dache_jg_choose_time_get:
                 //默认推迟两小时
@@ -345,7 +346,7 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
             case R.id.ll_dache_choos_driver:
                 //选择司机
                 intent.setClass(ZuChenJiGouYongCheActivity.this, ZuCheChooseDriverActivity.class);
-                startActivityForResult(intent, ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_REQUEST_CODE);
+                startActivityForResult(intent, ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_CHOOSE_DRIVER);
                 break;
             case R.id.ll_dache_jg_choose_type_gongwuyi:
                 mCarType = 0;
@@ -377,11 +378,11 @@ public class ZuChenJiGouYongCheActivity extends AppCompatActivity implements Vie
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null)
         {
-            if (requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE)
+            if (requestCode == ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_TAKE_CAR_CITY && resultCode == ConstantDaCheZuChe.ResultCode.JIGOUZUCHE_TAKE_CAR_CITY)
             {
                 mTv_dache_jg_city_name.setText(data.getStringExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY));
             }
-            if(requestCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_REQUEST_CODE && resultCode == ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_RESULT_CODE)
+            if(requestCode == ConstantDaCheZuChe.RequestCode.JIGOUZUCHE_CHOOSE_DRIVER && resultCode == ConstantDaCheZuChe.ResultCode.JIGOUZUCHE_CHOOSE_DRIVER)
             {
                 mHasDriver = 1;
                 mDriverID = data.getIntExtra(ConstantDaCheZuChe.IntentKey.DRIVER_ID,-1);

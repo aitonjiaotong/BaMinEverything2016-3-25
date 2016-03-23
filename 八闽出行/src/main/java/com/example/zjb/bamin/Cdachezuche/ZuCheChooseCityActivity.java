@@ -92,7 +92,8 @@ public class ZuCheChooseCityActivity extends AppCompatActivity implements View.O
             {
                 Intent data = new Intent();
                 data.putExtra(ConstantDaCheZuChe.IntentKey.CHOOSE_CITY, mCity_list_data.get(position));
-                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_CITY_RESULT_CODE, data);
+                setResult(ConstantDaCheZuChe.ResultCode.JIGOUZUCHE_TAKE_CAR_CITY, data);
+                setResult(ConstantDaCheZuChe.ResultCode.ZIJIAZUCHE_TAKE_CAR_CITY,data);
                 finish();
             }
         });

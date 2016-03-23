@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Cdachezuche;
+package com.example.zjb.bamin.Cdachezuche.QiYeZuChe;
 
 import android.Manifest;
 import android.content.Intent;
@@ -100,7 +100,7 @@ public class ZuCheChooseDriverActivity extends AppCompatActivity implements View
                 Intent data = new Intent();
                 data.putExtra(ConstantDaCheZuChe.IntentKey.DRIVER_NAME,driver_name);
                 data.putExtra(ConstantDaCheZuChe.IntentKey.DRIVER_ID,driver_id);
-                setResult(ConstantDaCheZuChe.RequestAndResultCode.CHOOSE_DRIVER_RESULT_CODE,data);
+                setResult(ConstantDaCheZuChe.ResultCode.JIGOUZUCHE_CHOOSE_DRIVER,data);
                 finish();
             }
         });

@@ -25,29 +25,36 @@ public class ConstantDaCheZuChe
 
     }
 
-    public class RequestAndResultCode
-    {
-        //选择城市地区的请求码
-        public static final int CHOOSE_CITY_REQUEST_CODE = 0;
-        //选择城市地区的返回码
-        public static final int CHOOSE_CITY_RESULT_CODE = 1;
+    /**
+     * 请求码
+     */
+    public class RequestCode{
+        //自驾租车选择出发地
+        public static final int ZIJIAZUCHE_TAKE_CAR_CITY = 0 ;
+        //机构租车选城市
+        public static final int JIGOUZUCHE_TAKE_CAR_CITY = 1 ;
+        //选司机
+        public static final int JIGOUZUCHE_CHOOSE_DRIVER = 2;
+        //取车门店地图
+        public static final int JIGOUZUCHE_TAKE_CAR_MAP = 3;
+        //换车门店地图
+        public static final int JIGOUZUCHE_RETURN_CAR_MAP = 4;
+    }
 
-        //取车门店的请求码StoresMapActivity
-        public static final int STORES_MAP_GET_REQUEST_CODE = 2;
-        //还车门店的请求码StoresMapActivity
-        public static final int STORES_MAP_RETRUN_REQUEST_CODE = 3;
-        //地图门店选择后的返回码
-        public static final int STORES_MAP_RESULT_CODE = 4;
-
-        //选择车型的请求码
-        public static final int CHOOSE_CAR_TYPE_REQUEST_CODE = 5;
-        //选择车型返回码
-        public static final int CHOOSE_CAR_TYPE_RETRUN_CODE = 6;
-
-        //选择司机的请求码
-        public static final int CHOOSE_DRIVER_REQUEST_CODE = 7;
-        //选择司机的返回码
-        public static final int CHOOSE_DRIVER_RESULT_CODE = 8;
+    /**
+     * 返回码
+     */
+    public class ResultCode{
+        //自驾租车选择目的地
+        public static final int ZIJIAZUCHE_TAKE_CAR_CITY = 0 ;
+        //机构租车选城市
+        public static final int JIGOUZUCHE_TAKE_CAR_CITY = 1 ;
+        //选司机
+        public static final int JIGOUZUCHE_CHOOSE_DRIVER = 2;
+        //取车门店地图
+        public static final int JIGOUZUCHE_TAKE_CAR_MAP = 3;
+        //换车门店地图
+        public static final int JIGOUZUCHE_RETURN_CAR_MAP = 4;
     }
 
     public class IntentKey

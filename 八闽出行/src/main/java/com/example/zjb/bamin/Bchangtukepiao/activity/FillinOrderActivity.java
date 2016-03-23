@@ -1,7 +1,6 @@
 package com.example.zjb.bamin.Bchangtukepiao.activity;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -54,30 +54,16 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private int ticketChildNum = 0;
     private ListView4ScrollView mPassager_list;
     private List<UsedContactInfo> mTicketPassagerList = new ArrayList<>();
-    /**
-     * 广播刷新乘客列表
-     */
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            switch (action) {
-                case "ticketPassager":
-
-                    break;
-            }
-        }
-    };
     private OrderInfo mOrderInfo;
     private PopupWindow mPopupWindow;
     private CheckBox mCheckBox_baoxian;
     private TextView mTextView_insure;
     private String mPhoneNum;
-
+    private double insurePrice;
     private void refrashTicketNumAndPrice() {
         mPassager_count.setText(ticketNumBuy + "");
         mPassager_count_real.setText("共" + ticketNumBuy + "人乘车");
-        mTotal_price.setText("￥" + ticketNumBuy * mTicketInfo.getFullPrice());
+        mTotal_price.setText("￥" + ticketNumBuy * (mTicketInfo.getFullPrice()+insurePrice));
     }
 
     private MyAdapter mAdapter;
@@ -108,6 +94,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private void initIntent() {
         Intent intent = getIntent();
         mTicketInfo = (TicketInfo) intent.getSerializableExtra("ticketInfo");
+        insurePrice=mTicketInfo.getInsurePrice();
     }
 
     private void initUI() {
@@ -189,6 +176,17 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         mChild_delete.setOnClickListener(this);
         mChild_add.setOnClickListener(this);
         findViewById(R.id.order_commmit).setOnClickListener(this);
+        mCheckBox_baoxian.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (mCheckBox_baoxian.isChecked()){
+                    insurePrice=mTicketInfo.getInsurePrice();
+                }else {
+                    insurePrice=0;
+                }
+                refrashTicketNumAndPrice();
+            }
+        });
     }
 
     @Override

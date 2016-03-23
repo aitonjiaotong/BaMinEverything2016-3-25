@@ -153,7 +153,7 @@ public class StoresMapActivity extends AppCompatActivity implements View.OnClick
                     {
                         Intent data = new Intent();
                         data.putExtra(ConstantDaCheZuChe.IntentKey.STORES_MAP_KEY, markerTitle);
-                        setResult(ConstantDaCheZuChe.RequestAndResultCode.STORES_MAP_RESULT_CODE, data);
+                        setResult(ConstantDaCheZuChe.ResultCode.JIGOUZUCHE_TAKE_CAR_MAP, data);
                         finish();
                     }
                 });

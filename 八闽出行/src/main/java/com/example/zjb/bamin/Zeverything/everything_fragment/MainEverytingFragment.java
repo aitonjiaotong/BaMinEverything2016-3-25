@@ -26,7 +26,7 @@ import com.example.zjb.bamin.Bchangtukepiao.activity.MainActivity;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.BannerFragment;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_banner.BannerInfo;
-import com.example.zjb.bamin.Cdachezuche.MainDacheActivity;
+import com.example.zjb.bamin.Cdachezuche.DaCheZuCheMainActivity;
 import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
 import com.example.zjb.bamin.Ddaibanpaotui.activity_daibanpaotui.DaiBanPaoTuiMainActivity;
 import com.example.zjb.bamin.Eqicheguanjia.activity_qicheguanjia.QiCheGuanJiaMainActivity;
@@ -186,7 +186,7 @@ public class MainEverytingFragment extends Fragment implements View.OnClickListe
                 animFromSmallToBigIN();
                 break;
             case R.id.ll_taxi:
-                intent.setClass(getActivity(), MainDacheActivity.class);
+                intent.setClass(getActivity(), DaCheZuCheMainActivity.class);
                 startActivity(intent);
                 animFromSmallToBigIN();
                 break;

@@ -78,7 +78,7 @@ public class TicketInfo implements Serializable
     private String CompanyCode;
     private String EndZoneName;
     private Object RebateDescript;
-    private int InsurePrice;
+    private double InsurePrice;
 
     @Override
     public boolean equals(Object o) {
@@ -101,7 +101,7 @@ public class TicketInfo implements Serializable
         if (ScheduleAttribute != that.ScheduleAttribute) return false;
         if (OuternalShare != that.OuternalShare) return false;
         if (StationCanTakeTicket != that.StationCanTakeTicket) return false;
-        if (InsurePrice != that.InsurePrice) return false;
+        if (Double.compare(that.InsurePrice, InsurePrice) != 0) return false;
         if (ExecuteScheduleID != null ? !ExecuteScheduleID.equals(that.ExecuteScheduleID) : that.ExecuteScheduleID != null)
             return false;
         if (ExecuteDate != null ? !ExecuteDate.equals(that.ExecuteDate) : that.ExecuteDate != null)
@@ -181,7 +181,8 @@ public class TicketInfo implements Serializable
         result = 31 * result + (CompanyCode != null ? CompanyCode.hashCode() : 0);
         result = 31 * result + (EndZoneName != null ? EndZoneName.hashCode() : 0);
         result = 31 * result + (RebateDescript != null ? RebateDescript.hashCode() : 0);
-        result = 31 * result + InsurePrice;
+        temp = Double.doubleToLongBits(InsurePrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
@@ -317,7 +318,7 @@ public class TicketInfo implements Serializable
         this.RebateDescript = RebateDescript;
     }
 
-    public void setInsurePrice(int InsurePrice) {
+    public void setInsurePrice(double InsurePrice) {
         this.InsurePrice = InsurePrice;
     }
 
@@ -453,7 +454,7 @@ public class TicketInfo implements Serializable
         return RebateDescript;
     }
 
-    public int getInsurePrice() {
+    public double getInsurePrice() {
         return InsurePrice;
     }
 }
