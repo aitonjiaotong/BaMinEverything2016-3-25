@@ -26,7 +26,7 @@ import com.example.zjb.bamin.Bchangtukepiao.activity.MainActivity;
 import com.example.zjb.bamin.Bchangtukepiao.constant.Constant;
 import com.example.zjb.bamin.Bchangtukepiao.fragment.BannerFragment;
 import com.example.zjb.bamin.Bchangtukepiao.models.about_banner.BannerInfo;
-import com.example.zjb.bamin.Cdachezuche.DaCheZuCheMainActivity;
+import com.example.zjb.bamin.Cdachezuche.DaCheZhuCheActivity.DaCheZuCheMainActivity;
 import com.example.zjb.bamin.Dchihewanle.MainCheHeWanLeActivity;
 import com.example.zjb.bamin.Ddaibanpaotui.activity_daibanpaotui.DaiBanPaoTuiMainActivity;
 import com.example.zjb.bamin.Eqicheguanjia.activity_qicheguanjia.QiCheGuanJiaMainActivity;

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.zjb.bamin.Cdachezuche.ZuCheChooseCityActivity;
+import com.example.zjb.bamin.Cdachezuche.DaCheZhuCheActivity.ZuCheChooseCityActivity;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.R;
 

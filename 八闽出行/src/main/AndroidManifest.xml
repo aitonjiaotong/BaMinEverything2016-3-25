@@ -447,11 +447,11 @@
             android:label="@string/title_activity_order_successfully">
         </activity>
         <activity
-            android:name=".Cdachezuche.ZuCheChooseCityActivity"
+            android:name=".Cdachezuche.DaCheZhuCheActivity.ZuCheChooseCityActivity"
             android:label="@string/title_activity_zu_che_choose_city">
         </activity>
         <activity
-            android:name=".Cdachezuche.StoresMapActivity"
+            android:name=".Cdachezuche.DaCheZhuCheActivity.StoresMapActivity"
             android:label="@string/title_activity_stores_map">
         </activity>
         <activity
@@ -482,7 +482,9 @@
         </activity>
         <activity android:name=".Cdachezuche.ZiJiaZuChe.OrderDetialActivity">
         </activity>
-        <activity android:name=".Cdachezuche.DaCheZuCheMainActivity">
+        <activity android:name=".Cdachezuche.DaCheZhuCheActivity.DaCheZuCheMainActivity">
+        </activity>
+        <activity android:name=".Cdachezuche.DaCheZhuCheActivity.UsedAdressActivity">
         </activity>
     </application>
 

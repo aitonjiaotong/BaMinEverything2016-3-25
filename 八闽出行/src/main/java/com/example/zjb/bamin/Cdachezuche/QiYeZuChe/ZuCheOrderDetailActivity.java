@@ -18,7 +18,7 @@ import com.example.administrator.shane_library.shane.utils.GsonUtils;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.UILUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.Cdachezuche.StoresMapActivity;
+import com.example.zjb.bamin.Cdachezuche.DaCheZhuCheActivity.StoresMapActivity;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.ChooseFristInfo;
 import com.example.zjb.bamin.Cdachezuche.models.SingleCarInfo;

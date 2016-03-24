@@ -1,4 +1,4 @@
-package com.example.zjb.bamin.Cdachezuche;
+package com.example.zjb.bamin.Cdachezuche.DaCheZhuCheActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

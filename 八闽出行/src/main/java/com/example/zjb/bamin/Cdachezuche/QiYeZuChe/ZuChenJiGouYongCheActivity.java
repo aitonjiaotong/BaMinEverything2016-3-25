@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.example.administrator.shane_library.shane.utils.HTTPUtils;
 import com.example.administrator.shane_library.shane.utils.VolleyListener;
-import com.example.zjb.bamin.Cdachezuche.ZuCheChooseCityActivity;
+import com.example.zjb.bamin.Cdachezuche.DaCheZhuCheActivity.ZuCheChooseCityActivity;
 import com.example.zjb.bamin.Cdachezuche.constant_dachezuche.ConstantDaCheZuChe;
 import com.example.zjb.bamin.Cdachezuche.models.ChooseFristInfo;
 import com.example.zjb.bamin.R;
