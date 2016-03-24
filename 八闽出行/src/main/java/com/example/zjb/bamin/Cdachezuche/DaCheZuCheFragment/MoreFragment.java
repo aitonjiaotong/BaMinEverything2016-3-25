@@ -12,8 +12,10 @@ import com.example.zjb.bamin.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoreFragment extends Fragment {
+public class MoreFragment extends Fragment implements View.OnClickListener {
 
+
+    private View mInflate;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -24,7 +26,33 @@ public class MoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more2, container, false);
+        if (mInflate == null) {
+            mInflate = inflater.inflate(R.layout.fragment_more2, null);
+            findID();
+            initUI();
+            setListener();
+        }
+        return mInflate;
     }
 
+    private void setListener() {
+        mInflate.findViewById(R.id.rela_usedAddress).setOnClickListener(this);
+    }
+
+    private void initUI() {
+
+    }
+
+    private void findID() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rela_usedAddress:
+
+                break;
+        }
+    }
 }
