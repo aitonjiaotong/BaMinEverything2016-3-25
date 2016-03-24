@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-05"
+                android:textSize="@dimen/normalTextSize"
+                android:id="@+id/textView165"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="21dp"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:20"
+                android:id="@+id/textView166"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView165"
+                android:layout_toEndOf="@+id/textView165"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="12dp"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已支付"
+                android:id="@+id/textView167"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26.60"
+                android:id="@+id/textView168"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/textView167"
+                android:layout_toStartOf="@+id/textView167"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="17dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:padding="5dp"
+                android:src="@mipmap/zhandian2x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView35"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="松柏大厦"
+                android:textSize="@dimen/normalTextSize"
+                android:id="@+id/textView169"
+                android:layout_alignTop="@+id/imageView35"
+                android:layout_toRightOf="@+id/imageView35"
+                android:layout_toEndOf="@+id/imageView35"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="五缘湾湿地公园"
+                android:id="@+id/textView171"
+                android:layout_alignBottom="@+id/imageView35"
+                android:layout_alignLeft="@+id/textView169"
+                android:layout_alignStart="@+id/textView169"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

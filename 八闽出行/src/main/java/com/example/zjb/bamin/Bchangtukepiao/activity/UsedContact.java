@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,13 +122,12 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
             if ("FillinOrderActivity".equals(mAddContact)) {
                 AnimCheckBox animcheck_contact = (AnimCheckBox) view.findViewById(R.id.animcheck_contact);
                 if (animcheck_contact.isChecked()) {
-                    animcheck_contact.setChecked(false,true);
-                    theAddContact.remove(position);
-                    theAddContact.add(position, null);
+                    animcheck_contact.setChecked(false, true);
+
+                    Log.e("onItemClick ", "checked");
                 } else {
-                    animcheck_contact.setChecked(true,true);
-                    theAddContact.remove(position);
-                    theAddContact.add(position, mUsedContactInfoList.get(position));
+                    animcheck_contact.setChecked(true, true);
+                    Log.e("onItemClick ", "unchecked");
                 }
             } else if ("MineFragment".equals(mAddContact)) {
                 isBianJi = position;
@@ -212,8 +212,19 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 rela_animCheckBox.setVisibility(View.VISIBLE);
             }
             AnimCheckBox animcheck_contact = (AnimCheckBox) inflate.findViewById(R.id.animcheck_contact);
-            animcheck_contact.setChecked(true, true);
-            animcheck_contact.setChecked(false, true);
+            animcheck_contact.setChecked(false,true);
+            animcheck_contact.setOnCheckedChangeListener(new AnimCheckBox.OnCheckedChangeListener() {
+                @Override
+                public void onChange(boolean checked) {
+                    if (checked) {
+                        theAddContact.remove(position);
+                        theAddContact.add(position, mUsedContactInfoList.get(position));
+                    } else {
+                        theAddContact.remove(position);
+                        theAddContact.add(position, null);
+                    }
+                }
+            });
             return inflate;
         }
     }
@@ -232,6 +243,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 for (int i = 0; i < theAddContact.size(); i++) {
                     UsedContactInfo usedContactInfo = theAddContact.get(i);
                     if (usedContactInfo != null) {
+                        Log.e("onClick ", "i-----------------"+i);
                         theAddContactList.add(usedContactInfo);
                     }
                 }

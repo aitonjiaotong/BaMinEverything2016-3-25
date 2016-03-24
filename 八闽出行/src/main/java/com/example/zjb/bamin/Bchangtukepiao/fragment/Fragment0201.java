@@ -98,6 +98,8 @@ public class Fragment0201 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        mCustom_view.stopRefresh();
+        mCustom_view.stopLoadMore();
     }
 
     /**

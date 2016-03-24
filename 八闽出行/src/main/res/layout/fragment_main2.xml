@@ -71,7 +71,7 @@
         android:layout_below="@+id/rela_viewpager">
 
         <RelativeLayout
-            android:background="@color/white"
+            android:background="@drawable/layout_selector_white_system_gray"
             android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,7 +87,6 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -101,6 +100,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:id="@+id/rela_zijiazuche"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -139,6 +139,7 @@
                     android:id="@+id/textView162"/>
 
                 <RelativeLayout
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:id="@+id/rela_jigouyongche"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -184,6 +185,7 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -229,6 +231,7 @@
                     android:id="@+id/textView163"/>
 
                 <RelativeLayout
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -274,6 +277,7 @@
                     android:id="@+id/textView164"/>
 
                 <RelativeLayout
+                    android:background="@drawable/layout_selector_white_system_gray"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">

@@ -1,5 +1,7 @@
 package com.example.administrator.shane_library.shane.upgrade;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,10 +9,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -31,7 +36,7 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-public class UpgradeUtils
+public class UpgradeUtils extends Activity
 {
     public static final String APK_UPGRADE = Environment
             .getExternalStorageDirectory() + "/bmcx/upgrade/upgrade.apk";
@@ -51,16 +56,13 @@ public class UpgradeUtils
     public static void checkUpgrade(Context context, String url)
     {
         mContext = context;
-        HTTPUtils.get(context, url, new VolleyListener()
-        {
-            public void onResponse(String json)
-            {
+        HTTPUtils.get(context, url, new VolleyListener() {
+            public void onResponse(String json) {
                 checkUpgrade(json);
             }
 
             @Override
-            public void onErrorResponse(VolleyError arg0)
-            {
+            public void onErrorResponse(VolleyError arg0) {
             }
         });
     }
@@ -80,7 +82,14 @@ public class UpgradeUtils
                                 public void onClick(DialogInterface dialog,
                                                     int which)
                                 {
-                                    upgrade(upgrade);
+                                    if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                            != PackageManager.PERMISSION_GRANTED) {
+                                        //申请WRITE_EXTERNAL_STORAGE权限
+                                        ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                0);
+                                    }else{
+                                        upgrade(upgrade);
+                                    }
                                 }
                             }).setNegativeButton("取消", null).show();
         }

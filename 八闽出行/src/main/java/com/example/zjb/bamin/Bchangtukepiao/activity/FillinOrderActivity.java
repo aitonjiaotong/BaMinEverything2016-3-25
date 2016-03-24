@@ -163,6 +163,10 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                     ticketNumBuy = ticketNumBuy - 1;
                     mTicketPassagerList.remove(position);
                     mAdapter.notifyDataSetChanged();
+                    if (ticketNumBuy<ticketChildNum){
+                        ticketChildNum=0;
+                        Toast.makeText(FillinOrderActivity.this, "请重新添加儿童", Toast.LENGTH_SHORT).show();
+                    }
                     refrashTicketNumAndPrice();
                 }
             });

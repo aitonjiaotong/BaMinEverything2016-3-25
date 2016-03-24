@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zjb.bamin.Cdachezuche.DaCheZuCheFragment.MainFragment;
+import com.example.zjb.bamin.Cdachezuche.DaCheZuCheFragment.MoreFragment;
+import com.example.zjb.bamin.Cdachezuche.DaCheZuCheFragment.OrderFragment;
 import com.example.zjb.bamin.R;
 
 public class DaCheZuCheMainActivity extends AppCompatActivity {
